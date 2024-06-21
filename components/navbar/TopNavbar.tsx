@@ -11,20 +11,22 @@ const TopNavbar = () => {
   return (
     <div className=''>
       {/* 电脑端，ipad端 */}
-      <div className='flex flex-row py-4 items-center justify-between px-10 max-lg:px-5 max-sm:hidden'>
+      {/* <div className='flex flex-row py-4 items-center justify-between px-10 max-lg:px-5 max-sm:hidden'>
         <Image src={imageIndex.nvidia_icon.src} alt='logo' width={60} height={60} />
 
         <div>center</div>
-      </div>
+      </div> */}
       {/* 手机端 */}
-      <div className='flex flex-row py-2 items-center justify-between px-10 max-lg:px-5 sm:hidden'>
+      <div className='flex flex-row py-2 items-center justify-between px-10 max-lg:px-5 '>
         <div className='flex flex-row items-center gap-1'>
-          <Image src={imageIndex.nvidia_icon.src} alt='logo' width={35} height={35} />
-          <p className=' font-black'>NVIDIA</p>
-          <Separator orientation='vertical' className='h-5 w-1 mx-2 ' />
+          <Image src={imageIndex.nvidia_icon.src} alt='logo' width={25} height={25} />
+          <p className=' font-black'>
+            NVIDIA AI <span className='text-green-500'>FARM</span>
+          </p>
+          <Separator orientation='vertical' className='h-5 w-[2px] mx-2 ' />
         </div>
         <div className='flex gap-4'>
-          <ModeToggle />
+          {/* <ModeToggle /> */}
           <Sheet>
             <SheetTrigger>
               <Menu />
