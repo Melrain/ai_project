@@ -26,8 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.variable} bg-black `}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+      <body className={`${inter.variable}  `}>
+        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
           <ClerkProvider>{children}</ClerkProvider>
         </ThemeProvider>
       </body>
