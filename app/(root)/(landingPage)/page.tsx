@@ -1,4 +1,4 @@
-import Support from '@/components/shared/support';
+import Support from '@/components/shared/Support';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
