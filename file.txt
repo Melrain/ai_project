@@ -16,3 +16,5 @@
         hierarchy的数据来源于分享的链接
     使用nextjs的动态路由处理
     pages/shop/[...slug].js	/shop/a	{ slug: ['a'] }
+
+#如果要读取URL中的参数，那么注册就无法使用Clerk?
