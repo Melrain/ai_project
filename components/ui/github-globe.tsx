@@ -3,7 +3,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Button } from './button';
-import Support from '../shared/support';
 
 const World = dynamic(() => import('./globe').then((m) => m.World), {
   ssr: false
