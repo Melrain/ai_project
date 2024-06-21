@@ -10,13 +10,6 @@ import { Separator } from '../ui/separator';
 const TopNavbar = () => {
   return (
     <div className=''>
-      {/* 电脑端，ipad端 */}
-      {/* <div className='flex flex-row py-4 items-center justify-between px-10 max-lg:px-5 max-sm:hidden'>
-        <Image src={imageIndex.nvidia_icon.src} alt='logo' width={60} height={60} />
-
-        <div>center</div>
-      </div> */}
-      {/* 手机端 */}
       <div className='flex flex-row py-2 items-center justify-between px-10 max-lg:px-5 '>
         <div className='flex flex-row items-center gap-1'>
           <Image src={imageIndex.nvidia_icon.src} alt='logo' width={25} height={25} />
@@ -32,15 +25,7 @@ const TopNavbar = () => {
             <SheetTrigger>
               <Menu />
             </SheetTrigger>
-            <SheetContent className='w-[300px] sm:w-[540px]' side='left'>
-              <SheetHeader>
-                <SheetTitle>Are you absolutely sure?</SheetTitle>
-                <SheetDescription>
-                  This action cannot be undone. This will permanently delete your account and remove your data from our
-                  servers.
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
+            <SheetContent className='w-[300px] sm:w-[540px]' side='left'></SheetContent>
           </Sheet>
         </div>
       </div>

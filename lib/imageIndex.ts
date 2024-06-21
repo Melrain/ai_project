@@ -2,6 +2,8 @@ import nvidia_dark from '/public/assets/images/nvidia_dark.png';
 import nvidia_light from '/public/assets/images/nvidia_light.png';
 import nvidia_icon from '/public/assets/images/nvidia_icon.png';
 import ai_icon from '/public/assets/images/ai_icon.png';
+import whatsapp from '/public/assets/images/whatsapp.png';
+import telegram from '/public/assets/images/telegram.png';
 
 export const imageIndex = {
   nvidia_dark: {
@@ -15,5 +17,11 @@ export const imageIndex = {
   },
   ai_icon: {
     src: ai_icon
+  },
+  whatsapp: {
+    src: whatsapp
+  },
+  telegram: {
+    src: telegram
   }
 };

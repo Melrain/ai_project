@@ -1,3 +1,4 @@
+import Support from '@/components/shared/support';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
@@ -21,6 +22,9 @@ const page = () => {
             }
           ]}
         />
+      </div>
+      <div className='flex w-full justify-center  items-center'>
+        <Support />
       </div>
       <GlobeDemo />
       <Meteors number={10} />
