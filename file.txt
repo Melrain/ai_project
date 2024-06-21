@@ -1,0 +1,18 @@
+分享功能:
+
+层级关系：
+    员工和客户都可以使用分享功能；
+    员工是第一个分享链接的人；
+    所有用分享的链接注册的人，自动隶属于该链接里的层级关系；
+
+    当用户注册的时候，数据结构可以为：
+        user;
+        uri:https://invite/melrain/a/b/c
+        hierarchy:{
+            1.a
+            2.b
+            3.c
+        }
+        hierarchy的数据来源于分享的链接
+    使用nextjs的动态路由处理
+    pages/shop/[...slug].js	/shop/a	{ slug: ['a'] }

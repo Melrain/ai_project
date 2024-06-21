@@ -3,15 +3,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Button } from './button';
+import { useRouter } from 'next/navigation';
 
 const World = dynamic(() => import('./globe').then((m) => m.World), {
   ssr: false
 });
 
 export function GlobeDemo() {
+  const router = useRouter();
+
   const globeConfig = {
     pointSize: 4,
-    globeColor: '#062056',
+    globeColor: '#062065',
     showAtmosphere: true,
     atmosphereColor: '#FFFFFF',
     atmosphereAltitude: 0.1,
@@ -31,6 +34,7 @@ export function GlobeDemo() {
     autoRotate: true,
     autoRotateSpeed: 0.5
   };
+  // const colors = ['#06b6d4', '#3b82f6', '#6366f1'];
   const colors = ['#06b6d4', '#3b82f6', '#6366f1'];
   const sampleArcs = [
     {
@@ -425,7 +429,12 @@ export function GlobeDemo() {
             <p className='text-xs text-slate-500'>*average invest: $500</p>
           </div>
           <div className='w-full mt-5 flex justify-center items-center'>
-            <Button className='relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50'>
+            <Button
+              onClick={() => {
+                router.push('/sign-in');
+              }}
+              className='relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50'
+            >
               <span className='absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]' />
               <span className='inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl'>
                 Become Farmer

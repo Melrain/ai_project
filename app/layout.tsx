@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${inter.variable} `}>
         <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
-          <ClerkProvider>{children}</ClerkProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
