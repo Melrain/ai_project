@@ -27,7 +27,7 @@ const TopNavbar = () => {
         </div>
         <div className='flex gap-4'>
           {/* <ModeToggle /> */}
-
+          <ModeToggle />
           <Sheet>
             <SheetTrigger>
               <Menu />

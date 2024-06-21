@@ -7,17 +7,14 @@ const page = () => {
   return (
     <div className='flex justify-center flex-col items-center  dark:text-white '>
       <p className='mt-2 text-sm font-bold'>Welcome to Nvidia AI Farm</p>
-      <div className='flex flex-col'>
+      <div className='flex flex-col items-center justify-center'>
         <TypewriterEffectSmooth
           words={[
             {
-              text: 'AI ',
+              text: 'AI is the  ',
               className: 'text-xl'
             },
-            {
-              text: 'is the ',
-              className: 'text-xl text-green-500 dark:text-green-500'
-            },
+
             {
               text: 'New Currency.',
               className: 'text-xl text-green-500 dark:text-green-500'
