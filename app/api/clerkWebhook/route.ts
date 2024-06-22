@@ -57,6 +57,9 @@ export async function POST(req: Request) {
 
   if (eventType === 'email.created') {
     console.log('Email created event!!!');
+    const { slug } = evt.data;
+
+    return NextResponse.json({ message: 'email created', slug: slug });
   }
 
   //   if (eventType === 'user.created') {
