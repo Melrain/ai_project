@@ -56,7 +56,7 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === 'email.created') {
-    console.log('Email created event!');
+    console.log('Email created event!!!');
   }
 
   //   if (eventType === 'user.created') {
