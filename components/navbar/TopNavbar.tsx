@@ -1,11 +1,12 @@
 'use client';
 import { imageIndex } from '@/lib/imageIndex';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
-import { ModeToggle } from '../ModeToggle';
+
 import { Separator } from '../ui/separator';
+import { UserButton } from '@clerk/nextjs';
 
 const TopNavbar = () => {
   return (
@@ -20,7 +21,7 @@ const TopNavbar = () => {
         </div>
         <div className='flex gap-4'>
           {/* <ModeToggle /> */}
-          <ModeToggle />
+          <UserButton />
           <Sheet>
             <SheetTrigger>
               <Menu />

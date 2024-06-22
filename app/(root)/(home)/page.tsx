@@ -2,16 +2,10 @@ import Support from '@/components/shared/Support';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
-import { auth } from '@clerk/nextjs/server';
-import { redirect } from 'next/navigation';
 
 import React from 'react';
 
 const page = () => {
-  const { userId } = auth();
-  if (userId) {
-    redirect('/profile');
-  }
   return (
     <div className='flex justify-center flex-col items-center  dark:text-white '>
       <p className='mt-2 text-sm font-bold'>Welcome to Nvidia AI Farm</p>

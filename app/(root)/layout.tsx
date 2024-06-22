@@ -1,5 +1,4 @@
 import TopNavbar from '@/components/navbar/TopNavbar';
-import { Meteors } from '@/components/ui/meteors';
 import React from 'react';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
