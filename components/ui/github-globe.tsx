@@ -419,7 +419,7 @@ export function GlobeDemo() {
           <h2 className='text-center text-xl md:text-4xl font-bold text-black dark:text-white'>
             We provide GPU power to the world
           </h2>
-          <p className='text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto'>
+          <p className='text-center text-base md:text-lg font-normal text-white dark:text-neutral-200 max-w-md mt-2 mx-auto'>
             By providing the most advanced GPU power to the world together, the{' '}
             <span className='text-green-500 dark:text-green-500'>Profit</span> is shared by the{' '}
             <span className='text-green-500 dark:text-green-500'>Farmers</span>(GPU owner).

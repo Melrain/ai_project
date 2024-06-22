@@ -14,7 +14,7 @@ const page = () => {
           words={[
             {
               text: 'AI is the  ',
-              className: 'text-xl'
+              className: 'text-xl text-white'
             },
 
             {
