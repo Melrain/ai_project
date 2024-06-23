@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
 
 import { NextResponse } from 'next/server';
+import { createUser, deleteUser, updateUser } from '@/lib/actions/user.action';
 
 export async function GET() {
   return NextResponse.json({ message: 'Hello' });
@@ -55,38 +56,27 @@ export async function POST(req: Request) {
 
   const eventType = evt.type;
 
-  //   if (eventType === 'user.created') {
-  //     const { id, email_addresses, username } = evt.data;
-  //     const user = await createUser({
-  //       username: username || 'visitor',
-  //       clerkId: id,
-  //       email: email_addresses[0].email_address
-  //     });
+  if (eventType === 'user.created') {
+    const { id, email_addresses, username, phone_numbers } = evt.data;
+    const user = await createUser({
+      clerkId: id,
+      username: username!,
+      phone: phone_numbers[0].phone_number,
+      inviteLink: '',
+      supervisor: '',
+      balance: 0,
+      email: email_addresses[0].email_address
+    });
 
-  //     return NextResponse.json({ message: 'user created', user });
-  //   }
+    return NextResponse.json({ message: 'user created', user });
+  }
 
-  //   if (eventType === 'user.updated') {
-  //     const { id, email_addresses, image_url, username } = evt.data;
-
-  //     // Create a new user in your database
-  //     const mongoUser = await updateUser({
-  //       clerkId: id,
-  //       updateData: {
-  //         username: username!,
-  //         clerkId: id,
-  //         email: email_addresses[0].email_address,
-  //         imageUrl: image_url
-  //       },
-  //       path: `/profile/${id}`
-  //     });
-
-  //     return NextResponse.json({ message: 'OK', user: mongoUser });
-  //   }
-
-  //   if (eventType === 'user.deleted') {
-  //     const { id } = evt.data;
-  //     const user = await deleteUser({ clerkId: id! });
-  //     return NextResponse.json({ message: 'user deleted', user });
-  //   }
+  if (eventType === 'user.deleted') {
+    const { id } = evt.data;
+    if (!id) {
+      return NextResponse.json({ message: 'user not found' });
+    }
+    const user = await deleteUser(id); // Provide the missing parameter
+    return NextResponse.json({ message: 'user deleted', user });
+  }
 }
