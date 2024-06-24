@@ -7,12 +7,14 @@ interface CreateUserParams {
   clerkId: string;
   email: string;
   username: string;
-  supervisor: string;
+  supervisor: {
+    clerkId: string;
+    username: string;
+  };
   balance: number;
-  path: string;
 }
 export const createUser = async (params: CreateUserParams) => {
-  const { clerkId, username, supervisor, email, balance, path } = params;
+  const { clerkId, username, supervisor, email, balance } = params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
@@ -25,7 +27,7 @@ export const createUser = async (params: CreateUserParams) => {
     if (!newUser) {
       throw new Error('Failed to create user');
     }
-    console.log('path:', path);
+
     return { message: 'User created successfully', user: newUser };
   } catch (error) {
     console.error(error);
@@ -69,15 +71,21 @@ export const deleteUser = async (clerkId: string) => {
   }
 };
 
-export const addSupervisor = async (clerkId: string, supervisor: string) => {
+export const addSupervisor = async (
+  clerkId: string,
+  supervisor: {
+    clerkId: string;
+    username: string;
+  }
+) => {
   try {
     await connectToDatabase();
     const updateData = { supervisor: supervisor };
     const updatedUser = await User.findOneAndUpdate(
       {
-        clerkId: clerkId,
-        updateData: updateData
+        clerkId: clerkId
       },
+      updateData,
       { new: true }
     );
     if (!updatedUser) {

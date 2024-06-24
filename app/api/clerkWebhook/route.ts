@@ -63,12 +63,13 @@ export async function POST(req: Request) {
     const user = await createUser({
       clerkId: id,
       username: username!,
-      supervisor: '',
+      supervisor: {
+        clerkId: '',
+        username: 'super admin'
+      },
       balance: 0,
-      email: email_addresses[0].email_address,
-      path: path
+      email: email_addresses[0].email_address
     });
-    console.log('path from api', path);
 
     return NextResponse.json({ message: 'user created', user });
   }
