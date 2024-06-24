@@ -1,7 +1,12 @@
 import React from 'react';
 
-const page = ({ params }: any) => {
-  console.log(params);
+interface Props {
+  params: {
+    id: string;
+  };
+}
+const page = ({ params }: Props) => {
+  console.log(params.id);
   return <div>page</div>;
 };
 
