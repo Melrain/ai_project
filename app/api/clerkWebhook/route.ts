@@ -61,7 +61,6 @@ export async function POST(req: Request) {
     const user = await createUser({
       clerkId: id,
       username: username!,
-      inviteLink: '',
       supervisor: '',
       balance: 0,
       email: email_addresses[0].email_address
