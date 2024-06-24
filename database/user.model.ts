@@ -4,12 +4,8 @@ export interface IUser extends Document {
   username: string;
   first_name: string;
   last_name: string;
-  phone: {
-    number: string;
-    verified: boolean;
-  };
   inviteLink: string;
-  supervisor: ObjectId;
+  supervisor: string;
   balance: number;
 }
 
@@ -17,12 +13,8 @@ const UserSchema = new Schema<IUser>({
   username: { type: String, required: true, unique: true },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
-  phone: {
-    number: { type: String, required: true },
-    verified: { type: Boolean, default: false }
-  },
   inviteLink: { type: String, required: true },
-  supervisor: { type: Schema.Types.ObjectId, ref: 'User' },
+  supervisor: { type: String },
   balance: { type: Number, default: 0 }
 });
 
