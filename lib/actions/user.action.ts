@@ -11,14 +11,15 @@ interface CreateUserParams {
   balance: number;
 }
 export const createUser = async (params: CreateUserParams) => {
-  const { clerkId, username, supervisor, balance } = params;
+  const { clerkId, username, supervisor, email, balance } = params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
       clerkId,
       username,
       supervisor,
-      balance
+      balance,
+      email
     });
     if (!newUser) {
       throw new Error('Failed to create user');
