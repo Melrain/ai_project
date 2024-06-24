@@ -3,6 +3,18 @@
 import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 
+export const getUserInfo = async (clerkId: string) => {
+  try {
+    const user = await User.findOne({ clerkId: clerkId });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const parsedUser = JSON.parse(JSON.stringify(user));
+    return { message: 'User found', user: parsedUser };
+  } catch (error) {
+    console.error(error);
+  }
+};
 interface CreateUserParams {
   clerkId: string;
   email: string;

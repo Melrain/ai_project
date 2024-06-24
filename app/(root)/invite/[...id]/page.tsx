@@ -1,4 +1,4 @@
-import { addSupervisor } from '@/lib/actions/user.action';
+import { addSupervisor, getUserInfo } from '@/lib/actions/user.action';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import React from 'react';
@@ -14,6 +14,16 @@ const page = async ({ params }: Props) => {
   if (!userId) {
     redirect('/sign-in');
   }
+
+  const userResult = await getUserInfo(userId);
+  if (userResult === undefined) {
+    return <div>Failed to get user info</div>;
+  }
+
+  if (userResult.user.supervisor.username !== 'super admin') {
+    return <div>you already have a supervisor, do you want to change one?</div>;
+  }
+
   const result = await addSupervisor(userId, {
     clerkId: userId,
     username: params.id[0]
