@@ -18,3 +18,5 @@
     pages/shop/[...slug].js	/shop/a	{ slug: ['a'] }
 
 #如果要读取URL中的参数，那么注册就无法使用Clerk?
+
+分享一个Protected的链接；该链接指向动态路由invite；首先让用户注册登录
