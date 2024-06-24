@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ baseTheme: dark }}>
+    <ClerkProvider>
       <html lang='en'>
         <body className={`${inter.variable} `}>
           <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
