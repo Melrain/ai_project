@@ -1,3 +1,5 @@
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 interface Props {
@@ -5,9 +7,18 @@ interface Props {
     id: string;
   };
 }
-const page = ({ params }: Props) => {
+const page = async ({ params }: Props) => {
   console.log(params.id);
-  return <div>page</div>;
+  const { userId } = auth();
+  if (!userId) {
+    redirect('/sign-in');
+  }
+  console.log(userId);
+  return (
+    <div>
+      {userId}:{params.id}
+    </div>
+  );
 };
 
 export default page;

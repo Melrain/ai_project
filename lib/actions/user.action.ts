@@ -68,3 +68,24 @@ export const deleteUser = async (clerkId: string) => {
     console.error(error);
   }
 };
+
+export const addSupervisor = async (clerkId: string, supervisor: string) => {
+  try {
+    await connectToDatabase();
+    const updateData = { supervisor: supervisor };
+    const updatedUser = await User.findOneAndUpdate(
+      {
+        clerkId: clerkId,
+        updateData: updateData
+      },
+      { new: true }
+    );
+    if (!updatedUser) {
+      throw new Error('Failed to add supervisor');
+    }
+    const parsedUser = JSON.parse(JSON.stringify(updatedUser));
+    return { message: 'Supervisor added successfully', user: parsedUser };
+  } catch (error) {
+    console.error(error);
+  }
+};
