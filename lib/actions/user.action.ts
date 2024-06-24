@@ -9,9 +9,10 @@ interface CreateUserParams {
   username: string;
   supervisor: string;
   balance: number;
+  path: string;
 }
 export const createUser = async (params: CreateUserParams) => {
-  const { clerkId, username, supervisor, email, balance } = params;
+  const { clerkId, username, supervisor, email, balance, path } = params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
@@ -24,6 +25,7 @@ export const createUser = async (params: CreateUserParams) => {
     if (!newUser) {
       throw new Error('Failed to create user');
     }
+    console.log('path:', path);
     return { message: 'User created successfully', user: newUser };
   } catch (error) {
     console.error(error);

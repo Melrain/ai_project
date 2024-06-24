@@ -18,6 +18,8 @@ export async function POST(req: Request) {
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local');
   }
 
+  const path = req.url;
+
   // Get the headers
   const headerPayload = headers();
   const svix_id = headerPayload.get('svix-id');
@@ -63,8 +65,10 @@ export async function POST(req: Request) {
       username: username!,
       supervisor: '',
       balance: 0,
-      email: email_addresses[0].email_address
+      email: email_addresses[0].email_address,
+      path: path
     });
+    console.log('path from api', path);
 
     return NextResponse.json({ message: 'user created', user });
   }
