@@ -36,7 +36,8 @@ const page = () => {
           controls
           preload='auto'
           loop={true}
-          autoPlay={true}
+          autoPlay
+          muted
         />
       </div>
       <GlobeDemo />
