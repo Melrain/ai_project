@@ -11,7 +11,7 @@ import { UserButton } from '@clerk/nextjs';
 const TopNavbar = () => {
   return (
     <div className=''>
-      <div className='flex flex-row py-2 items-center justify-between px-10 max-lg:px-5 '>
+      <div className='flex fixed flex-row py-4 w-full z-10 bg-black items-center justify-between px-10 max-lg:px-5 '>
         <div className='flex flex-row items-center gap-1'>
           <Image src={imageIndex.nvidia_icon.src} alt='logo' width={25} height={25} />
           <p className=' font-black'>

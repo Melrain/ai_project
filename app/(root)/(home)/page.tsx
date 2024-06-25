@@ -2,7 +2,6 @@ import Support from '@/components/shared/Support';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
-import { auth } from '@clerk/nextjs/server';
 
 import React from 'react';
 
@@ -27,6 +26,18 @@ const page = () => {
       </div>
       <div className='flex w-full justify-center  items-center'>
         <Support />
+      </div>
+      {/* video */}
+      <div className='mt-10 rounded-sm'>
+        <video
+          src={require('/public/assets/videos/rigFactory.mp4')}
+          width={320}
+          height={240}
+          controls
+          preload='auto'
+          loop={true}
+          autoPlay={true}
+        />
       </div>
       <GlobeDemo />
       <Meteors number={10} />
