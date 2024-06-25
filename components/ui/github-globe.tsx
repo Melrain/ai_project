@@ -400,7 +400,7 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className='flex flex-row items-center justify-center py-10 h-screen md:h-auto -z-10 dark:bg-black  relative w-full'>
+    <div className='flex flex-row items-center justify-center top-5 absolute py-10 h-screen md:h-auto -z-10 dark:bg-black   w-full'>
       <div className='max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-0'>
         <motion.div
           initial={{
@@ -416,7 +416,7 @@ export function GlobeDemo() {
           }}
           className='div'
         >
-          <h2 className='text-center text-xl md:text-4xl font-bold text-black dark:text-white'>
+          {/* <h2 className='text-center text-xl md:text-4xl font-bold text-black dark:text-white'>
             We provide GPU power to the world
           </h2>
           <p className='text-center text-base md:text-lg font-normal text-white dark:text-neutral-200 max-w-md mt-2 mx-auto'>
@@ -427,8 +427,8 @@ export function GlobeDemo() {
           <div className='flex w-full items-center justify-center mt-2 flex-col'>
             <p className='text-xs text-slate-500'>*current APY: 147.2%</p>
             <p className='text-xs text-slate-500'>*average invest: $500</p>
-          </div>
-          <div className='w-full mt-5 flex justify-center items-center'>
+          </div> */}
+          {/* <div className='w-full mt-5 flex justify-center items-center'>
             <Button
               onClick={() => {
                 router.push('/sign-in');
@@ -440,7 +440,7 @@ export function GlobeDemo() {
                 Become Farmer
               </span>
             </Button>
-          </div>
+          </div> */}
         </motion.div>
 
         <div className='absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent   z-40' />

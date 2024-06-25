@@ -1,6 +1,10 @@
+import Billboard from '@/components/Billboard';
+import HomeSections from '@/components/HomeSections';
+import Notifications from '@/components/Notifications';
 import Support from '@/components/shared/Support';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
+import News from '@/components/ui/News';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
 
 import React from 'react';
@@ -28,7 +32,7 @@ const page = () => {
         <Support />
       </div>
       {/* video */}
-      <div className='mt-10 rounded-sm'>
+      <div className='mt-10 rounded-lg'>
         <video
           src='https://ipfs.filebase.io/ipfs/Qmamg5MUbUyCcLtnFcEHziXRxcCCDUYyRX4y7WMwTgm4Qy'
           width={320}
@@ -40,6 +44,19 @@ const page = () => {
           muted
           playsInline
         />
+      </div>
+      <h1 className='mt-5'>Join us and meet the future</h1>
+      <div className='mt-5'>
+        <Notifications />
+      </div>
+      <div className='w-full mt-10'>
+        <HomeSections />
+      </div>
+      <div className='mt-5'>
+        <Billboard />
+      </div>
+      <div className='mt-5'>
+        <News />
       </div>
       <GlobeDemo />
       <Meteors number={10} />
