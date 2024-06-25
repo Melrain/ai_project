@@ -38,6 +38,7 @@ const page = () => {
           loop={true}
           autoPlay
           muted
+          playsInline
         />
       </div>
       <GlobeDemo />
