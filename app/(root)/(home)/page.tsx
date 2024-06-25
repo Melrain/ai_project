@@ -30,7 +30,7 @@ const page = () => {
       {/* video */}
       <div className='mt-10 rounded-sm'>
         <video
-          src={require('/public/assets/videos/rigFactory.mp4')}
+          src='https://ipfs.filebase.io/ipfs/Qmamg5MUbUyCcLtnFcEHziXRxcCCDUYyRX4y7WMwTgm4Qy'
           width={320}
           height={240}
           controls
