@@ -65,7 +65,7 @@ const page = () => {
         />
         <TextGenerateEffect
           delayTime={1}
-          words='—- MelRain YE'
+          words='—-MelRain YE'
           className={`${kalam.className} text-xl  text-slate-400 flex justify-end items-end w-full`}
         />
       </div>
