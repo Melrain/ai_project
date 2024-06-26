@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: { serverActions: true }
+};
 
 // next.config.js
 import withVideos from 'next-videos';
