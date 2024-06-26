@@ -59,8 +59,14 @@ const page = () => {
       </div>
       <div>
         <TextGenerateEffect
+          delayTime={0.2}
           words='Join us to meet the Future!'
-          className={`${kalam.className} text-xl text-slate-400 flex justify-center items-center w-full`}
+          className={`${kalam.className} text-xl text-slate-300 flex justify-center items-center w-full`}
+        />
+        <TextGenerateEffect
+          delayTime={1}
+          words='—- MelRain YE'
+          className={`${kalam.className} text-xl  text-slate-400 flex justify-end items-end w-full`}
         />
       </div>
       {/* button */}
@@ -75,7 +81,8 @@ const page = () => {
       <div className='absolute'>
         <DialogShadcn delayTime={5000} />
       </div>
-      <div className='w-full mt-10  '>
+      {/* Topup Revenue Withdraw Team */}
+      <div className='w-full mt-10   px-10'>
         <HomeSections />
       </div>
       <div className='mt-5'>
