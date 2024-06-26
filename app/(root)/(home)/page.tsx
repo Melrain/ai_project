@@ -1,27 +1,26 @@
 import Billboard from '@/components/Billboard';
+import { ColorfulButton } from '@/components/buttons/ColorfulButton';
 import HomeSections from '@/components/HomeSections';
-import DialogComponent from '@/components/shared/DialogComponent';
 import DialogShadcn from '@/components/shared/DialogShadcn';
 import Support from '@/components/shared/Support';
-
+import { Button } from '@/components/ui/button';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
 import News from '@/components/ui/News';
+import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
+import { SignedOut, SignInButton } from '@clerk/nextjs';
+import { Merriweather, Kalam } from 'next/font/google';
 
 import React from 'react';
 
+const kalam = Kalam({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-kalam'
+});
+
 const page = () => {
-  const onClose = async () => {
-    'use server';
-    console.log('Modal has Closed');
-  };
-
-  const onOk = async () => {
-    'use server';
-    console.log('Ok was clicked');
-  };
-
   return (
     <div className='flex justify-center flex-col items-center  dark:text-white '>
       <p className='mt-2 text-sm font-bold'>Welcome to Nvidia AI Farm</p>
@@ -44,7 +43,7 @@ const page = () => {
         <Support />
       </div>
       {/* video */}
-      <div className='mt-10 rounded-lg'>
+      <div className='mt-10 '>
         <video
           src='https://ipfs.filebase.io/ipfs/Qmamg5MUbUyCcLtnFcEHziXRxcCCDUYyRX4y7WMwTgm4Qy'
           width={320}
@@ -57,12 +56,23 @@ const page = () => {
           playsInline
         />
       </div>
-      <h1 className='mt-5'>Join us and meet the future</h1>
-      {/* dialog */}
-      <div className='mt-5'>
-        <DialogShadcn delayTime={2000} />
+      <div>
+        <TextGenerateEffect
+          words='Join us to meet the Future!'
+          className={`${kalam.className} text-xl text-white flex justify-center items-center w-full`}
+        />
       </div>
-      <div className='w-full mt-10'>
+      {/* button */}
+      <div className='mt-5'>
+        <SignedOut>
+          <ColorfulButton content='Sign-in' />
+        </SignedOut>
+      </div>
+      {/* dialog */}
+      <div className='absolute'>
+        <DialogShadcn delayTime={5000} />
+      </div>
+      <div className='w-full mt-10  '>
         <HomeSections />
       </div>
       <div className='mt-5'>
