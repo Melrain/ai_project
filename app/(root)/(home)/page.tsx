@@ -1,9 +1,8 @@
-import Billboard from '@/components/Billboard';
+import RankingBoard from '@/components/RankingBoard';
 import { ColorfulButton } from '@/components/buttons/ColorfulButton';
 import HomeSections from '@/components/HomeSections';
 import DialogShadcn from '@/components/shared/DialogShadcn';
 import Support from '@/components/shared/Support';
-import { Button } from '@/components/ui/button';
 import { GlobeDemo } from '@/components/ui/github-globe';
 import { Meteors } from '@/components/ui/meteors';
 import News from '@/components/ui/News';
@@ -85,8 +84,9 @@ const page = () => {
       <div className='w-full mt-10   px-10'>
         <HomeSections />
       </div>
-      <div className='mt-5'>
-        <Billboard />
+      {/* RankingBoard */}
+      <div className='mt-5 w-full px-5 max-w-[740px]'>
+        <RankingBoard />
       </div>
       <div className='mt-5'>
         <News />
