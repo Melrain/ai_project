@@ -43,7 +43,7 @@ const BottomNavbar = () => {
         const isActive = (pathname.includes(item.link) && item.link.length > 1) || pathname === item.link;
 
         return (
-          <div>
+          <div key={index}>
             <Link href={item.link} className='flex flex-col items-center justify-center gap-1'>
               <Image src={item.icon} width={isActive ? 40 : 20} height={20} alt={item.name} />
               <p>{item.name}</p>

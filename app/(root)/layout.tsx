@@ -7,7 +7,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <main className='relative overflow-hidden '>
       <TopNavbar />
       <div className='mt-20'>{children}</div>
-      <BottomNavbar />
+      {/* <BottomNavbar /> */}
     </main>
   );
 };
