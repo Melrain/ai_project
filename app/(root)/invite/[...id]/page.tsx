@@ -15,7 +15,7 @@ const page = async ({ params }: Props) => {
     redirect('/sign-in');
   }
 
-  const userResult = await getUserInfo(userId);
+  const userResult = await getUserInfo(params.id[0]);
   if (userResult === undefined) {
     return <div>Failed to get user info</div>;
   }

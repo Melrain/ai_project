@@ -3,9 +3,9 @@
 import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 
-export const getUserInfo = async (clerkId: string) => {
+export const getUserInfo = async (username: string) => {
   try {
-    const user = await User.findOne({ clerkId: clerkId });
+    const user = await User.findOne({ username: username });
     if (!user) {
       throw new Error('User not found');
     }

@@ -11,6 +11,7 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
 import { SignedOut, SignInButton } from '@clerk/nextjs';
 import { Merriweather, Kalam } from 'next/font/google';
+import Link from 'next/link';
 
 import React from 'react';
 
@@ -65,7 +66,9 @@ const page = () => {
       {/* button */}
       <div className='mt-5'>
         <SignedOut>
-          <ColorfulButton content='Sign-in' />
+          <Link href={'/sign-in'}>
+            <ColorfulButton content='Sign-in' />
+          </Link>
         </SignedOut>
       </div>
       {/* dialog */}
