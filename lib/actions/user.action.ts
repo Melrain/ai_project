@@ -5,6 +5,7 @@ import { connectToDatabase } from '../connectToDatabase';
 
 export const getUserInfo = async (username: string) => {
   try {
+    await connectToDatabase();
     const user = await User.findOne({ username: username });
     if (!user) {
       throw new Error('User not found');

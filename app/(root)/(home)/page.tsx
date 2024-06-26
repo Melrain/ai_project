@@ -60,7 +60,7 @@ const page = () => {
       <div>
         <TextGenerateEffect
           words='Join us to meet the Future!'
-          className={`${kalam.className} text-xl text-white flex justify-center items-center w-full`}
+          className={`${kalam.className} text-xl text-slate-400 flex justify-center items-center w-full`}
         />
       </div>
       {/* button */}
