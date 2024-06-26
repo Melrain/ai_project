@@ -60,7 +60,7 @@ const page = () => {
       <h1 className='mt-5'>Join us and meet the future</h1>
       {/* dialog */}
       <div className='mt-5'>
-        <DialogShadcn />
+        <DialogShadcn delayTime={2000} />
       </div>
       <div className='w-full mt-10'>
         <HomeSections />

@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -8,7 +9,24 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 
-const DialogShadcn = () => {
+interface Props {
+  delayTime: number;
+}
+const DialogShadcn = ({ delayTime }: Props) => {
+  const [shouldRender, setShouldRender] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldRender(true);
+    }, delayTime);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!shouldRender) {
+    return null;
+  }
+
   return (
     <Dialog defaultOpen>
       <DialogTrigger></DialogTrigger>
