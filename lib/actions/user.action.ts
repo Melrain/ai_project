@@ -3,6 +3,20 @@
 import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 
+export const getUserByClerkId = async (clerkId: string) => {
+  try {
+    await connectToDatabase();
+    const user = await User.findOne({ clerkId: clerkId });
+    if (!user) {
+      console.error('User not found');
+    }
+    const parsedUser = JSON.parse(JSON.stringify(user));
+    return { message: 'User found', user: parsedUser };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getUserInfo = async (username: string) => {
   try {
     await connectToDatabase();
@@ -71,14 +85,21 @@ export const updateUser = async (params: UpdateUserParams) => {
   }
 };
 
-export const deleteUser = async (clerkId: string) => {
+export const updateUserBalance = async (clerkId: string, amount: number) => {
   try {
     await connectToDatabase();
-    const deletedUser = await User.findOneAndDelete({ clerkId: clerkId });
-    if (!deletedUser) {
-      throw new Error('Failed to delete user');
+    const updateResult = await User.findOneAndUpdate({
+      clerkId: clerkId,
+      balance: {
+        $inc: { balance: amount }
+      }
+    });
+
+    if (!updateResult) {
+      throw new Error('Failed to update balance');
     }
-    return { message: 'User deleted successfully', user: deletedUser };
+
+    return { message: 'Balance updated successfully', userId: clerkId, amount: amount };
   } catch (error) {
     console.error(error);
   }
@@ -106,6 +127,19 @@ export const addSupervisor = async (
     }
     const parsedUser = JSON.parse(JSON.stringify(updatedUser));
     return { message: 'Supervisor added successfully', user: parsedUser };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteUser = async (clerkId: string) => {
+  try {
+    await connectToDatabase();
+    const deletedUser = await User.findOneAndDelete({ clerkId: clerkId });
+    if (!deletedUser) {
+      throw new Error('Failed to delete user');
+    }
+    return { message: 'User deleted successfully', user: deletedUser };
   } catch (error) {
     console.error(error);
   }

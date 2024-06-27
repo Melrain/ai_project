@@ -9,7 +9,7 @@ import News from '@/components/ui/News';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
-import { Merriweather, Kalam } from 'next/font/google';
+import { Kalam } from 'next/font/google';
 import Link from 'next/link';
 
 import React from 'react';
@@ -72,12 +72,12 @@ const page = () => {
       <div className='mt-5'>
         <SignedOut>
           <Link href={'/sign-in'}>
-            <ColorfulButton content='Sign-in' />
+            <ColorfulButton content='Sign-in' disabled={false} />
           </Link>
         </SignedOut>
         <SignedIn>
           <Link href={'/myfarm'}>
-            <ColorfulButton content='My Farm' />
+            <ColorfulButton content='My Farm' disabled={false} />
           </Link>
         </SignedIn>
       </div>

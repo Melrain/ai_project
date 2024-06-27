@@ -20,15 +20,47 @@ const config = {
     },
     extend: {
       colors: {
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+          500: '#FF7000',
+          100: '#FFF1E6'
+        },
+        colorhunt_happy: {
+          100: '#7BD3EA',
+          200: '#A1EEBD',
+          300: '#F6F7C4',
+          400: '#F6D6D6',
+          500: '#FFCD4B'
+        },
+        dark: {
+          bg: '#121212',
+          100: '#000000',
+          200: '#0F1117',
+          300: '#151821',
+          400: '#212734',
+          500: '#101012'
+        },
+        light: {
+          900: '#FFFFFF',
+          800: '#F4F6F8',
+          850: '#FDFDFD',
+          700: '#DCE3F1',
+          500: '#7B8EC8',
+          400: '#858EAD'
+        },
+        mycolor: {
+          100: '#0D212E',
+          200: '#1B2C39',
+          300: '#105FB6',
+          400: '#D2DDCF'
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
-        },
+
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))'

@@ -21,6 +21,7 @@
     "@react-three/fiber": "^8.16.8",
     "@tabler/icons-react": "^3.7.0",
     "class-variance-authority": "^0.7.0",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.12",
     "lucide-react": "^0.395.0",

@@ -8,6 +8,7 @@ export interface IUser extends Document {
     clerkId: string;
     username: string;
   };
+  topUpTransactions: ObjectId[];
   balance: number;
   registeredAt: Date;
 }
@@ -16,6 +17,7 @@ const UserSchema = new Schema<IUser>({
   clerkId: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  topUpTransactions: [{ type: Schema.Types.ObjectId, ref: 'Transactions' }],
   supervisor: {
     clerkId: { type: String },
     username: { type: String }

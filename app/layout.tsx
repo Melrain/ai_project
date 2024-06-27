@@ -29,7 +29,7 @@ export default function RootLayout({
       <html lang='en'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
         <body className={`${inter.variable} `}>
-          <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute='class' enableSystem disableTransitionOnChange>
             {children}
           </ThemeProvider>
         </body>
