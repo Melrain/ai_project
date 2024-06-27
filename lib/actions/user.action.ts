@@ -79,7 +79,8 @@ export const updateUser = async (params: UpdateUserParams) => {
     if (!updatedUser) {
       throw new Error('Failed to update user');
     }
-    return { message: 'User updated successfully', user: updatedUser };
+    const parseUser = JSON.parse(JSON.stringify(updatedUser));
+    return { message: 'User updated successfully', user: parseUser };
   } catch (error) {
     console.error(error);
   }
@@ -88,20 +89,22 @@ export const updateUser = async (params: UpdateUserParams) => {
 export const updateUserBalance = async (clerkId: string, amount: number) => {
   try {
     await connectToDatabase();
-    const updateResult = await User.findOneAndUpdate({
-      clerkId: clerkId,
-      balance: {
-        $inc: { balance: amount }
-      }
-    });
+    const updateResult = await User.findOneAndUpdate(
+      { clerkId: clerkId }, // 查询条件
+      { $inc: { balance: amount } }, // 更新操作
+      { new: true } // 返回更新后的文档
+    );
 
     if (!updateResult) {
-      throw new Error('Failed to update balance');
+      // 处理未找到用户或更新失败的情况
+      console.error('error');
     }
-
-    return { message: 'Balance updated successfully', userId: clerkId, amount: amount };
+    // 处理成功更新的逻辑
+    const parsedUser = JSON.parse(JSON.stringify(updateResult));
+    return { message: 'User balance updated successfully', user: parsedUser };
   } catch (error) {
     console.error(error);
+    // 处理错误的逻辑
   }
 };
 

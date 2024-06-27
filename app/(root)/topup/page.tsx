@@ -23,9 +23,6 @@ const page = async () => {
         <h1>
           name: <span className='text-slate-500'>{user.username}</span>
         </h1>
-        <h1>
-          Balance: <span className='text-slate-500'>{user.balance}</span>
-        </h1>
       </div>
       <div className='flex justify-center mt-10'>
         <TopUpForm />

@@ -8,6 +8,12 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '../ui/input';
 import { ColorfulButton } from '../buttons/ColorfulButton';
 import BorderMagicLabel from '../buttons/BorderMagicLabel';
+import { getUserByClerkId, updateUserBalance } from '@/lib/actions/user.action';
+import { useAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import * as Realm from 'realm-web';
+import { useBalanceStore } from '@/store/useBalanceStore';
+import { Vortex } from '../ui/vortex';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -16,6 +22,16 @@ const formSchema = z.object({
 const TopUpForm = () => {
   const [selectedAmount, setSelectedAmount] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
+  const router = useRouter();
+  const { userId } = useAuth();
+
+  const useBalance = useBalanceStore((state: any) => state.balance);
+  const setUseBalance = (amount: number) => useBalanceStore.setState({ balance: amount });
+
+  if (userId === undefined || userId === null || !userId) {
+    router.push('/sign-in');
+  }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -27,7 +43,8 @@ const TopUpForm = () => {
     try {
       setIsSubmitting(true);
       console.log(values);
-
+      const result = await updateUserBalance(userId!, values.amount);
+      console.log(result);
       // topup actions here
     } catch (error) {
       console.error(error);
@@ -49,68 +66,110 @@ const TopUpForm = () => {
     }
   }, [form.getValues('amount')]);
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='px-10 max-w-xl'>
-        <FormField
-          control={form.control}
-          name='amount'
-          render={({ field }) => (
-            <FormItem className=''>
-              <FormLabel className='text-slate-500'>Top-up</FormLabel>
-              <FormControl>
-                <Input {...field} type='number' />
-              </FormControl>
-              <FormDescription></FormDescription>
-              <div className='flex flex-row gap-2 py-5 text-slate-300'>
-                <div
-                  onClick={() => {
-                    onLabelClick(500);
-                  }}
-                >
-                  <BorderMagicLabel content='$500' className={`${selectedAmount === '500' ? 'text-green-500' : ''}`} />
-                </div>
-                <div
-                  onClick={() => {
-                    onLabelClick(1500);
-                  }}
-                >
-                  <BorderMagicLabel
-                    content='$1500'
-                    className={`${selectedAmount === '1500' ? 'text-green-500' : ''}`}
-                  />
-                </div>
-                <div
-                  onClick={() => {
-                    onLabelClick(5000);
-                  }}
-                >
-                  <BorderMagicLabel
-                    content='$5000'
-                    className={`${selectedAmount === '5000' ? 'text-green-500' : ''}`}
-                  />
-                </div>
-                <div
-                  onClick={() => {
-                    onLabelClick(10000);
-                  }}
-                >
-                  <BorderMagicLabel
-                    content='$10000'
-                    className={`${selectedAmount === '10000' ? 'text-green-500' : ''}`}
-                  />
-                </div>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+  //Mongodb watch
 
-        <div className='mt-5 flex justify-center w-full'>
-          <ColorfulButton content='TopUp' disabled={isSubmitting} />
-        </div>
-      </form>
-    </Form>
+  useEffect(() => {
+    const login = async () => {
+      // Authenticate anonymously
+      await app.logIn(Realm.Credentials.anonymous());
+
+      const result = await getUserByClerkId(userId!);
+
+      setUseBalance(result!.user.balance);
+
+      const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
+      const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events
+      if (!collection) return;
+      // eslint-disable-next-line no-unused-vars
+      for await (const change of collection.watch({ clerkId: userId })) {
+        if (
+          change.operationType === 'insert' ||
+          change.operationType === 'update' ||
+          change.operationType === 'replace'
+        ) {
+          const fullDocument = change.fullDocument;
+          setUseBalance(fullDocument.balance);
+        }
+      }
+    };
+    login();
+  }, []);
+
+  return (
+    <div className='w-full  flex flex-col justify-center items-center'>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='px-10 max-w-xl'>
+          <div className='flex justify-center gap-5'>
+            <h1>
+              Balance: <span className='text-slate-500'>{useBalance}</span>
+            </h1>
+          </div>
+          <FormField
+            control={form.control}
+            name='amount'
+            render={({ field }) => (
+              <FormItem className=''>
+                <FormLabel className='text-slate-500'>Top-up</FormLabel>
+                <FormControl>
+                  <Input {...field} type='number' />
+                </FormControl>
+                <FormDescription></FormDescription>
+                <div className='flex flex-row gap-2 py-5 text-slate-300'>
+                  <div
+                    onClick={() => {
+                      onLabelClick(500);
+                    }}
+                  >
+                    <BorderMagicLabel
+                      content='$500'
+                      className={`${selectedAmount === '500' ? 'text-green-500' : ''}`}
+                    />
+                  </div>
+                  <div
+                    onClick={() => {
+                      onLabelClick(1500);
+                    }}
+                  >
+                    <BorderMagicLabel
+                      content='$1500'
+                      className={`${selectedAmount === '1500' ? 'text-green-500' : ''}`}
+                    />
+                  </div>
+                  <div
+                    onClick={() => {
+                      onLabelClick(5000);
+                    }}
+                  >
+                    <BorderMagicLabel
+                      content='$5000'
+                      className={`${selectedAmount === '5000' ? 'text-green-500' : ''}`}
+                    />
+                  </div>
+                  <div
+                    onClick={() => {
+                      onLabelClick(10000);
+                    }}
+                  >
+                    <BorderMagicLabel
+                      content='$10000'
+                      className={`${selectedAmount === '10000' ? 'text-green-500' : ''}`}
+                    />
+                  </div>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className='mt-5 flex justify-center w-full'>
+            <ColorfulButton content='TopUp' disabled={isSubmitting} />
+          </div>
+        </form>
+      </Form>
+      <div className='flex w-full justify-center items-center mt-10'>
+        <h1>充值详情</h1>
+      </div>
+    </div>
   );
 };
 
