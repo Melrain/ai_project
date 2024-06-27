@@ -10,14 +10,22 @@ interface Props {
 }
 const page = async ({ params }: Props) => {
   console.log(params.id);
+
   const { userId } = auth();
   if (!userId) {
-    redirect('/sign-in');
+    redirect('/sign-up');
   }
 
   const userResult = await getUserInfo(params.id[0]);
   if (userResult === undefined) {
-    return <div>Failed to get user info</div>;
+    return (
+      <div className='flex items-center justify-center flex-col gap-5 '>
+        <h1>Notice:</h1>
+        <h1 className='px-10'>
+          The invite code is invalid, please check with your inviter;Meanwhile you can still login as the customer
+        </h1>
+      </div>
+    );
   }
 
   if (userResult.user.supervisor.username !== 'super admin') {

@@ -8,7 +8,7 @@ import { Meteors } from '@/components/ui/meteors';
 import News from '@/components/ui/News';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
-import { SignedOut, SignInButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Merriweather, Kalam } from 'next/font/google';
 import Link from 'next/link';
 
@@ -75,13 +75,21 @@ const page = () => {
             <ColorfulButton content='Sign-in' />
           </Link>
         </SignedOut>
+        <SignedIn>
+          <Link href={'/myfarm'}>
+            <ColorfulButton content='My Farm' />
+          </Link>
+        </SignedIn>
       </div>
       {/* dialog */}
-      <div className='absolute'>
-        <DialogShadcn delayTime={5000} />
-      </div>
+      <SignedOut>
+        <div className='absolute'>
+          <DialogShadcn delayTime={5000} />
+        </div>
+      </SignedOut>
+
       {/* Topup Revenue Withdraw Team */}
-      <div className='w-full mt-10   px-10'>
+      <div className='w-full mt-5   px-10'>
         <HomeSections />
       </div>
       {/* RankingBoard */}

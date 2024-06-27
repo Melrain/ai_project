@@ -11,7 +11,7 @@ import TopGradientButton from './buttons/TopGradientButton';
 const HomeSections = () => {
   const moneyIcon = <CircleDollarSignIcon className='text-green-500' />;
   return (
-    <div className='w-full flex justify-center   items-center gap-5 flex-wrap'>
+    <div className='w-full flex justify-center   items-center gap-1 flex-wrap'>
       <Link href={'/topup'} className='w-40 h-20 flex justify-center items-center'>
         <LitUpBorderButton content='Top-up' icon={moneyIcon} />
       </Link>

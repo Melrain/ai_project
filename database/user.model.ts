@@ -9,6 +9,7 @@ export interface IUser extends Document {
     username: string;
   };
   balance: number;
+  registeredAt: Date;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -19,7 +20,8 @@ const UserSchema = new Schema<IUser>({
     clerkId: { type: String },
     username: { type: String }
   },
-  balance: { type: Number, default: 0 }
+  balance: { type: Number, default: 0 },
+  registeredAt: { type: Date, default: Date.now }
 });
 
 export const User = models.User || model<IUser>('User', UserSchema);
