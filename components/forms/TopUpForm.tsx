@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import * as Realm from 'realm-web';
 import { useBalanceStore } from '@/store/useBalanceStore';
 import { Vortex } from '../ui/vortex';
+import { createTransaction } from '@/lib/actions/transaction.action';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -44,8 +45,16 @@ const TopUpForm = () => {
       setIsSubmitting(true);
       console.log(values);
       const result = await updateUserBalance(userId!, values.amount);
-      console.log(result);
-      // topup actions here
+      if (!result) {
+        throw new Error('Failed to update user balance');
+      }
+      await createTransaction({
+        type: 'topup',
+        clerkId: userId!,
+        amount: values.amount,
+        status: 'success',
+        transactionId: ''
+      });
     } catch (error) {
       console.error(error);
     } finally {
