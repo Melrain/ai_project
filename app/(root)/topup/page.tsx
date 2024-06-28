@@ -17,6 +17,10 @@ const page = async () => {
 
   const user = result.user;
 
+  if (!user) {
+    return;
+  }
+
   return (
     <div className='flex justify-center flex-col'>
       <div className='flex justify-center gap-5'>

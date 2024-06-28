@@ -16,7 +16,6 @@ import { useBalanceStore } from '@/store/useBalanceStore';
 
 import { createTransaction } from '@/lib/actions/transaction.action';
 import { useTranscationsStore } from '@/store/useTransactionsStore';
-import TransactionList from '../shared/TransactionList';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -26,15 +25,15 @@ const TopUpForm = () => {
   const [selectedAmount, setSelectedAmount] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
-  const router = useRouter();
-  const { userId } = useAuth();
-
   // zustand
   const useBalance = useBalanceStore((state: any) => state.balance);
   const setUseBalance = (amount: number) => useBalanceStore.setState({ balance: amount });
   const useTransactions = useTranscationsStore((state: any) => state.transactions);
   const setTransactions = (transactions: any) => useTranscationsStore.setState({ transactions });
+
+  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
+  const router = useRouter();
+  const { userId } = useAuth();
 
   if (userId === undefined || userId === null || !userId) {
     router.push('/sign-in');
@@ -103,10 +102,13 @@ const TopUpForm = () => {
         throw new Error('Failed to get user at topUpform.tsx line 100');
       }
       console.log(result);
+      if (result.user === null) {
+        return <div>Loading...</div>;
+      }
       //set zustand
-      setUseBalance(result.user.balance);
-      const arr = Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]);
-      setTransactions(arr);
+      result.user !== null && setUseBalance(result.user.balance);
+      result.user !== null &&
+        setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
       const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events
@@ -120,6 +122,10 @@ const TopUpForm = () => {
         ) {
           const fullDocument = change.fullDocument;
           setUseBalance(fullDocument.balance);
+
+          setTransactions(
+            Object.keys(fullDocument.topUpTransactions).map((key) => fullDocument.topUpTransactions[key])
+          );
         }
       }
     };
@@ -197,9 +203,7 @@ const TopUpForm = () => {
           </div>
         </form>
       </Form>
-      <div className='flex w-full justify-center items-center mt-10 flex-col'>
-        <TransactionList transactions={useTransactions} />
-      </div>
+      <div className='flex w-full justify-center items-center mt-10 flex-col'>{useTransactions.length}</div>
     </div>
   );
 };
