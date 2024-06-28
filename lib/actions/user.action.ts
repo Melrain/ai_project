@@ -6,7 +6,7 @@ import { connectToDatabase } from '../connectToDatabase';
 export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();
-    const user = await User.findOne({ clerkId: clerkId });
+    const user = await User.findOne({ clerkId: clerkId }).populate('topUpTransactions');
     if (!user) {
       console.error('User not found');
     }
@@ -71,9 +71,9 @@ export const updateUser = async (params: UpdateUserParams) => {
     await connectToDatabase();
     const updatedUser = await User.findOneAndUpdate(
       {
-        clerkId: clerkId,
-        updateData: updateData
+        clerkId: clerkId
       },
+      updateData,
       { new: true }
     );
     if (!updatedUser) {
@@ -86,25 +86,18 @@ export const updateUser = async (params: UpdateUserParams) => {
   }
 };
 
-export const updateUserBalance = async (clerkId: string, amount: number) => {
+export const addBalanceAndTxId = async (clerkId: string, amount: number, txId: string) => {
   try {
     await connectToDatabase();
-    const updateResult = await User.findOneAndUpdate(
-      { clerkId: clerkId }, // 查询条件
-      { $inc: { balance: amount } }, // 更新操作
-      { new: true } // 返回更新后的文档
-    );
-
+    const updateData = { $inc: { balance: amount }, $addToSet: { topUpTransactions: txId } };
+    const updateResult = await User.findOneAndUpdate({ clerkId: clerkId }, updateData, { new: true });
     if (!updateResult) {
-      // 处理未找到用户或更新失败的情况
-      console.error('error');
+      throw new Error('Failed to update user');
     }
-    // 处理成功更新的逻辑
-    const parsedUser = JSON.parse(JSON.stringify(updateResult));
-    return { message: 'User balance updated successfully', user: parsedUser };
+    const user = JSON.parse(JSON.stringify(updateResult));
+    return { message: 'User balance and transaction id updated successfully', user: user };
   } catch (error) {
     console.error(error);
-    // 处理错误的逻辑
   }
 };
 

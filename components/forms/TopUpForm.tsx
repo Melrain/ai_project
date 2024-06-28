@@ -8,13 +8,15 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '../ui/input';
 import { ColorfulButton } from '../buttons/ColorfulButton';
 import BorderMagicLabel from '../buttons/BorderMagicLabel';
-import { getUserByClerkId, updateUserBalance } from '@/lib/actions/user.action';
+import { addBalanceAndTxId, getUserByClerkId } from '@/lib/actions/user.action';
 import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import * as Realm from 'realm-web';
 import { useBalanceStore } from '@/store/useBalanceStore';
-import { Vortex } from '../ui/vortex';
+
 import { createTransaction } from '@/lib/actions/transaction.action';
+import { useTranscationsStore } from '@/store/useTransactionsStore';
+import TransactionList from '../shared/TransactionList';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -23,12 +25,16 @@ const formSchema = z.object({
 const TopUpForm = () => {
   const [selectedAmount, setSelectedAmount] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
   const router = useRouter();
   const { userId } = useAuth();
 
+  // zustand
   const useBalance = useBalanceStore((state: any) => state.balance);
   const setUseBalance = (amount: number) => useBalanceStore.setState({ balance: amount });
+  const useTransactions = useTranscationsStore((state: any) => state.transactions);
+  const setTransactions = (transactions: any) => useTranscationsStore.setState({ transactions });
 
   if (userId === undefined || userId === null || !userId) {
     router.push('/sign-in');
@@ -43,18 +49,28 @@ const TopUpForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsSubmitting(true);
-      console.log(values);
-      const result = await updateUserBalance(userId!, values.amount);
+
+      const userResult = await getUserByClerkId(userId!);
+      if (!userResult) {
+        throw new Error('Failed to get user');
+      }
+
+      const transactionResult = await createTransaction({
+        type: 'topup',
+        userId: userResult.user._id,
+        amount: values.amount,
+        status: 'success',
+        transactionId: '1'
+      });
+
+      if (!transactionResult) {
+        throw new Error('Failed to create transaction');
+      }
+
+      const result = await addBalanceAndTxId(userId!, values.amount, transactionResult.parsedTransaction._id);
       if (!result) {
         throw new Error('Failed to update user balance');
       }
-      await createTransaction({
-        type: 'topup',
-        clerkId: userId!,
-        amount: values.amount,
-        status: 'success',
-        transactionId: ''
-      });
     } catch (error) {
       console.error(error);
     } finally {
@@ -83,8 +99,14 @@ const TopUpForm = () => {
       await app.logIn(Realm.Credentials.anonymous());
 
       const result = await getUserByClerkId(userId!);
-
-      setUseBalance(result!.user.balance);
+      if (!result) {
+        throw new Error('Failed to get user at topUpform.tsx line 100');
+      }
+      console.log(result);
+      //set zustand
+      setUseBalance(result.user.balance);
+      const arr = Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]);
+      setTransactions(arr);
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
       const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events
@@ -175,8 +197,8 @@ const TopUpForm = () => {
           </div>
         </form>
       </Form>
-      <div className='flex w-full justify-center items-center mt-10'>
-        <h1>充值详情</h1>
+      <div className='flex w-full justify-center items-center mt-10 flex-col'>
+        <TransactionList transactions={useTransactions} />
       </div>
     </div>
   );

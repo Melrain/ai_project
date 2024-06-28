@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUser>({
   clerkId: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  topUpTransactions: [{ type: Schema.Types.ObjectId, ref: 'Transactions' }],
+  topUpTransactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
   supervisor: {
     clerkId: { type: String },
     username: { type: String }

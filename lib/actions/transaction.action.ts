@@ -4,18 +4,18 @@ import { connectToDatabase } from '../connectToDatabase';
 
 interface CreateTransactionParams {
   type: string;
-  clerkId: string;
+  userId: string;
   amount: number;
   status: string;
   transactionId: string;
 }
 export const createTransaction = async (params: CreateTransactionParams) => {
   try {
-    const { type, clerkId, amount, status, transactionId } = params;
+    const { type, userId, amount, status, transactionId } = params;
     await connectToDatabase();
     const transcation = await Transaction.create({
       type,
-      clerkId,
+      userId,
       amount,
       status,
       transactionId

@@ -1,8 +1,8 @@
-import { Schema, model, models, Document } from 'mongoose';
+import { Schema, model, models, Document, ObjectId } from 'mongoose';
 
 export interface TransactionInterface extends Document {
   type: string;
-  userId: string;
+  userId: ObjectId;
   amount: number;
   status: string;
   transactionId: string;
