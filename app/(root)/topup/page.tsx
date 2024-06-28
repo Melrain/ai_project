@@ -1,4 +1,5 @@
 import TopUpForm from '@/components/forms/TopUpForm';
+import TransactionList from '@/components/shared/TransactionList';
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
@@ -30,6 +31,9 @@ const page = async () => {
       </div>
       <div className='flex justify-center mt-10'>
         <TopUpForm />
+      </div>
+      <div className='mt-5 flex justify-center items-center'>
+        <TransactionList />
       </div>
     </div>
   );

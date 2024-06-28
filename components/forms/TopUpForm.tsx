@@ -28,7 +28,6 @@ const TopUpForm = () => {
   // zustand
   const useBalance = useBalanceStore((state: any) => state.balance);
   const setUseBalance = (amount: number) => useBalanceStore.setState({ balance: amount });
-  const useTransactions = useTranscationsStore((state: any) => state.transactions);
   const setTransactions = (transactions: any) => useTranscationsStore.setState({ transactions });
 
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
@@ -203,7 +202,6 @@ const TopUpForm = () => {
           </div>
         </form>
       </Form>
-      <div className='flex w-full justify-center items-center mt-10 flex-col'>{useTransactions.length}</div>
     </div>
   );
 };
