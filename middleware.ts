@@ -8,4 +8,10 @@ export const config = {
   matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)']
 };
 
-const isProtectedRoute = createRouteMatcher(['/invite(.*)', '/topUp(.*)', '/topup(.*)', '/topup/([a-zA-Z0-9-]+)']);
+const isProtectedRoute = createRouteMatcher([
+  '/invite(.*)',
+  '/topUp(.*)',
+  '/topup(.*)',
+  '/topup/([a-zA-Z0-9-]+)',
+  '/withdraw(.*)'
+]);
