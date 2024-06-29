@@ -6,7 +6,7 @@ import { connectToDatabase } from '../connectToDatabase';
 export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();
-    const user = await User.findOne({ clerkId: clerkId });
+    const user = await User.findOne({ clerkId: clerkId }).populate('topUpTransactions');
     if (!user) {
       console.error('User not found');
     }

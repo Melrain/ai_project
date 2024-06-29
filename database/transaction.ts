@@ -1,6 +1,6 @@
 import { Schema, model, models, Document, ObjectId } from 'mongoose';
 
-export interface TransactionInterface extends Document {
+export interface ITransaction extends Document {
   type: string;
   userId: ObjectId;
   amount: number;
@@ -37,6 +37,6 @@ const TransactionSchema = new Schema(
   { timestamps: true }
 );
 
-const Transaction = models.Transaction || model<TransactionInterface>('Transaction', TransactionSchema);
+const Transaction = models.Transaction || model<ITransaction>('Transaction', TransactionSchema);
 
 export default Transaction;
