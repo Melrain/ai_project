@@ -78,17 +78,20 @@ const TransactionList = () => {
           {isSubmitting ? 'Loading...' : 'Update Transactions'}
         </button>
       </div>
-      <div className='flex gap-5 mt-10 flex-col text-slate-500 w-full max-w-md justify-center items-center'>
-        {tx.map((t, index) => (
-          <div
-            className={`flex flex-row justify-between w-full p-5 rounded-[1px] ${
-              index % 2 === 0 ? 'bg-mycolor-200' : ''
-            }`}
-          >
-            <p>amount:{t.amount}</p>
-            <p>{formatDateToMDHMS(t.createdAt.toString())}</p>
-          </div>
-        ))}
+      <div className='flex  mt-5 flex-col text-slate-500 w-full max-w-md justify-center items-center'>
+        {tx.length > 0
+          ? tx.map((t, index) => (
+              <div
+                className={`flex flex-row justify-between w-full p-5 rounded-[1px] ${
+                  index % 2 === 0 ? 'bg-mycolor-200' : ''
+                }`}
+              >
+                <p>{formatDateToMDHMS(t.createdAt.toString())}</p>
+                <p>${t.amount}</p>
+                <p>{t.status}</p>
+              </div>
+            ))
+          : 'No Transactions'}
       </div>
     </div>
   );

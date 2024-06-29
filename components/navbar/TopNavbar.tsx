@@ -7,18 +7,21 @@ import { Menu } from 'lucide-react';
 
 import { Separator } from '../ui/separator';
 import { UserButton } from '@clerk/nextjs';
+import Link from 'next/link';
 
 const TopNavbar = () => {
   return (
     <div className=''>
       <div className='flex fixed flex-row py-4 w-full z-10 bg-black items-center justify-between px-10 max-lg:px-5 '>
-        <div className='flex flex-row items-center gap-1'>
-          <Image src={imageIndex.nvidia_icon.src} alt='logo' width={25} height={25} />
-          <p className=' font-black'>
-            NVIDIA AI <span className='text-green-500'>FARM</span>
-          </p>
-          <Separator orientation='vertical' className='h-5 w-[2px] mx-2 ' />
-        </div>
+        <Link href={'/'}>
+          <div className='flex flex-row items-center gap-1'>
+            <Image src={imageIndex.nvidia_icon.src} alt='logo' width={25} height={25} />
+            <p className=' font-black'>
+              NVIDIA AI <span className='text-green-500'>FARM</span>
+            </p>
+            <Separator orientation='vertical' className='h-5 w-[2px] mx-2 ' />
+          </div>
+        </Link>
         <div className='flex gap-4'>
           {/* <ModeToggle /> */}
           <UserButton />

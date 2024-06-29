@@ -13,6 +13,7 @@ import { Kalam } from 'next/font/google';
 import Link from 'next/link';
 
 import React from 'react';
+import { Button } from '@/components/ui/button';
 
 const kalam = Kalam({
   subsets: ['latin'],
@@ -43,7 +44,7 @@ const page = () => {
         <Support />
       </div>
       {/* video */}
-      <div className='mt-10 '>
+      <div className='mt-10 relative '>
         <video
           src='https://ipfs.filebase.io/ipfs/Qmamg5MUbUyCcLtnFcEHziXRxcCCDUYyRX4y7WMwTgm4Qy'
           width={320}
@@ -62,11 +63,11 @@ const page = () => {
           words='Join us to meet the Future!'
           className={`${kalam.className} text-xl text-slate-300 flex justify-center items-center w-full`}
         />
-        <TextGenerateEffect
-          delayTime={1}
-          words='—-MelRain YE'
-          className={`${kalam.className} text-xl  text-slate-400 flex justify-end items-end w-full`}
-        />
+        <div className='mt-2 w-full flex items-center justify-center'>
+          <Link href={'/products'}>
+            <ColorfulButton content='Products' disabled={false} />
+          </Link>
+        </div>
       </div>
       {/* button */}
       <div className='mt-5'>
@@ -89,7 +90,7 @@ const page = () => {
       </SignedOut>
 
       {/* Topup Revenue Withdraw Team */}
-      <div className='w-full mt-5   px-10'>
+      <div className='w-full mt-5 '>
         <HomeSections />
       </div>
       {/* RankingBoard */}

@@ -107,9 +107,9 @@ const TopUpForm = () => {
       }
 
       //set zustand
-      result.user !== null && setUseBalance(result.user.balance);
-      result.user !== null &&
-        setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
+      setUseBalance(result.user.balance);
+
+      setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
       const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events
@@ -138,7 +138,7 @@ const TopUpForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className='px-10 max-w-xl'>
           <div className='flex justify-center gap-5'>
             <h1>
-              Balance: <span className='text-slate-500'>{useBalance}</span>
+              Balance: <span className='text-slate-500'>{useBalance ? useBalance : 'loading...'}</span>
             </h1>
           </div>
           <FormField

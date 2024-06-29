@@ -2,16 +2,16 @@ import React from 'react';
 import LitUpBorderButton from './buttons/LitUpBorderButton';
 import { CircleDollarSignIcon, Coins, CreditCard } from 'lucide-react';
 import Link from 'next/link';
-import { Spotlight } from './ui/Spotlight';
+
 import ShimmerButton from './buttons/ShimmerButton';
-import SpotifyButton from './buttons/SpotifyButton';
-import { BsCash, BsCashCoin, BsPeopleFill } from 'react-icons/bs';
+
+import { BsPeopleFill } from 'react-icons/bs';
 import TopGradientButton from './buttons/TopGradientButton';
 
 const HomeSections = () => {
   const moneyIcon = <CircleDollarSignIcon className='text-green-500' />;
   return (
-    <div className='w-full flex justify-center   items-center gap-1 flex-wrap'>
+    <div className='w-full flex justify-center   items-center  flex-wrap'>
       <Link href={'/topup'} className='w-40 h-20 flex justify-center items-center'>
         <LitUpBorderButton content='Top-up' icon={moneyIcon} />
       </Link>
