@@ -29,3 +29,23 @@ export const createTransaction = async (params: CreateTransactionParams) => {
     console.error(error);
   }
 };
+
+interface GetUserTransactionsProps {
+  userId: string;
+}
+export const getUserTransactions = async (params: GetUserTransactionsProps) => {
+  const { userId } = params;
+  try {
+    await connectToDatabase();
+    const transactions = await Transaction.find({ userId: userId }).sort({ createdAt: -1 });
+    if (!transactions) {
+      console.log('Transactions not found');
+    }
+
+    const parsedData = JSON.parse(JSON.stringify(transactions));
+
+    return { message: 'Transactions found', transactions: parsedData };
+  } catch (error) {
+    console.error(error);
+  }
+};

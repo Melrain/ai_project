@@ -16,6 +16,7 @@ import { useBalanceStore } from '@/store/useBalanceStore';
 
 import { createTransaction } from '@/lib/actions/transaction.action';
 import { useTranscationsStore } from '@/store/useTransactionsStore';
+import { useTxStore } from '@/store/useTxStore';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -27,8 +28,6 @@ const TopUpForm = () => {
 
   // zustand
   const useBalance = useBalanceStore((state: any) => state.balance);
-  const useType = useBalanceStore((state: any) => state.type);
-
   const setUseBalance = (amount: number) => useBalanceStore.setState({ balance: amount });
   const setTransactions = (transactions: any) => useTranscationsStore.setState({ transactions });
 
@@ -107,14 +106,10 @@ const TopUpForm = () => {
         return <div>Loading...</div>;
       }
 
-      console.log(result.user);
       //set zustand
       result.user !== null && setUseBalance(result.user.balance);
       result.user !== null &&
         setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
-
-      const topUpTransactions = result.user.topUpTransactions;
-      console.log('topUpTransactions:', topUpTransactions, 'type:', typeof topUpTransactions);
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
       const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events
@@ -128,7 +123,6 @@ const TopUpForm = () => {
         ) {
           const fullDocument = change.fullDocument;
           setUseBalance(fullDocument.balance);
-
           setTransactions(
             Object.keys(fullDocument.topUpTransactions).map((key) => fullDocument.topUpTransactions[key])
           );

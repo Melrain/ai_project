@@ -8,7 +8,7 @@ export interface IUser extends Document {
     clerkId: string;
     username: string;
   };
-  topUpTransactions: ObjectId[];
+  topUpTransactions: [ObjectId];
   balance: number;
   registeredAt: Date;
 }
