@@ -31,12 +31,9 @@ const DialogShadcn = ({ delayTime }: Props) => {
     <Dialog defaultOpen>
       <DialogTrigger></DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>IMPORTANT!</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove your data from our
-            servers.
-          </DialogDescription>
+        <DialogHeader className='flex gap-2'>
+          <DialogTitle>重要通知!</DialogTitle>
+          <DialogDescription>目前处于测试状态。特朗普会当选总统。</DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>

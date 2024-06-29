@@ -108,7 +108,6 @@ const TopUpForm = () => {
 
       //set zustand
       setUseBalance(result.user.balance);
-
       setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');

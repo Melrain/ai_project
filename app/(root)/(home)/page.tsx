@@ -85,7 +85,7 @@ const page = () => {
       {/* dialog */}
       <SignedOut>
         <div className='absolute'>
-          <DialogShadcn delayTime={5000} />
+          <DialogShadcn delayTime={3000} />
         </div>
       </SignedOut>
 
