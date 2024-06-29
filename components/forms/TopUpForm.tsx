@@ -16,6 +16,7 @@ import { useBalanceStore } from '@/store/useBalanceStore';
 
 import { createTransaction } from '@/lib/actions/transaction.action';
 import { useTranscationsStore } from '@/store/useTransactionsStore';
+import { useTxStore } from '@/store/useTxStore';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -29,6 +30,8 @@ const TopUpForm = () => {
   const useBalance = useBalanceStore((state: any) => state.balance);
   const setUseBalance = (amount: number) => useBalanceStore.setState({ balance: amount });
   const setTransactions = (transactions: any) => useTranscationsStore.setState({ transactions });
+  const tx = useTxStore((state: any) => state.tx);
+  const setTx = (tx: any) => useTxStore.setState({ tx });
 
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
   const router = useRouter();
@@ -104,10 +107,27 @@ const TopUpForm = () => {
       if (result.user === null) {
         return <div>Loading...</div>;
       }
+
+      console.log(result.user);
       //set zustand
       result.user !== null && setUseBalance(result.user.balance);
       result.user !== null &&
         setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
+
+      const topUpTransactions = result.user.topUpTransactions;
+
+      console.log(topUpTransactions);
+
+      // const valuesArray = Object.values(topUpTransactions);
+      // console.log(valuesArray); // 输出: ['topup', 100, 'pending', '2021-09-01T00:00:00.000Z']
+
+      // // 将对象的键转换成数组
+      // const keysArray = Object.keys(topUpTransactions);
+      // console.log(keysArray); // 输出: ['type', 'amount', 'status', 'date']
+
+      // // 将对象的键值对转换成数组
+      // const entriesArray = Object.entries(topUpTransactions);
+      // console.log(entriesArray);
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
       const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events

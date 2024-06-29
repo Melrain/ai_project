@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 const TransactionList = () => {
   const useTransactions = useTranscationsStore((state: any) => state.transactions);
   useEffect(() => {}, []);
-  return <div></div>;
+  return <div>{useTransactions.length}</div>;
 };
 
 export default TransactionList;
