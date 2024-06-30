@@ -1,7 +1,12 @@
 import React from 'react';
 
-const page = () => {
-  return <div>Products Page</div>;
+export interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const page = ({ searchParams }: SearchParamsProps) => {
+  console.log(searchParams);
+  return <div className=''></div>;
 };
 
 export default page;

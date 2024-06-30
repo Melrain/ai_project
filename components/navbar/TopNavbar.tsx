@@ -11,8 +11,8 @@ import Link from 'next/link';
 
 const TopNavbar = () => {
   return (
-    <div className=''>
-      <div className='flex fixed flex-row py-4 w-full z-10 bg-black items-center justify-between px-10 max-lg:px-5 '>
+    <div className='flex justify-center'>
+      <div className='flex fixed flex-row py-4 w-full z-10 bg-black items-center justify-between px-10 max-lg:px-5 max-w-4xl '>
         <Link href={'/'}>
           <div className='flex flex-row items-center gap-1'>
             <Image src={imageIndex.nvidia_icon.src} alt='logo' width={25} height={25} />
