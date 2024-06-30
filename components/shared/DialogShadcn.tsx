@@ -31,7 +31,7 @@ const DialogShadcn = ({ delayTime }: Props) => {
     <Dialog defaultOpen>
       <DialogTrigger></DialogTrigger>
       <DialogContent>
-        <DialogHeader className='flex gap-2'>
+        <DialogHeader className='flex gap-2 justify-center items-center'>
           <DialogTitle>重要通知!</DialogTitle>
           <DialogDescription>目前处于测试状态。特朗普会当选总统。</DialogDescription>
         </DialogHeader>

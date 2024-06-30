@@ -8,6 +8,8 @@ export interface IUser extends Document {
     clerkId: string;
     username: string;
   };
+  level: number;
+  products: [ObjectId];
   topUpTransactions: [ObjectId];
   balance: number;
   registeredAt: Date;
@@ -22,7 +24,9 @@ const UserSchema = new Schema<IUser>({
     clerkId: { type: String },
     username: { type: String }
   },
-  balance: { type: Number, default: 0 },
+  level: { type: Number, default: 1 },
+  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+  balance: { type: Number, default: 100 },
   registeredAt: { type: Date, default: Date.now }
 });
 
