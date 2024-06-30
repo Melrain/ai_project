@@ -67,6 +67,8 @@ export async function POST(req: Request) {
         clerkId: '',
         username: 'super admin'
       },
+      level: 1,
+      products: [],
       balance: 0,
       email: email_addresses[0].email_address
     });
