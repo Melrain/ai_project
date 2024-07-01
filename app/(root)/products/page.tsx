@@ -1,3 +1,4 @@
+import ProductSearchBar from '@/components/search/ProductSearchBar';
 import React from 'react';
 
 export interface SearchParamsProps {
@@ -13,6 +14,10 @@ const page = ({ searchParams }: SearchParamsProps) => {
       {/* head */}
       <div className='flex flex-row justify-center items-center'>
         <h1>ProductName</h1>
+      </div>
+      {/* search */}
+      <div className='w-full mt-5'>
+        <ProductSearchBar />
       </div>
     </div>
   );

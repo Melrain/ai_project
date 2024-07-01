@@ -1,4 +1,6 @@
 import { Input } from '@/components/ui/input';
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 interface Props {
