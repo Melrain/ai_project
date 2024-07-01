@@ -53,7 +53,8 @@ const config = {
           100: '#0D212E',
           200: '#1B2C39',
           300: '#105FB6',
-          400: '#D2DDCF'
+          400: '#D2DDCF',
+          500: '#111928'
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

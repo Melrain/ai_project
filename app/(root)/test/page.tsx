@@ -1,7 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { buyProduct } from '@/lib/actions/product';
+import { buyProduct, createProduct } from '@/lib/actions/product';
+
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import { useAuth } from '@clerk/nextjs';
 import React from 'react';
@@ -17,28 +18,45 @@ const page = () => {
       console.error(error);
     }
   };
+
   const onCreateProduct = async () => {
     try {
-      const user = await getUserByClerkId(userId!);
-      const result = await buyProduct({
-        productName: 'text-1',
+      const result = await createProduct({
+        productName: 'test',
         price: '100',
-        picture: 'text-1',
+        picture: 'test',
         revenuePerDay: 100,
-        userId: user?.user._id
+        passcode: 198900
+      });
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onBuyProduct = async () => {
+    try {
+      const result = await buyProduct({
+        userClerkId: userId!,
+        productId: '6682144fdae7aa721a44b6ed'
       });
       if (!result) {
-        throw new Error('Failed to create product');
+        console.log('Error on buy Product');
+      }
+      if (result!.code !== 200) {
+        console.log(result!.message);
       }
       console.log(result);
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div>
       <Button onClick={onClick}>Fetch User</Button>
-      <Button onClick={onCreateProduct}>Buy Product</Button>
+      <Button onClick={onCreateProduct}>Create Product</Button>
+      <Button onClick={onBuyProduct}>Buy Product</Button>
     </div>
   );
 };

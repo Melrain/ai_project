@@ -1,10 +1,10 @@
 import { Schema, Document, models, model, ObjectId } from 'mongoose';
 
-interface IProduct extends Document {
+export interface IProduct extends Document {
   name: string;
   price: string;
   picture: string;
-  ownerId: ObjectId;
+  users: [ObjectId];
   revenuePerDay: number;
 }
 
@@ -12,7 +12,7 @@ const productSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   price: { type: String, required: true },
   picture: { type: String, required: true },
-  ownerId: { type: Schema.Types.ObjectId, ref: 'User' },
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   revenuePerDay: { type: Number, required: true }
 });
 
