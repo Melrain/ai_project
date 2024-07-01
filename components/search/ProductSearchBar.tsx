@@ -47,7 +47,7 @@ const ProductSearchBar = () => {
       if (search) {
         const newUrl = formUrlQuery({
           params: searchParams.toString(),
-          key: 'global',
+          key: 'name',
           value: search
         });
 
@@ -56,7 +56,7 @@ const ProductSearchBar = () => {
         if (query) {
           const newUrl = removeKeysFromQuery({
             params: searchParams.toString(),
-            keysToRemove: ['global', 'type']
+            keysToRemove: ['name', 'level']
           });
 
           router.push(newUrl, { scroll: false });
@@ -67,9 +67,9 @@ const ProductSearchBar = () => {
     return () => clearTimeout(delayDebounceFn);
   }, [search, router, pathname, searchParams, query]);
   return (
-    <div className=''>
-      <div className='flex justify-center w-full items-center'>
-        <SearchIcon className='absolute right-16 text-slate-500' />
+    <div className='flex justify-center '>
+      <div className='flex relative max-w-xs justify-center w-full items-center'>
+        <SearchIcon className='absolute right-2 text-slate-500' />
         <div className='max-w-xs w-full p-2'>
           <Input
             ref={searchContainerRef}
@@ -85,7 +85,7 @@ const ProductSearchBar = () => {
           />
         </div>
       </div>
-      <div>{isOpen && <SearchResult />}</div>
+      <div className='absolute max-w-xs w-full top-40'>{isOpen && <SearchResult />}</div>
     </div>
   );
 };

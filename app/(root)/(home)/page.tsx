@@ -13,7 +13,6 @@ import { Kalam } from 'next/font/google';
 import Link from 'next/link';
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
 
 const kalam = Kalam({
   subsets: ['latin'],

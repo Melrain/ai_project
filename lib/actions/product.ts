@@ -106,6 +106,8 @@ export const createProduct = async (params: CreateProductProps) => {
 //   }
 // };
 
+//get product info
+
 //user buy product
 interface BuyProductProps {
   userClerkId: string;
