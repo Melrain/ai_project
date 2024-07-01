@@ -40,8 +40,6 @@ const ProductSearchBar = () => {
     };
   }, [pathname]);
 
-  // push the url, no need for this app
-
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (search) {
@@ -72,13 +70,13 @@ const ProductSearchBar = () => {
         <SearchIcon className='absolute right-2 text-slate-500' />
         <div className='max-w-xs w-full p-2'>
           <Input
+            className='text-[16px]'
             ref={searchContainerRef}
             placeholder='search product...'
             type='text'
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-
               if (!isOpen) setIsOpen(true);
               if (e.target.value === '' && isOpen) setIsOpen(false);
             }}
