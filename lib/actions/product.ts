@@ -14,7 +14,7 @@ export const getProduct = async (params: GetProductParams) => {
     const { productName } = params;
     await connectToDatabase();
 
-    const product = await Product.findOne({ name: { $regex: productName, $options: 'i' } });
+    const product = await Product.find({ name: { $regex: productName, $options: 'i' } });
 
     if (!product) {
       return { code: 404, message: 'name not match' };
