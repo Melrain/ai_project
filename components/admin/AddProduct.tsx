@@ -40,6 +40,7 @@ const AddProduct = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      //TODO finish the form
       setIsSubmitting(true);
       console.log(values);
       // check if form is valid
