@@ -27,7 +27,7 @@ export const getProduct = async (params: GetProductParams) => {
 
 interface CreateProductProps {
   productName: string;
-  price: string;
+  price: number;
   picture: string;
   revenuePerDay: number;
   passcode: number;

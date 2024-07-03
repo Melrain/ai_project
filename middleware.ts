@@ -13,5 +13,6 @@ const isProtectedRoute = createRouteMatcher([
   '/topUp(.*)',
   '/topup(.*)',
   '/topup/([a-zA-Z0-9-]+)',
-  '/withdraw(.*)'
+  '/withdraw(.*)',
+  '/admin(.*)'
 ]);

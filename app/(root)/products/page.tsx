@@ -21,7 +21,9 @@ const page = ({ searchParams }: SearchParamsProps) => {
         <ProductSearchBar />
       </div>
       {/* product list */}
-      <div className='flex flex-row justify-center max-w-xs gap-5 mt-5'>产品列表</div>
+      <div className='flex flex-row justify-center max-w-xl p-5 rounded-[2px] w-full gap-5 mt-5 bg-mycolor-300'>
+        产品列表
+      </div>
     </div>
   );
 };
