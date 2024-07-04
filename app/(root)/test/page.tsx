@@ -19,21 +19,6 @@ const page = () => {
     }
   };
 
-  const onCreateProduct = async () => {
-    try {
-      const result = await createProduct({
-        productName: 'test',
-        price: '100',
-        picture: 'test',
-        revenuePerDay: 100,
-        passcode: 198900
-      });
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const onBuyProduct = async () => {
     try {
       const result = await buyProduct({
@@ -55,7 +40,7 @@ const page = () => {
   return (
     <div>
       <Button onClick={onClick}>Fetch User</Button>
-      <Button onClick={onCreateProduct}>Create Product</Button>
+
       <Button onClick={onBuyProduct}>Buy Product</Button>
     </div>
   );

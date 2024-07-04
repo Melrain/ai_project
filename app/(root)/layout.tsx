@@ -6,7 +6,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className='relative overflow-hidden '>
       <TopNavbar />
-      <div className='mt-20 flex'>{children}</div>
+      <div className='mt-20 flex justify-center'>{children}</div>
       {/* <BottomNavbar /> */}
     </main>
   );

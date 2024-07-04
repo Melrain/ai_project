@@ -5,8 +5,3 @@ const nextConfig = {
     remotePatterns: ['']
   }
 };
-
-// next.config.js
-import withVideos from 'next-videos';
-
-export default withVideos();
