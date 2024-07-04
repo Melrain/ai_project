@@ -29,6 +29,7 @@ const page = async () => {
         <h1>目前管理员：{admin.user.username} </h1>
       </div>
       {/* 管理员功能 */}
+
       <div className='mt-10'>
         <AddProduct />
       </div>
