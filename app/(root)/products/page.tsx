@@ -7,8 +7,6 @@ export interface SearchParamsProps {
   searchParams: { [key: string]: string | undefined };
 }
 
-//TODO 添加产品前端页面，添加搜索功能
-
 const page = ({ searchParams }: SearchParamsProps) => {
   console.log(searchParams);
   return (
@@ -23,7 +21,7 @@ const page = ({ searchParams }: SearchParamsProps) => {
       </div>
       {/* product list */}
       <div className='flex flex-row justify-center max-w-xl p-5 rounded-[2px] w-full gap-5 mt-5 '>
-        <ProductList filter={''} order={-1} />
+        <ProductList />
       </div>
     </div>
   );
