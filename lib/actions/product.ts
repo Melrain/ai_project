@@ -4,6 +4,31 @@ import Product, { IProduct } from '@/database/product';
 import { User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId, updateUser } from './user.action';
+import { SortOrder } from 'mongoose';
+
+interface GetAllProductsProps {
+  filter: string;
+  order: number;
+}
+export const getAllProducts = async (params: GetAllProductsProps) => {
+  try {
+    const { filter, order } = params;
+    await connectToDatabase();
+    let index: SortOrder = -1;
+    if (order === 1) {
+      index = 1;
+    } else {
+      index = -1;
+    }
+    const products = await Product.find().sort({ [filter]: index });
+    if (!products) {
+      throw new Error('No products found');
+    }
+    return JSON.parse(JSON.stringify(products));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 interface GetProductParams {
   productName: string;

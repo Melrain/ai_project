@@ -83,7 +83,7 @@ const ProductSearchBar = () => {
           />
         </div>
       </div>
-      <div className='absolute max-w-xs w-full top-40'>{isOpen && <SearchResult />}</div>
+      <div className='absolute max-w-xs w-full top-44'>{isOpen && <SearchResult />}</div>
     </div>
   );
 };

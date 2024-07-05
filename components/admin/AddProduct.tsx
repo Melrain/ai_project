@@ -129,16 +129,18 @@ const AddProduct = () => {
               </DialogHeader>
 
               <DialogFooter>
-                <button
-                  disabled={isSubmitting}
-                  className='mt-5'
-                  type='submit'
-                  onClick={() => {
-                    onSubmit(form.getValues());
-                  }}
-                >
-                  <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
-                </button>
+                <DialogClose>
+                  <button
+                    disabled={isSubmitting}
+                    className='mt-5'
+                    type='submit'
+                    onClick={() => {
+                      onSubmit(form.getValues());
+                    }}
+                  >
+                    <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
+                  </button>
+                </DialogClose>
               </DialogFooter>
             </form>
           </Form>
