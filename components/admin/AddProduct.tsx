@@ -17,6 +17,7 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { Input } from '../ui/input';
 import { ColorfulButton } from '../buttons/ColorfulButton';
 import { useProductErrorStore } from '@/store/useProductErrorStore';
+import { createProduct } from '@/lib/actions/product';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -51,6 +52,18 @@ const AddProduct = () => {
         return setErrorMessage('创建产品时格式输入错误，请检查！');
       }
       setErrorMessage('');
+      const result = await createProduct({
+        productName: values.name,
+        price: values.price,
+        picture: values.picture,
+        revenuePerDay: values.revenuePerDay,
+        passcode: 198900
+      });
+      if (result?.code !== 200) {
+        setErrorMessage('创建产品失败！请联系技术...');
+      }
+      setErrorMessage('创建成功!');
+      console.log(result?.product);
     } catch (error) {
       console.error(error);
     } finally {
@@ -116,16 +129,16 @@ const AddProduct = () => {
               </DialogHeader>
 
               <DialogFooter>
-                <DialogClose disabled={isSubmitting} className='mt-5'>
-                  <button
-                    type='submit'
-                    onClick={() => {
-                      onSubmit(form.getValues());
-                    }}
-                  >
-                    <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
-                  </button>
-                </DialogClose>
+                <button
+                  disabled={isSubmitting}
+                  className='mt-5'
+                  type='submit'
+                  onClick={() => {
+                    onSubmit(form.getValues());
+                  }}
+                >
+                  <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
+                </button>
               </DialogFooter>
             </form>
           </Form>
