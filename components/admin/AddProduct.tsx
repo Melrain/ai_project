@@ -18,6 +18,7 @@ import { Input } from '../ui/input';
 import { ColorfulButton } from '../buttons/ColorfulButton';
 import { useProductErrorStore } from '@/store/useProductErrorStore';
 import { createProduct } from '@/lib/actions/product';
+import { X } from 'lucide-react';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -35,6 +36,7 @@ const AddProduct = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
@@ -48,10 +50,10 @@ const AddProduct = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      //TODO finish the form
       setIsSubmitting(true);
       console.log(values);
       // check if form is valid
+      await form.trigger();
       console.log(form.formState.isValid);
       if (!form.formState.isValid) {
         return setErrorMessage('创建产品时格式输入错误，请检查！');
@@ -75,14 +77,22 @@ const AddProduct = () => {
       console.error(error);
     } finally {
       setIsSubmitting(false);
+      setIsOpen(false);
     }
   };
 
   return (
     <div className='flex flex-col justify-center gap-5'>
       <div className='text-red-500'>{useErrorMessage}</div>
-      <Dialog open={false}>
-        <DialogTrigger className='p-2 px-4 rounded-[4px] bg-mycolor-200'>创建产品</DialogTrigger>
+      <Dialog open={isOpen}>
+        <DialogTrigger
+          className='p-2 px-4 rounded-[4px] bg-mycolor-200'
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          创建产品
+        </DialogTrigger>
         <DialogContent className='max-w-xs text-slate-500 '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -152,9 +162,17 @@ const AddProduct = () => {
                       )}
                     />
                   </div>
+                  {/* close icon */}
+                  <div
+                    className='absolute right-2 top-1 text-white'
+                    onClick={() => {
+                      setIsOpen(false);
+                    }}
+                  >
+                    <X className='text-slate-500' />
+                  </div>
                 </DialogDescription>
               </DialogHeader>
-
               <DialogFooter>
                 <button
                   disabled={isSubmitting}

@@ -21,9 +21,9 @@ const ProductList = () => {
     {
       _id: '',
       name: '',
-      price: '',
+      price: 0,
       picture: '',
-      revenuePerDay: ''
+      revenuePerDay: 0
     }
   ]);
 
@@ -108,9 +108,9 @@ const ProductList = () => {
       <Separator />
       <div>
         {products.map((product) => (
-          <div>
-            {product.name}
-            R:{product.revenuePerDay}$:{product.price}
+          <div className='flex flex-row gap-5'>
+            <div>Price:{product.price}</div>
+            <div>Revenue:{product.revenuePerDay}</div>
           </div>
         ))}
       </div>
