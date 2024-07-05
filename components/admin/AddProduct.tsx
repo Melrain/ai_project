@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Dialog,
@@ -23,13 +23,16 @@ const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().int(),
   picture: z.string().url(),
-  revenuePerDay: z.coerce.number()
+  revenuePerDay: z.coerce.number(),
+  levelRequirement: z.coerce.number(),
+  passcode: z.coerce.number()
 });
 
 const AddProduct = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const useErrorMessage = useProductErrorStore((state: any) => state.errorMessage);
   const setErrorMessage = (message: any) => useProductErrorStore.setState({ errorMessage: message });
+  const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,7 +40,9 @@ const AddProduct = () => {
       name: '',
       price: 0,
       picture: '',
-      revenuePerDay: 0
+      revenuePerDay: 0,
+      levelRequirement: 1,
+      passcode: 0
     }
   });
 
@@ -57,10 +62,12 @@ const AddProduct = () => {
         price: values.price,
         picture: values.picture,
         revenuePerDay: values.revenuePerDay,
-        passcode: 198900
+        levelRequirement: values.levelRequirement,
+        passcode: values.passcode
       });
       if (result?.code !== 200) {
-        setErrorMessage('创建产品失败！请联系技术...');
+        console.log(result);
+        return setErrorMessage('创建产品失败！请联系技术...');
       }
       setErrorMessage('创建成功!');
       console.log(result?.product);
@@ -74,7 +81,7 @@ const AddProduct = () => {
   return (
     <div className='flex flex-col justify-center gap-5'>
       <div className='text-red-500'>{useErrorMessage}</div>
-      <Dialog>
+      <Dialog open={false}>
         <DialogTrigger className='p-2 px-4 rounded-[4px] bg-mycolor-200'>创建产品</DialogTrigger>
         <DialogContent className='max-w-xs text-slate-500 '>
           <Form {...form}>
@@ -124,23 +131,41 @@ const AddProduct = () => {
                         </div>
                       )}
                     />
+                    <FormField
+                      name='levelRequirement'
+                      control={form.control}
+                      render={({ field }) => (
+                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                          <p className='flex text-nowrap'>等级要求</p>
+                          <Input type='number' {...field} placeholder='level...' />
+                        </div>
+                      )}
+                    />
+                    <FormField
+                      name='passcode'
+                      control={form.control}
+                      render={({ field }) => (
+                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                          <p className='flex text-nowrap'>管理密码</p>
+                          <Input type='number' {...field} placeholder='passcode...' />
+                        </div>
+                      )}
+                    />
                   </div>
                 </DialogDescription>
               </DialogHeader>
 
               <DialogFooter>
-                <DialogClose>
-                  <button
-                    disabled={isSubmitting}
-                    className='mt-5'
-                    type='submit'
-                    onClick={() => {
-                      onSubmit(form.getValues());
-                    }}
-                  >
-                    <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
-                  </button>
-                </DialogClose>
+                <button
+                  disabled={isSubmitting}
+                  className='mt-5'
+                  type='submit'
+                  onClick={() => {
+                    onSubmit(form.getValues());
+                  }}
+                >
+                  <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
+                </button>
               </DialogFooter>
             </form>
           </Form>

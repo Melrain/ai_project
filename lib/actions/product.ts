@@ -56,20 +56,22 @@ interface CreateProductProps {
   picture: string;
   revenuePerDay: number;
   passcode: number;
+  levelRequirement: number;
 }
 export const createProduct = async (params: CreateProductProps) => {
   try {
-    const { passcode, productName, price, picture, revenuePerDay } = params;
+    const { passcode, productName, levelRequirement, price, picture, revenuePerDay } = params;
     await connectToDatabase();
-    if (passcode !== 198900) {
-      return { code: 404, message: 'You are not admin' };
+    if (Number(passcode) !== 198900) {
+      return { code: 404, message: 'passcode error', passcode };
     }
     const product = await Product.create({
       name: productName,
       price: price,
       picture: picture,
       users: [],
-      revenuePerDay: revenuePerDay
+      revenuePerDay: revenuePerDay,
+      levelRequirement: levelRequirement
     });
     if (!product) {
       return { code: 404, message: 'Failed to create product' };
