@@ -13,19 +13,20 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '../ui/separator';
 
+interface ProductType {
+  _id: string;
+  name: string;
+  price: number;
+  picture: string;
+  revenuePerDay: number;
+  levelRequirement: number;
+}
+
 const ProductList = () => {
   const [isSelected, setIsSelected] = useState('');
   const [filter, setFilter] = useState('createdAt');
   const [order, setOrder] = useState(-1);
-  const [products, setProducts] = useState([
-    {
-      _id: '',
-      name: '',
-      price: 0,
-      picture: '',
-      revenuePerDay: 0
-    }
-  ]);
+  const [products, setProducts] = useState([] as ProductType[]);
 
   const onClick = (name: string) => {
     setIsSelected(name);
@@ -44,6 +45,14 @@ const ProductList = () => {
         break;
       case 'Revenue':
         setFilter('revenuePerDay');
+        setOrder(-1);
+        break;
+      case 'Level Up':
+        setFilter('levelRequirement');
+        setOrder(1);
+        break;
+      case 'Level Down':
+        setFilter('levelRequirement');
         setOrder(-1);
         break;
       default:
@@ -70,7 +79,7 @@ const ProductList = () => {
       <div className='flex w-full flex-row gap-2 items-end justify-end'>
         <h1 className='text-slate-500'>Filter {filter}</h1>
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className=' outline-none border-none'>
             <FilterIcon className='text-slate-500' />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -102,17 +111,34 @@ const ProductList = () => {
             >
               Revenue
             </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                onClick('Level Up');
+              }}
+            >
+              Level Up
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                onClick('Level Down');
+              }}
+            >
+              Level Down
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
       <Separator />
       <div>
-        {products.map((product) => (
-          <div className='flex flex-row gap-5'>
-            <div>Price:{product.price}</div>
-            <div>Revenue:{product.revenuePerDay}</div>
-          </div>
-        ))}
+        {products.length > 1
+          ? products.map((product) => (
+              <div className='flex flex-row gap-5'>
+                <div>Price:{product.price}</div>
+                <div>Revenue:{product.revenuePerDay}</div>
+                <div>LevelRequire:{product.levelRequirement}</div>
+              </div>
+            ))
+          : 'Loading products...'}
       </div>
     </div>
   );
