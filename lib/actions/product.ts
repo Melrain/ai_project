@@ -24,6 +24,7 @@ export const getAllProducts = async (params: GetAllProductsProps) => {
     if (!products) {
       throw new Error('No products found');
     }
+    console.log(products);
     return JSON.parse(JSON.stringify(products));
   } catch (error) {
     console.error(error);
@@ -67,7 +68,7 @@ export const createProduct = async (params: CreateProductProps) => {
     }
     const product = await Product.create({
       name: productName,
-      price: price,
+      price: Number(price),
       picture: picture,
       users: [],
       revenuePerDay: revenuePerDay,
