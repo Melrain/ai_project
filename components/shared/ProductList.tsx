@@ -3,6 +3,7 @@
 import { getAllProducts } from '@/lib/actions/product';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { FilterIcon } from 'lucide-react';
 import {
   DropdownMenu,
@@ -76,7 +77,7 @@ const ProductList = () => {
     getProducts();
   }, [filter, order]);
   return (
-    <div className='flex flex-col gap-5 items-center w-full'>
+    <div className='flex flex-col gap-5 items-center w-full bg-black'>
       <div className='flex w-full flex-row gap-2 items-end justify-end'>
         <h1 className='text-slate-500'>Filter {filter}</h1>
         <DropdownMenu>
@@ -130,22 +131,32 @@ const ProductList = () => {
         </DropdownMenu>
       </div>
       <Separator />
-
+      <h1>ProductList</h1>
       <div>
-        <ScrollArea className='w-96 whitespace-nowrap rounded-md border'>
-          <div>
-            {products.length > 1
-              ? products.map((product) => (
-                  <div className='flex flex-row gap-5'>
-                    <div>Price:{product.price}</div>
-                    <div>Revenue:{product.revenuePerDay}</div>
-                    <div>LevelRequire:{product.levelRequirement}</div>
-                  </div>
-                ))
-              : 'Loading products...'}
+        <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap  rounded-md border'>
+          <div className='flex w-max space-x-4 p-4 bg-black'>
+            {products.map((product) => (
+              <div key={product.name} className='shrink-0 '>
+                <div className='overflow-hidden rounded-md '>
+                  <Image
+                    src={''}
+                    alt={`Photo by ${product.name}`}
+                    className='aspect-[3/4] h-[400px] w-[300px] object-cover'
+                    width={300}
+                    height={400}
+                  />
+                </div>
+                <div className='pt-2 text-xs text-muted-foreground'>
+                  <span className='font-semibold text-foreground'>{product.name}</span>
+                </div>
+              </div>
+            ))}
           </div>
+          <ScrollBar orientation='horizontal' />
         </ScrollArea>
       </div>
+
+      <h1 className='mt-10 text-start w-full'>IMPORTANT! NO REFOUND!</h1>
     </div>
   );
 };

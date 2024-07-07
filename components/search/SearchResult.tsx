@@ -41,11 +41,15 @@ const SearchResult = () => {
   }, [searchParams]);
 
   return (
-    <div className='flex z-10 mt-3 w-full bg-mycolor-200 p-2 rounded-[2px] shadow-xl border-2 border-green-800 max-w-xs'>
-      <div className='flex flex-col items-center gap-4 justify-center w-full'>
+    <div className='flex  mt-3 w-full bg-black z-50 p-2 rounded-[2px] shadow-xl border-2 max-w-xs'>
+      <div className='flex flex-col items-center gap-4 justify-center w-full '>
         {result.length > 0
-          ? result.map((item, index) => <div className='flex justify-center items-center'>{item.name}</div>)
-          : ''}
+          ? result.map((item, index) => (
+              <div key={index} className='flex justify-center items-center'>
+                {item.name}
+              </div>
+            ))
+          : 'Nothing Found'}
       </div>
     </div>
   );
