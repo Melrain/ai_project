@@ -1,6 +1,7 @@
 'use client';
 
 import { getAllProducts } from '@/lib/actions/product';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import React, { useEffect, useState } from 'react';
 import { FilterIcon } from 'lucide-react';
 import {
@@ -129,16 +130,21 @@ const ProductList = () => {
         </DropdownMenu>
       </div>
       <Separator />
+
       <div>
-        {products.length > 1
-          ? products.map((product) => (
-              <div className='flex flex-row gap-5'>
-                <div>Price:{product.price}</div>
-                <div>Revenue:{product.revenuePerDay}</div>
-                <div>LevelRequire:{product.levelRequirement}</div>
-              </div>
-            ))
-          : 'Loading products...'}
+        <ScrollArea className='w-96 whitespace-nowrap rounded-md border'>
+          <div>
+            {products.length > 1
+              ? products.map((product) => (
+                  <div className='flex flex-row gap-5'>
+                    <div>Price:{product.price}</div>
+                    <div>Revenue:{product.revenuePerDay}</div>
+                    <div>LevelRequire:{product.levelRequirement}</div>
+                  </div>
+                ))
+              : 'Loading products...'}
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );
