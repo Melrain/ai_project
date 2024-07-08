@@ -89,12 +89,6 @@ const AddProduct = () => {
   return (
     <div className='flex flex-col justify-center gap-5'>
       <div className='text-red-500'>{useErrorMessage}</div>
-      <Image
-        src={'https://ipfs.filebase.io/ipfs/QmUVA3UMBQjD618wDUp7rw529kZp9Md9ASeHqkDVbJ3bKY/green_01.gif'}
-        height={200}
-        width={200}
-        alt=''
-      />
       <Dialog open={isOpen}>
         <DialogTrigger
           className='p-2 px-4 rounded-[4px] bg-mycolor-200'
