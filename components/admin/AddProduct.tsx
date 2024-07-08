@@ -19,11 +19,15 @@ import { ColorfulButton } from '../buttons/ColorfulButton';
 import { useProductErrorStore } from '@/store/useProductErrorStore';
 import { createProduct } from '@/lib/actions/product';
 import { X } from 'lucide-react';
+import ImagesDialog from '../shared/ImagesDialog';
+
+import Image from 'next/image';
+import { productImagesIndex } from '@/lib/imageIndex';
 
 const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().int(),
-  picture: z.string().url(),
+  picture: z.string(),
   revenuePerDay: z.coerce.number(),
   levelRequirement: z.coerce.number(),
   passcode: z.coerce.number()
@@ -121,13 +125,40 @@ const AddProduct = () => {
                         </div>
                       )}
                     />
+                    {/* 选择图片 */}
+
                     <FormField
                       name='picture'
                       control={form.control}
                       render={({ field }) => (
                         <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
                           <p className='flex text-nowrap'>图片链接</p>
-                          <Input {...field} placeholder='图片url' />
+                          {/* <Input {...field} placeholder='图片url' /> */}
+                          <Dialog>
+                            <DialogTrigger>Images</DialogTrigger>
+                            <DialogContent className='flex justify-center items-center'>
+                              <DialogHeader>
+                                <DialogTitle className='w-full text-center'>选择产品图片</DialogTitle>
+                                <DialogDescription>
+                                  <div className='flex flex-row justify-center  flex-wrap items-center'>
+                                    {productImagesIndex.map((product, index) => (
+                                      <div key={index} className='p-2'>
+                                        <Image
+                                          src={product.src}
+                                          alt={product.name}
+                                          width={50}
+                                          height={50}
+                                          onClick={() => {
+                                            form.setValue('picture', product.src);
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </DialogDescription>
+                              </DialogHeader>
+                            </DialogContent>
+                          </Dialog>
                         </div>
                       )}
                     />

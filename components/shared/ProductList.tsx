@@ -135,28 +135,31 @@ const ProductList = () => {
       <div>
         <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap  rounded-md border'>
           <div className='flex w-max space-x-4 p-4 bg-black'>
-            {products.map((product) => (
-              <div key={product.name} className='shrink-0 '>
-                <div className='overflow-hidden rounded-md '>
-                  <Image
-                    src={''}
-                    alt={`Photo by ${product.name}`}
-                    className='aspect-[3/4] h-[400px] w-[300px] object-cover'
-                    width={300}
-                    height={400}
-                  />
-                </div>
-                <div className='pt-2 text-xs text-muted-foreground'>
-                  <span className='font-semibold text-foreground'>{product.name}</span>
-                </div>
-              </div>
-            ))}
+            {products.length > 0
+              ? products.map((product) => (
+                  <div key={product.name} className='shrink-0   flex-col flex justify-center items-center'>
+                    <div className='overflow-hidden rounded-md border-2'>
+                      <Image
+                        src={product.picture}
+                        alt={`Photo by ${product.name}`}
+                        className='aspect-[3/4] p-10 h-[400px] w-[300px] object-cover rounded-[3px]'
+                        width={300}
+                        height={400}
+                      />
+                    </div>
+                    <div className='pt-2 text-xs text-muted-foreground'>
+                      <span className='font-semibold text-foreground'>{product.name}</span>
+                    </div>
+                  </div>
+                ))
+              : 'Loading products...'}
           </div>
           <ScrollBar orientation='horizontal' />
         </ScrollArea>
       </div>
-
-      <h1 className='mt-10 text-start w-full'>IMPORTANT! NO REFOUND!</h1>
+      <div className='flex w-full'>
+        <h1 className=''>IMPORTANT! NO REFOUND!</h1>
+      </div>
     </div>
   );
 };

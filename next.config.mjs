@@ -2,6 +2,6 @@
 const nextConfig = {
   experimental: { serverActions: true },
   images: {
-    remotePatterns: ['']
+    remotePatterns: [{ protocol: 'https', hostname: 'ipfs.filebase.io', port: '', pathname: '/products/**' }]
   }
 };

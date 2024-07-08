@@ -11,6 +11,19 @@ import server from '/public//assets//icons/server.png';
 import share from '/public//assets//icons/share.png';
 import user from '/public//assets//icons/user.png';
 
+import tea01 from '/public/assets/images/products/tea1.png';
+import tea02 from '/public/assets/images/products/tea2.png';
+import tea03 from '/public/assets/images/products/tea3.png';
+import tea04 from '/public/assets/images/products/tea4.png';
+import tea05 from '/public/assets/images/products/tea5.png';
+import tea06 from '/public/assets/images/products/tea6.png';
+import tea07 from '/public/assets/images/products/tea7.png';
+import tea08 from '/public/assets/images/products/tea8.png';
+import tea09 from '/public/assets/images/products/tea9.png';
+import tea10 from '/public/assets/images/products/tea10.png';
+import tea11 from '/public/assets/images/products/tea11.png';
+import tea12 from '/public/assets/images/products/tea12.png';
+
 export const imageIndex = {
   nvidia_dark: {
     src: nvidia_dark
@@ -49,3 +62,54 @@ export const iconIndex = {
     src: user
   }
 };
+
+export const productImagesIndex = [
+  {
+    name: 'tea01',
+    src: tea01.src
+  },
+  {
+    name: 'tea02',
+    src: tea02.src
+  },
+  {
+    name: 'tea03',
+    src: tea03.src
+  },
+  {
+    name: 'tea04',
+    src: tea04.src
+  },
+  {
+    name: 'tea05',
+    src: tea05.src
+  },
+  {
+    name: 'tea06',
+    src: tea06.src
+  },
+  {
+    name: 'tea07',
+    src: tea07.src
+  },
+  {
+    name: 'tea08',
+    src: tea08.src
+  },
+  {
+    name: 'tea09',
+    src: tea09.src
+  },
+  {
+    name: 'tea10',
+    src: tea10.src
+  },
+  {
+    name: 'tea11',
+    src: tea11.src
+  },
+  {
+    name: 'tea12',
+    src: tea12.src
+  }
+];

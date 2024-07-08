@@ -41,7 +41,7 @@ const SearchResult = () => {
   }, [searchParams]);
 
   return (
-    <div className='flex  mt-3 w-full bg-black z-50 p-2 rounded-[2px] shadow-xl border-2 max-w-xs'>
+    <div className='flex  mt-3 w-full bg-mycolor-200 rounded-[4px] z-50 p-2  shadow-xl border-2 max-w-xs'>
       <div className='flex flex-col items-center gap-4 justify-center w-full '>
         {result.length > 0
           ? result.map((item, index) => (
