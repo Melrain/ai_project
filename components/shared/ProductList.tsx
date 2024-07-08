@@ -133,12 +133,12 @@ const ProductList = () => {
       <Separator />
       <h1>ProductList</h1>
       <div>
-        <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap  rounded-md border'>
+        <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap  rounded-md  border-none'>
           <div className='flex w-max space-x-4 p-4 bg-black'>
             {products.length > 0
               ? products.map((product) => (
                   <div key={product.name} className='shrink-0   flex-col flex justify-center items-center'>
-                    <div className='overflow-hidden rounded-md border-2'>
+                    <div className='overflow-hidden rounded-md '>
                       <Image
                         src={product.picture}
                         alt={`Photo by ${product.name}`}

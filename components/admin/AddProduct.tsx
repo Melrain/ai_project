@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Dialog,
@@ -89,6 +89,12 @@ const AddProduct = () => {
   return (
     <div className='flex flex-col justify-center gap-5'>
       <div className='text-red-500'>{useErrorMessage}</div>
+      <Image
+        src={'https://ipfs.filebase.io/ipfs/QmUVA3UMBQjD618wDUp7rw529kZp9Md9ASeHqkDVbJ3bKY/green_01.gif'}
+        height={200}
+        width={200}
+        alt=''
+      />
       <Dialog open={isOpen}>
         <DialogTrigger
           className='p-2 px-4 rounded-[4px] bg-mycolor-200'
@@ -99,6 +105,7 @@ const AddProduct = () => {
           创建产品
         </DialogTrigger>
         <DialogTitle />
+        <DialogDescription />
         <DialogContent className='max-w-xs text-slate-500 '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -146,29 +153,27 @@ const AddProduct = () => {
                             '选择图片'
                           )}
                         </DialogTrigger>
-                        <DialogContent className='flex justify-center items-center'>
-                          <DialogHeader>
-                            <DialogTitle className='w-full text-center'>选择产品图片</DialogTitle>
-                            <DialogDescription>
-                              <div className='flex flex-row justify-center  flex-wrap items-center'>
-                                {productImagesIndex.map((product, index) => (
-                                  <div key={index} className='p-2'>
-                                    <Image
-                                      className='cursor-pointer'
-                                      src={product.src}
-                                      alt={product.name}
-                                      width={50}
-                                      height={50}
-                                      onClick={() => {
-                                        form.setValue('picture', product.src);
-                                        setIsImagesOpen(false);
-                                      }}
-                                    />
-                                  </div>
-                                ))}
+                        <DialogContent className='flex flex-col justify-center items-center'>
+                          <DialogHeader />
+                          <DialogTitle className='w-full text-center'>选择产品图片</DialogTitle>
+                          <DialogDescription />
+                          <div className='flex flex-row justify-center  flex-wrap items-center'>
+                            {productImagesIndex.map((product, index) => (
+                              <div key={index} className='p-2'>
+                                <Image
+                                  className='cursor-pointer'
+                                  src={product.src}
+                                  alt={product.name}
+                                  width={50}
+                                  height={50}
+                                  onClick={() => {
+                                    form.setValue('picture', product.src);
+                                    setIsImagesOpen(false);
+                                  }}
+                                />
                               </div>
-                            </DialogDescription>
-                          </DialogHeader>
+                            ))}
+                          </div>
                         </DialogContent>
                       </Dialog>
                     </div>
@@ -216,16 +221,14 @@ const AddProduct = () => {
               </div>
 
               <DialogFooter>
-                <button
-                  disabled={isSubmitting}
+                <div
                   className='mt-5'
-                  type='submit'
                   onClick={() => {
                     onSubmit(form.getValues());
                   }}
                 >
                   <ColorfulButton content={'确认创建'} disabled={isSubmitting} />
-                </button>
+                </div>
               </DialogFooter>
             </form>
           </Form>

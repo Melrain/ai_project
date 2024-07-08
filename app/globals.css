@@ -3,7 +3,7 @@
  @tailwind utilities;
 
   @layer base {
-    img,video {
+    img {
         width: auto;
         height: auto;
     }
