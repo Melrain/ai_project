@@ -142,9 +142,10 @@ const ProductList = () => {
                       <Image
                         src={product.picture}
                         alt={`Photo by ${product.name}`}
-                        className='aspect-[3/4] p-10 h-[400px] w-[300px] object-cover rounded-[3px]'
+                        className='aspect-[3/4] p-10  object-cover rounded-[3px]'
                         width={300}
                         height={400}
+                        style={{ width: 'auto', height: 'auto' }}
                       />
                     </div>
                     <div className='pt-2 text-xs text-muted-foreground'>

@@ -38,6 +38,7 @@ const AddProduct = () => {
   const useErrorMessage = useProductErrorStore((state: any) => state.errorMessage);
   const setErrorMessage = (message: any) => useProductErrorStore.setState({ errorMessage: message });
   const [isOpen, setIsOpen] = useState(false);
+  const [isImagesOpen, setIsImagesOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     mode: 'onChange',
@@ -97,113 +98,123 @@ const AddProduct = () => {
         >
           创建产品
         </DialogTrigger>
+        <DialogTitle />
         <DialogContent className='max-w-xs text-slate-500 '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-              <DialogHeader>
-                <DialogTitle></DialogTitle>
-                <DialogDescription>
-                  {/* form fields */}
-                  <div className='flex flex-col justify-center items-center '>
-                    <FormField
-                      name='name'
-                      control={form.control}
-                      render={({ field }) => (
-                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
-                          <p className='flex text-nowrap'>产品名称</p>
-                          <Input {...field} placeholder='产品名称' className='' />
-                        </div>
-                      )}
-                    />
-                    <FormField
-                      name='price'
-                      control={form.control}
-                      render={({ field }) => (
-                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
-                          <p className='flex text-nowrap'>输入价格</p>
-                          <Input type='number' {...field} placeholder='价格' />
-                        </div>
-                      )}
-                    />
-                    {/* 选择图片 */}
+              {/* form fields */}
+              <div className='flex flex-col justify-center items-center '>
+                <FormField
+                  name='name'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>产品名称</p>
+                      <Input {...field} placeholder='产品名称' className='' />
+                    </div>
+                  )}
+                />
+                <FormField
+                  name='price'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>输入价格</p>
+                      <Input type='number' {...field} placeholder='价格' />
+                    </div>
+                  )}
+                />
+                {/* 选择图片 */}
 
-                    <FormField
-                      name='picture'
-                      control={form.control}
-                      render={({ field }) => (
-                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
-                          <p className='flex text-nowrap'>图片链接</p>
-                          {/* <Input {...field} placeholder='图片url' /> */}
-                          <Dialog>
-                            <DialogTrigger>Images</DialogTrigger>
-                            <DialogContent className='flex justify-center items-center'>
-                              <DialogHeader>
-                                <DialogTitle className='w-full text-center'>选择产品图片</DialogTitle>
-                                <DialogDescription>
-                                  <div className='flex flex-row justify-center  flex-wrap items-center'>
-                                    {productImagesIndex.map((product, index) => (
-                                      <div key={index} className='p-2'>
-                                        <Image
-                                          src={product.src}
-                                          alt={product.name}
-                                          width={50}
-                                          height={50}
-                                          onClick={() => {
-                                            form.setValue('picture', product.src);
-                                          }}
-                                        />
-                                      </div>
-                                    ))}
+                <FormField
+                  name='picture'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>产品图片</p>
+                      {/* <Input {...field} placeholder='图片url' /> */}
+                      <Dialog open={isImagesOpen}>
+                        <DialogTrigger
+                          onClick={() => {
+                            setIsImagesOpen(true);
+                          }}
+                          className=' text-white text-xs py-1 px-2 rounded-[2px]'
+                        >
+                          {form.getValues().picture ? (
+                            <Image height={40} width={40} alt={form.getValues().name} src={form.getValues().picture} />
+                          ) : (
+                            '选择图片'
+                          )}
+                        </DialogTrigger>
+                        <DialogContent className='flex justify-center items-center'>
+                          <DialogHeader>
+                            <DialogTitle className='w-full text-center'>选择产品图片</DialogTitle>
+                            <DialogDescription>
+                              <div className='flex flex-row justify-center  flex-wrap items-center'>
+                                {productImagesIndex.map((product, index) => (
+                                  <div key={index} className='p-2'>
+                                    <Image
+                                      className='cursor-pointer'
+                                      src={product.src}
+                                      alt={product.name}
+                                      width={50}
+                                      height={50}
+                                      onClick={() => {
+                                        form.setValue('picture', product.src);
+                                        setIsImagesOpen(false);
+                                      }}
+                                    />
                                   </div>
-                                </DialogDescription>
-                              </DialogHeader>
-                            </DialogContent>
-                          </Dialog>
-                        </div>
-                      )}
-                    />
-                    <FormField
-                      name='revenuePerDay'
-                      control={form.control}
-                      render={({ field }) => (
-                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
-                          <p className='flex text-nowrap'>投资回报</p>
-                          <Input {...field} placeholder='回报率' />
-                        </div>
-                      )}
-                    />
-                    <FormField
-                      name='levelRequirement'
-                      control={form.control}
-                      render={({ field }) => (
-                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
-                          <p className='flex text-nowrap'>等级要求</p>
-                          <Input type='number' {...field} placeholder='level...' />
-                        </div>
-                      )}
-                    />
-                    <FormField
-                      name='passcode'
-                      control={form.control}
-                      render={({ field }) => (
-                        <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
-                          <p className='flex text-nowrap'>管理密码</p>
-                          <Input type='number' {...field} placeholder='passcode...' />
-                        </div>
-                      )}
-                    />
-                  </div>
-                  {/* close icon */}
-                  <div
-                    className='absolute right-2 top-1 text-white'
-                    onClick={() => {
-                      setIsOpen(false);
-                    }}
-                  >
-                    <X className='text-slate-500' />
-                  </div>
-                </DialogDescription>
-              </DialogHeader>
+                                ))}
+                              </div>
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  )}
+                />
+                <FormField
+                  name='revenuePerDay'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>投资回报</p>
+                      <Input {...field} placeholder='回报率' />
+                    </div>
+                  )}
+                />
+                <FormField
+                  name='levelRequirement'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>等级要求</p>
+                      <Input type='number' {...field} placeholder='level...' />
+                    </div>
+                  )}
+                />
+                <FormField
+                  name='passcode'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>管理密码</p>
+                      <Input type='number' {...field} placeholder='passcode...' />
+                    </div>
+                  )}
+                />
+              </div>
+              {/* close icon */}
+              <div
+                className='absolute right-2 top-1 text-white'
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
+                <X className='text-slate-500' />
+              </div>
+
               <DialogFooter>
                 <button
                   disabled={isSubmitting}
