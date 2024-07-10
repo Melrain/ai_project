@@ -34,7 +34,9 @@ const SingleProduct = ({ productId }: Props) => {
   return (
     <div className='w-full flex'>
       {isFetching ? (
-        <Spinner />
+        <div className='flex mt-44 justify-center items-center'>
+          <Spinner />
+        </div>
       ) : (
         <div>
           {product ? (
