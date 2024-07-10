@@ -6,6 +6,19 @@ import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId, updateUser } from './user.action';
 import { SortOrder } from 'mongoose';
 
+export const getProductById = async (productId: string) => {
+  try {
+    await connectToDatabase();
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw new Error('Product not found');
+    }
+    return JSON.parse(JSON.stringify(product));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 interface GetAllProductsProps {
   filter: string;
   order: number;

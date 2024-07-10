@@ -5,23 +5,23 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 
 const page = async () => {
-  // const { userId } = auth();
-  // if (!userId) {
-  //   redirect('/sign-in');
-  // }
-  // if (process.env.NEXT_ADMINS === undefined) {
-  //   return <div>Admins not set</div>;
-  // }
+  const { userId } = auth();
+  if (!userId) {
+    redirect('/sign-in');
+  }
+  if (process.env.NEXT_ADMINS === undefined) {
+    return <div>Admins not set</div>;
+  }
   // const admins = process.env.NEXT_ADMINS.split(',');
   // console.log(admins);
   // if (!admins.includes(userId)) {
   //   return <div>You are not the Admin </div>;
   // }
 
-  // const admin = await getUserByClerkId(userId);
-  // if (!admin) {
-  //   return <div>Admin not found</div>;
-  // }
+  const admin = await getUserByClerkId(userId);
+  if (!admin) {
+    return <div>Admin not found</div>;
+  }
 
   return (
     <div className='flex justify-center w-full items-center  flex-col'>

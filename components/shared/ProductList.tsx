@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '../ui/separator';
+import Spinner from './Spinner';
+import Link from 'next/link';
 
 interface ProductType {
   _id: string;
@@ -131,12 +133,13 @@ const ProductList = () => {
         </DropdownMenu>
       </div>
       <Separator />
-      <h1>ProductList</h1>
+
       <div>
         <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap  rounded-md  border-none'>
           <div className='flex w-max space-x-4 p-4 bg-black'>
-            {products.length > 0
-              ? products.map((product) => (
+            {products.length > 0 ? (
+              products.map((product) => (
+                <Link href={`/products/${product._id}`}>
                   <div key={product.name} className='shrink-0   flex-col flex justify-center items-center'>
                     <div className='overflow-hidden rounded-md '>
                       <Image
@@ -149,11 +152,14 @@ const ProductList = () => {
                       />
                     </div>
                     <div className='pt-2 text-xs text-muted-foreground'>
-                      <span className='font-semibold text-foreground'>{product.name}</span>
+                      <span className='font-semibold text-foreground text-xl'>{product.name}</span>
                     </div>
                   </div>
-                ))
-              : 'Loading products...'}
+                </Link>
+              ))
+            ) : (
+              <Spinner />
+            )}
           </div>
           <ScrollBar orientation='horizontal' />
         </ScrollArea>

@@ -6,6 +6,7 @@ import { getUserByClerkId } from '@/lib/actions/user.action';
 import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import Spinner from './Spinner';
 
 const TransactionList = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -75,7 +76,7 @@ const TransactionList = () => {
           className='bg-mycolor-200 py-2 px-4 rounded-[3px] font-bold text-slate-500 '
           onClick={onFetchTransactions}
         >
-          {isSubmitting ? 'Loading...' : 'Update Transactions'}
+          {isSubmitting ? <Spinner /> : 'Update Transactions'}
         </button>
       </div>
       <div className='flex  mt-5 flex-col text-slate-500 w-full max-w-md justify-center items-center'>

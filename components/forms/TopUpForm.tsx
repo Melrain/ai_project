@@ -17,6 +17,7 @@ import { useBalanceStore } from '@/store/useBalanceStore';
 import { createTransaction } from '@/lib/actions/transaction.action';
 import { useTranscationsStore } from '@/store/useTransactionsStore';
 import { useTxStore } from '@/store/useTxStore';
+import Spinner from '../shared/Spinner';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -103,7 +104,11 @@ const TopUpForm = () => {
       }
       console.log(result);
       if (result.user === null) {
-        return <div>Loading...</div>;
+        return (
+          <div>
+            <Spinner />
+          </div>
+        );
       }
 
       //set zustand
@@ -136,8 +141,8 @@ const TopUpForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='px-10 max-w-xl'>
           <div className='flex justify-center gap-5'>
-            <h1>
-              Balance: <span className='text-slate-500'>{useBalance ? useBalance : 'loading...'}</span>
+            <h1 className='flex flex-row gap-2 text-xl'>
+              Balance: <span className='text-slate-500'>{useBalance ? useBalance : <Spinner />}</span>
             </h1>
           </div>
           <FormField
