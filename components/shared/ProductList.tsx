@@ -4,7 +4,7 @@ import { getAllProducts } from '@/lib/actions/product';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { FilterIcon } from 'lucide-react';
+import { Computer, FilterIcon, Tag } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ import {
 import { Separator } from '../ui/separator';
 import Spinner from './Spinner';
 import Link from 'next/link';
+import { IconCashRegister, IconVip } from '@tabler/icons-react';
 
 interface ProductType {
   _id: string;
@@ -154,17 +155,21 @@ const ProductList = () => {
 
                     <div className='pt-2 text-xs text-muted-foreground flex gap-2  justify-center flex-col items-start  '>
                       <span className='text-sm text-center w-full font-bold -mt-6'>点击查看</span>
-                      <span className='font-semibold text-foreground text-xl '>
-                        产品: <span className='text-green-500'>{product.name}</span>
+                      <span className='font-semibold text-foreground text-xl flex flex-row gap-1 items-center'>
+                        <Computer className='text-slate-500' /> 产品:
+                        <span className='text-green-500'>{product.name}</span>
                       </span>
-                      <span className='font-semibold text-foreground text-xl '>
-                        购买资质: <span className='text-green-500'>Lv {product.levelRequirement}</span>
+                      <span className='font-semibold text-foreground text-xl flex flex-row gap-1 items-center'>
+                        <IconVip className='text-slate-500' /> 购买资质:
+                        <span className='text-green-500'>Lv {product.levelRequirement}</span>
                       </span>
-                      <span className='font-semibold text-foreground text-xl '>
-                        价格: <span className='text-green-500'>${product.price}</span>
+                      <span className='font-semibold text-foreground text-xl flex flex-row gap-1 items-center'>
+                        <Tag className='text-slate-500' /> 价格:
+                        <span className='text-green-500'>${product.price}</span>
                       </span>
-                      <span className='font-semibold text-foreground text-xl '>
-                        每日收益: <span className='text-green-500'>{product.revenuePerDay}/天</span>
+                      <span className='font-semibold text-foreground text-xl flex flex-row gap-1 items-center'>
+                        <IconCashRegister className='text-slate-500' /> 每日收益:
+                        <span className='text-green-500'>{product.revenuePerDay}/天</span>
                       </span>
                     </div>
                   </div>
