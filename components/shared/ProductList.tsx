@@ -137,7 +137,7 @@ const ProductList = () => {
 
       <div className=''>
         <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap   rounded-md  border-none'>
-          <div className='flex w-max space-x-4 p-4 bg-grid-small-white/[0.2] justify-center items-center'>
+          <div className='flex w-full space-x-4 p-4 bg-grid-small-white/[0.2] justify-center items-center'>
             {products.length > 0 ? (
               products.map((product) => (
                 <Link href={`/products/${product._id}`} className=''>
@@ -176,7 +176,7 @@ const ProductList = () => {
                 </Link>
               ))
             ) : (
-              <div className='absolute right-1/2'>
+              <div className='z-20 w-full justify-center items-center flex'>
                 <Spinner />
               </div>
             )}

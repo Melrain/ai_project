@@ -12,7 +12,7 @@ interface Props {
 const page = async ({ params }: Props) => {
   console.log(params.id);
   return (
-    <div className='flex justify-center flex-col items-center'>
+    <div className='flex justify-center flex-col w-full items-center'>
       <SingleProduct productId={params.id} />
     </div>
   );

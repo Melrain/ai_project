@@ -32,7 +32,7 @@ const SingleProduct = ({ productId }: Props) => {
   }, []);
 
   return (
-    <div className='w-full flex'>
+    <div className='w-full'>
       {isFetching ? (
         <div className='flex mt-44 justify-center items-center'>
           <Spinner />
@@ -44,7 +44,7 @@ const SingleProduct = ({ productId }: Props) => {
               <Image src={product.picture} height={200} width={200} alt={product.name} />
 
               <Separator />
-              <div className='bg-mycolor-100 flex w-full'>1</div>
+              <div className=' flex h-screen w-full rounded-t-[3px]'>1</div>
             </div>
           ) : (
             <div>Not found</div>
