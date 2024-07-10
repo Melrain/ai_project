@@ -136,11 +136,11 @@ const ProductList = () => {
 
       <div className=''>
         <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap   rounded-md  border-none'>
-          <div className='flex w-max space-x-4 p-4 bg-black justify-center items-center'>
+          <div className='flex w-max space-x-4 p-4 bg-grid-small-white/[0.2] justify-center items-center'>
             {products.length > 0 ? (
               products.map((product) => (
-                <Link href={`/products/${product._id}`}>
-                  <div key={product.name} className='shrink-0   flex-col justify-center items-center flex'>
+                <Link href={`/products/${product._id}`} className=''>
+                  <div key={product.name} className='shrink-0   flex-col justify-center items-center flex '>
                     <div className='overflow-hidden rounded-md flex-col flex justify-center items-center h-[400px] w-[300px]'>
                       <Image
                         src={product.picture}
