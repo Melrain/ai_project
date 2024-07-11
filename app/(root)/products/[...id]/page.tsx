@@ -1,4 +1,6 @@
 import SingleProduct from '@/components/products/SingleProduct';
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 interface Props {
@@ -10,6 +12,12 @@ interface Props {
   };
 }
 const page = async ({ params }: Props) => {
+  const { userId } = auth();
+
+  if (!userId) {
+    redirect('/sign-in');
+  }
+
   console.log(params.id);
   return (
     <div className='flex justify-center flex-col w-full items-center'>
