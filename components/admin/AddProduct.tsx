@@ -133,8 +133,8 @@ const AddProduct = () => {
                   render={({ field }) => (
                     <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
                       <p className='flex text-nowrap'>产品图片</p>
-                      {/* <Input {...field} placeholder='图片url' /> */}
-                      <Dialog open={isImagesOpen}>
+                      <Input {...field} placeholder='图片url' />
+                      {/* <Dialog open={isImagesOpen}>
                         <DialogTrigger
                           onClick={() => {
                             setIsImagesOpen(true);
@@ -169,7 +169,7 @@ const AddProduct = () => {
                             ))}
                           </div>
                         </DialogContent>
-                      </Dialog>
+                      </Dialog> */}
                     </div>
                   )}
                 />

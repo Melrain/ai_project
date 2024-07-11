@@ -23,3 +23,8 @@
 
 颜色：#111928 可以作为背景颜色
 
+7/11/2024
+关于产品的图片集，一个办法是，在IPFS上上传一组图片，然后同时上传一个JSON文件包含图片的URL;
+产品的属性中picture为string类型，储存IPFS中该JSON文件的对应链接;
+用fetch.json()来解析URI获取JSON，然后转化成array格式，用第一张【0】来当作搜索图片，用遍历的方法来展示singleProduct图片
+

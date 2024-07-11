@@ -4,6 +4,8 @@ export interface IProduct extends Document {
   name: string;
   price: number;
   picture: string;
+  pictureCollection: string;
+  description: string;
   users: [ObjectId];
   revenuePerDay: number;
   levelRequirement: number;

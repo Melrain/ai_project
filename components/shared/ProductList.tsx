@@ -79,6 +79,17 @@ const ProductList = () => {
     };
     getProducts();
   }, [filter, order]);
+
+  const fetchPictures = async (url: string) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='flex flex-col gap-5 items-center w-full bg-black'>
       <div className='flex w-full flex-row gap-2 items-end justify-end'>
