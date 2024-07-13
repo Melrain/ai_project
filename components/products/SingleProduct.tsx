@@ -11,6 +11,7 @@ import { Button } from '../ui/button';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useAuth } from '@clerk/nextjs';
+import { getUserByClerkId } from '@/lib/actions/user.action';
 
 interface Props {
   productId: string;
@@ -20,6 +21,7 @@ const SingleProduct = ({ productId }: Props) => {
   const [isPurchasing, setIsPurchasing] = useState(false);
   const [product, setProduct] = useState<any>(null);
   const [images, setImages] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
   const { userId } = useAuth();
 
   const onPurchase = async () => {
@@ -29,13 +31,42 @@ const SingleProduct = ({ productId }: Props) => {
         console.log('Please login first');
         return;
       }
-      console.log(userId);
+      console.log(user);
+      console.log(product);
+      if (user.balance < product.price) {
+        return alert('余额不足，请前往充值页面充值');
+      }
+      if (user.level < product.levelRequirement) {
+        return alert('等级不够，请提升等级');
+      }
+      //TODO finish the purchase function
+      // call the purchase function
     } catch (error) {
       console.error(error);
     } finally {
       setIsPurchasing(false);
     }
   };
+
+  // get user by id
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        // const user = await getUserById(userId);
+        // console.log(user);
+        const result = await getUserByClerkId(userId!);
+        console.log(result);
+        if (!result) {
+          return setUser(null);
+        }
+        setUser(result.user);
+        console.log(user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, [userId]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -87,7 +118,7 @@ const SingleProduct = ({ productId }: Props) => {
                 className='max-sm:max-w-xs flex justify-center items-center max-w-lg'
                 plugins={[
                   Autoplay({
-                    delay: 2000
+                    delay: 5000
                   })
                 ]}
                 opts={{
@@ -134,14 +165,16 @@ const SingleProduct = ({ productId }: Props) => {
               {/* TODO 完善所有的按钮功能 */}
               <div className=' flex max-w-lg justify-center w-full gap-4 rounded-t-[3px] px-5'>
                 <Button
-                  className='w-2/3 text-center bg-blue-700 rounded-[4px] text-white py-1'
+                  disabled={isPurchasing}
+                  className='w-2/3 text-center hover:bg-primary-500 bg-blue-700 rounded-[4px] text-white py-1'
                   onClick={() => {
                     onPurchase();
                   }}
                 >
-                  点击购买
+                  {isPurchasing ? '购买中...' : '购买'}
                 </Button>
-                <Button className='w-1/3 text-white flex flex-row justify-center gap-1 text-center bg-slate-500 rounded-[4px] py-1'>
+
+                <Button className='w-1/3 hover:text-black text-white flex flex-row justify-center gap-1 text-center bg-slate-500 rounded-[4px] py-1'>
                   <Share className=' size-5' />
                   分享
                 </Button>
@@ -156,7 +189,7 @@ const SingleProduct = ({ productId }: Props) => {
               </div>
             </div>
           ) : (
-            <div>Not found</div>
+            <div className='w-full text-center'>Not found</div>
           )}
         </div>
       )}
