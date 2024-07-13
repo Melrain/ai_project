@@ -20,7 +20,7 @@ const page = async ({ params }: Props) => {
 
   console.log(params.id);
   return (
-    <div className='flex justify-center flex-col w-full items-center'>
+    <div className='flex justify-center flex-col w-full mt-5 items-center'>
       <SingleProduct productId={params.id} />
     </div>
   );
