@@ -28,6 +28,8 @@ const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().int(),
   picture: z.string(),
+  pictureCollection: z.string(),
+  description: z.string(),
   revenuePerDay: z.coerce.number(),
   levelRequirement: z.coerce.number(),
   passcode: z.coerce.number()
@@ -70,7 +72,9 @@ const AddProduct = () => {
         picture: values.picture,
         revenuePerDay: values.revenuePerDay,
         levelRequirement: values.levelRequirement,
-        passcode: values.passcode
+        passcode: values.passcode,
+        pictureCollection: values.pictureCollection,
+        description: values.description
       });
       if (result?.code !== 200) {
         console.log(result);
@@ -133,8 +137,8 @@ const AddProduct = () => {
                   render={({ field }) => (
                     <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
                       <p className='flex text-nowrap'>产品图片</p>
-                      <Input {...field} placeholder='图片url' />
-                      {/* <Dialog open={isImagesOpen}>
+                      {/* <Input {...field} placeholder='图片url' /> */}
+                      <Dialog open={isImagesOpen}>
                         <DialogTrigger
                           onClick={() => {
                             setIsImagesOpen(true);
@@ -168,11 +172,46 @@ const AddProduct = () => {
                               </div>
                             ))}
                           </div>
+                          <div
+                            className='absolute top-2 right-2 cursor-pointer'
+                            onClick={() => {
+                              setIsImagesOpen(false);
+                            }}
+                          >
+                            <X />
+                          </div>
                         </DialogContent>
-                      </Dialog> */}
+                      </Dialog>
                     </div>
                   )}
                 />
+                {/* imageCollection uri ipfs */}
+                <FormField
+                  name='pictureCollection'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>图片集合</p>
+                      <Input {...field} placeholder='url' />
+                    </div>
+                  )}
+                />
+                {/* description */}
+                <FormField
+                  name='description'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>产品描述</p>
+                      <textarea
+                        {...field}
+                        placeholder=''
+                        className='w-full bg-inherit border-2 select-none outline-none'
+                      />
+                    </div>
+                  )}
+                />
+                {/* revenue */}
                 <FormField
                   name='revenuePerDay'
                   control={form.control}
@@ -216,7 +255,7 @@ const AddProduct = () => {
 
               <DialogFooter>
                 <div
-                  className='mt-5'
+                  className='mt-5 w-full flex justify-end'
                   onClick={() => {
                     onSubmit(form.getValues());
                   }}

@@ -18,6 +18,8 @@ const productSchema = new Schema<IProduct>(
     name: { type: String, required: true },
     price: { type: Number, required: true },
     picture: { type: String, required: true },
+    pictureCollection: { type: String, required: true },
+    description: { type: String, required: true },
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     revenuePerDay: { type: Number, required: true },
     levelRequirement: { type: Number, required: true }

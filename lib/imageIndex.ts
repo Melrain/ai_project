@@ -113,3 +113,14 @@ export const productImagesIndex = [
     src: tea12.src
   }
 ];
+
+export const product1 = {
+  one: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p01.png',
+  two: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p02.png',
+  three: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p03.png',
+  four: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p04.png',
+  five: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p05.png',
+  six: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p06.png',
+  seven: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p07.png',
+  eight: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p08.png'
+};
