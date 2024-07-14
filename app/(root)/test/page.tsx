@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { buyProduct, createProduct } from '@/lib/actions/product';
+import { buyProduct, createProduct } from '@/lib/actions/product.action';
 
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import { useAuth } from '@clerk/nextjs';
