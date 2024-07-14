@@ -1,6 +1,6 @@
 'use client';
 
-import { buyProduct, getProductById } from '@/lib/actions/product';
+import { buyProduct, getProductById } from '@/lib/actions/product.action';
 import React, { useEffect, useState } from 'react';
 import Spinner from '../shared/Spinner';
 import Image from 'next/image';

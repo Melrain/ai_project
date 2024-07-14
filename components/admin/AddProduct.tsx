@@ -17,12 +17,13 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { Input } from '../ui/input';
 import { ColorfulButton } from '../buttons/ColorfulButton';
 import { useProductErrorStore } from '@/store/useProductErrorStore';
-import { createProduct } from '@/lib/actions/product';
+
 import { X } from 'lucide-react';
 import ImagesDialog from '../shared/ImagesDialog';
 
 import Image from 'next/image';
 import { productImagesIndex } from '@/lib/imageIndex';
+import { createProduct } from '@/lib/actions/product.action';
 
 const formSchema = z.object({
   name: z.string().min(1),
