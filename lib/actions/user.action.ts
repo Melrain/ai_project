@@ -2,11 +2,12 @@
 
 import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
+import Product from '@/database/product';
 
 export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();
-    const user = await User.findOne({ clerkId: clerkId }).populate('products');
+    const user = await User.findOne({ clerkId: clerkId }).populate({ path: 'products', model: Product });
     if (!user) {
       console.error('User not found');
     }

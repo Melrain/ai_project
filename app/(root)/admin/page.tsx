@@ -9,9 +9,9 @@ const page = async () => {
   if (!userId) {
     redirect('/sign-in');
   }
-  if (process.env.NEXT_ADMINS === undefined) {
-    return <div>Admins not set</div>;
-  }
+  // if (process.env.NEXT_ADMINS === undefined) {
+  //   return <div>Admins not set</div>;
+  // }
   // const admins = process.env.NEXT_ADMINS.split(',');
   // console.log(admins);
   // if (!admins.includes(userId)) {

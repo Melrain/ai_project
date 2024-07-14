@@ -39,7 +39,7 @@ const SingleProduct = ({ productId }: Props) => {
       if (user.level < product.levelRequirement) {
         return alert('等级不够，请提升等级');
       }
-      if (user.products.includes(productId[0])) {
+      if (user.products.some((product: { _id: string }) => product._id === productId[0])) {
         return alert('已经购买过了');
       }
       const response = await buyProduct({ userClerkId: userId, productId });
@@ -180,7 +180,7 @@ const SingleProduct = ({ productId }: Props) => {
                 </Link>
               </div>
               <div className='mt-5 flex max-w-lg justify-center w-full gap-4 rounded-t-[3px] px-5'>
-                {user.products.includes(productId[0]) ? (
+                {user.products.some((product: any) => product._id === productId[0]) ? (
                   <Button
                     disabled={true}
                     className='w-2/3 text-center hover:bg-primary-500 bg-blue-700 rounded-[4px] text-white py-1'

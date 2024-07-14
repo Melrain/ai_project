@@ -9,8 +9,8 @@ export interface IUser extends Document {
     username: string;
   };
   level: number;
-  products: [ObjectId];
-  topUpTransactions: [ObjectId];
+  products: ObjectId[];
+  topUpTransactions: ObjectId[];
   balance: number;
   registeredAt: Date;
 }

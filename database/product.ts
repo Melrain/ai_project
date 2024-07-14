@@ -6,7 +6,7 @@ export interface IProduct extends Document {
   picture: string;
   pictureCollection: string;
   description: string;
-  users: [ObjectId];
+  users: ObjectId[];
   revenuePerDay: number;
   levelRequirement: number;
   createdAt: Date;
