@@ -5,11 +5,14 @@ import React from 'react';
 
 const page = async () => {
   const { userId } = auth();
+  if (!userId) {
+    return <div>Not authorized</div>;
+  }
 
   return (
     <div>
       <div>
-        <ProductCard userId={userId!} />
+        <ProductCard userId={userId} />
       </div>
       <div>revenue card</div>
     </div>
