@@ -16,7 +16,6 @@ import { useBalanceStore } from '@/store/useBalanceStore';
 
 import { createTransaction } from '@/lib/actions/transaction.action';
 import { useTranscationsStore } from '@/store/useTransactionsStore';
-import { useTxStore } from '@/store/useTxStore';
 import Spinner from '../shared/Spinner';
 
 const formSchema = z.object({
