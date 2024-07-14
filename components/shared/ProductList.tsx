@@ -1,16 +1,14 @@
 'use client';
 
-import { getAllProducts } from '@/lib/actions/product';
+import { getAllProducts } from '@/lib/actions/product.action';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Computer, FilterIcon, Tag } from 'lucide-react';
+import { ArrowDownNarrowWide, ArrowUpNarrowWide, Calendar, Computer, FilterIcon, Tag } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '../ui/separator';
@@ -32,6 +30,11 @@ const ProductList = () => {
   const [filter, setFilter] = useState('createdAt');
   const [order, setOrder] = useState(-1);
   const [products, setProducts] = useState([] as ProductType[]);
+  const [filterButton, setFilterButton] = useState('Newest');
+
+  const onFilterButtonClick = (name: string) => {
+    setFilterButton(name);
+  };
 
   const onClick = (name: string) => {
     setIsSelected(name);
@@ -80,20 +83,10 @@ const ProductList = () => {
     getProducts();
   }, [filter, order]);
 
-  const fetchPictures = async (url: string) => {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className='flex flex-col gap-2 items-center w-full bg-black'>
       <div className='flex w-full flex-row gap-2 items-end justify-end'>
-        <h1 className='text-slate-500'>Filter {filter}</h1>
+        <h1 className='text-slate-500 flex flex-row'>Filter:{filter}</h1>
         <DropdownMenu>
           <DropdownMenuTrigger className=' outline-none border-none'>
             <FilterIcon className='text-slate-500' />
@@ -144,14 +137,64 @@ const ProductList = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
       <Separator />
+      <div className='flex gap-1 flex-row'>
+        <div
+          onClick={() => {
+            onClick('Newest');
+            setFilterButton('Newest');
+          }}
+          className={`gap-1 ${
+            filterButton == 'Newest' && 'text-white'
+          } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
+        >
+          <Calendar /> Newest
+        </div>
+        <div
+          onClick={() => {
+            onClick('Price Up');
+            setFilterButton('Price Up');
+          }}
+          className={`gap-1 ${
+            filterButton == 'Price Up' && 'text-white'
+          } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
+        >
+          <ArrowUpNarrowWide /> Price
+        </div>
+        <div
+          onClick={() => {
+            onClick('Price Down');
+            setFilterButton('Price Down');
+          }}
+          className={`gap-1 ${
+            filterButton == 'Price Down' && 'text-white'
+          } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
+        >
+          <ArrowDownNarrowWide /> Price
+        </div>
+        <div
+          onClick={() => {
+            onClick('Revenue');
+            setFilterButton('Revenue');
+          }}
+          className={`gap-1 ${
+            filterButton == 'Revenue' && 'text-white'
+          } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
+        >
+          <IconCashRegister /> Revenue
+        </div>
+      </div>
 
       <div className=''>
         <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap   rounded-md  border-none'>
           <div className='flex w-full space-x-4 p-4 bg-grid-small-white/[0.2] '>
             {products.length > 0 ? (
               products.map((product) => (
-                <Link href={`/products/${product._id}`} className=''>
+                <Link
+                  href={`/products/${product._id}`}
+                  className=' bg-gradient-to-b from-purple-800 to-mycolor-300 rounded-[10px] outline-4 outline-offset-6 shadow-md shadow-purple-500 p-5'
+                >
                   <div key={product.name} className='shrink-0   flex-col justify-center items-center flex '>
                     <div className='overflow-hidden rounded-md flex-col flex justify-center items-center h-[180px] w-[150px]'>
                       <Image

@@ -5,6 +5,7 @@ import { User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId, updateUser } from './user.action';
 import { SortOrder } from 'mongoose';
+import { redirect } from 'next/navigation';
 
 export const getProductById = async (productId: string) => {
   try {
@@ -141,6 +142,9 @@ export const buyProduct = async (params: BuyProductProps) => {
     }
     const parsedUser = JSON.parse(JSON.stringify(updatedUser));
     const parsedProduct = JSON.parse(JSON.stringify(updatedProduct));
+
+    //add transaction history
+
     return { code: 200, message: 'Product bought successfully', product: parsedProduct, user: parsedUser };
   } catch (error) {
     console.error(error);

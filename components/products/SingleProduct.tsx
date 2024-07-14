@@ -43,6 +43,12 @@ const SingleProduct = ({ productId }: Props) => {
         return alert('已经购买过了');
       }
       const response = await buyProduct({ userClerkId: userId, productId });
+      const result = await getUserByClerkId(userId!);
+      console.log(result);
+      if (!result) {
+        return setUser(null);
+      }
+      setUser(result.user);
       console.log(response);
     } catch (error) {
       console.error(error);

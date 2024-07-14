@@ -1,6 +1,6 @@
 'use client';
 
-import { getProduct } from '@/lib/actions/product';
+import { getProduct } from '@/lib/actions/product.action';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Spinner from '../shared/Spinner';
