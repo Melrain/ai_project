@@ -145,7 +145,7 @@ const ProductList = () => {
             onClick('Newest');
             setFilterButton('Newest');
           }}
-          className={`gap-1 ${
+          className={`cursor-pointer gap-1 ${
             filterButton == 'Newest' && 'text-white'
           } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
         >
@@ -156,7 +156,7 @@ const ProductList = () => {
             onClick('Price Up');
             setFilterButton('Price Up');
           }}
-          className={`gap-1 ${
+          className={`cursor-pointer gap-1 ${
             filterButton == 'Price Up' && 'text-white'
           } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
         >
@@ -167,7 +167,7 @@ const ProductList = () => {
             onClick('Price Down');
             setFilterButton('Price Down');
           }}
-          className={`gap-1 ${
+          className={`cursor-pointer gap-1 ${
             filterButton == 'Price Down' && 'text-white'
           } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
         >
@@ -178,7 +178,7 @@ const ProductList = () => {
             onClick('Revenue');
             setFilterButton('Revenue');
           }}
-          className={`gap-1 ${
+          className={`cursor-pointer gap-1 ${
             filterButton == 'Revenue' && 'text-white'
           } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
         >
@@ -188,7 +188,7 @@ const ProductList = () => {
 
       <div className=''>
         <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap   rounded-md  border-none'>
-          <div className='flex w-full space-x-4 p-4 bg-grid-small-white/[0.2] '>
+          <div className='flex w-full space-x-4 p-4  '>
             {products.length > 0 ? (
               products.map((product) => (
                 <Link

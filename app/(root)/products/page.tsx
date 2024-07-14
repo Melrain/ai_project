@@ -1,6 +1,5 @@
 import ProductSearchBar from '@/components/search/ProductSearchBar';
 import ProductList from '@/components/shared/ProductList';
-import Link from 'next/link';
 import React from 'react';
 
 export interface SearchParamsProps {
@@ -12,7 +11,7 @@ const page = ({ searchParams }: SearchParamsProps) => {
   return (
     <div className='w-full flex flex-col  items-center p-5 h-screen'>
       {/* search */}
-      <div className='w-full'>
+      <div className='w-full z-20'>
         <ProductSearchBar />
       </div>
       {/* product list */}
