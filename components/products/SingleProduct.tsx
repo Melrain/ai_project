@@ -1,17 +1,18 @@
 'use client';
 
-import { getProductById } from '@/lib/actions/product';
+import { buyProduct, getProductById } from '@/lib/actions/product';
 import React, { useEffect, useState } from 'react';
 import Spinner from '../shared/Spinner';
 import Image from 'next/image';
 import { Separator } from '../ui/separator';
-import { Computer, Share, Tag } from 'lucide-react';
+import { ArrowLeftCircle, Computer, Share, Tag } from 'lucide-react';
 import { IconCashRegister, IconVip } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useAuth } from '@clerk/nextjs';
 import { getUserByClerkId } from '@/lib/actions/user.action';
+import Link from 'next/link';
 
 interface Props {
   productId: string;
@@ -31,16 +32,18 @@ const SingleProduct = ({ productId }: Props) => {
         console.log('Please login first');
         return;
       }
-      console.log(user);
-      console.log(product);
+
       if (user.balance < product.price) {
         return alert('余额不足，请前往充值页面充值');
       }
       if (user.level < product.levelRequirement) {
         return alert('等级不够，请提升等级');
       }
-      //TODO finish the purchase function
-      // call the purchase function
+      if (user.products.includes(productId[0])) {
+        return alert('已经购买过了');
+      }
+      const response = await buyProduct({ userClerkId: userId, productId });
+      console.log(response);
     } catch (error) {
       console.error(error);
     } finally {
@@ -114,8 +117,15 @@ const SingleProduct = ({ productId }: Props) => {
         <div>
           {product ? (
             <div className='flex  flex-col justify-center items-center  w-full'>
+              <Link
+                href={'/products'}
+                className='w-full justify-start items-center gap-1 flex max-w-lg text-slate-500 text-sm px-4'
+              >
+                <ArrowLeftCircle />
+                产品列表
+              </Link>
               <Carousel
-                className='max-sm:max-w-xs flex justify-center items-center max-w-lg'
+                className='max-sm:max-w-xs flex justify-center items-center mt-5 max-w-lg'
                 plugins={[
                   Autoplay({
                     delay: 5000
@@ -162,17 +172,32 @@ const SingleProduct = ({ productId }: Props) => {
                 </span>
               </div>
               <Separator className='my-5' />
-              {/* TODO 完善所有的按钮功能 */}
-              <div className=' flex max-w-lg justify-center w-full gap-4 rounded-t-[3px] px-5'>
-                <Button
-                  disabled={isPurchasing}
-                  className='w-2/3 text-center hover:bg-primary-500 bg-blue-700 rounded-[4px] text-white py-1'
-                  onClick={() => {
-                    onPurchase();
-                  }}
-                >
-                  {isPurchasing ? '购买中...' : '购买'}
-                </Button>
+              {/* userinfo */}
+              <div className='flex flex-row gap-2 justify-start items-center'>
+                <p className='text-white text-sm'>您的余额:{user.balance}</p>
+                <Link className='text-sm text-center' href={'/topup'}>
+                  充值
+                </Link>
+              </div>
+              <div className='mt-5 flex max-w-lg justify-center w-full gap-4 rounded-t-[3px] px-5'>
+                {user.products.includes(productId[0]) ? (
+                  <Button
+                    disabled={true}
+                    className='w-2/3 text-center hover:bg-primary-500 bg-blue-700 rounded-[4px] text-white py-1'
+                  >
+                    您已购买该产品
+                  </Button>
+                ) : (
+                  <Button
+                    disabled={isPurchasing}
+                    className='w-2/3 text-center hover:bg-primary-500 bg-blue-700 rounded-[4px] text-white py-1'
+                    onClick={() => {
+                      onPurchase();
+                    }}
+                  >
+                    {isPurchasing ? '购买中...' : '购买'}
+                  </Button>
+                )}
 
                 <Button className='w-1/3 hover:text-black text-white flex flex-row justify-center gap-1 text-center bg-slate-500 rounded-[4px] py-1'>
                   <Share className=' size-5' />

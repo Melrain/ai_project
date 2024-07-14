@@ -120,11 +120,13 @@ export const buyProduct = async (params: BuyProductProps) => {
     }
 
     const user = result.user;
-
+    console.log(user);
+    console.log('productId:', productId[0]);
+    console.log(user.products.includes(productId[0]));
     if (user.balance < product.price) {
       return { code: 808, message: 'Insufficient balance', balance: user.balance };
     }
-    if (user.products.includes(productId)) {
+    if (user.products.includes(productId[0])) {
       return { code: 808, message: 'Product already bought' };
     }
     const updateData = { $inc: { balance: -product.price }, $push: { products: productId } };
