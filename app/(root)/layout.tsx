@@ -5,7 +5,9 @@ import React from 'react';
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className='relative overflow-hidden '>
-      <TopNavbar />
+      <div className=''>
+        <TopNavbar />
+      </div>
       <div className='mt-20 flex justify-center'>{children}</div>
       {/* <BottomNavbar /> */}
     </main>

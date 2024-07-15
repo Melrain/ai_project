@@ -32,10 +32,6 @@ const ProductList = () => {
   const [products, setProducts] = useState([] as ProductType[]);
   const [filterButton, setFilterButton] = useState('Newest');
 
-  const onFilterButtonClick = (name: string) => {
-    setFilterButton(name);
-  };
-
   const onClick = (name: string) => {
     setIsSelected(name);
     switch (name) {
@@ -139,7 +135,7 @@ const ProductList = () => {
       </div>
 
       <Separator />
-      <div className='flex gap-1 flex-row'>
+      <div className='flex gap-1 flex-row '>
         <div
           onClick={() => {
             onClick('Newest');
@@ -183,6 +179,30 @@ const ProductList = () => {
           } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
         >
           <IconCashRegister /> Revenue
+        </div>
+      </div>
+      <div className='flex flex-row gap-1 justify-start max-w-sm items-center px-3 py-1 w-full'>
+        <div
+          onClick={() => {
+            onClick('Level Up');
+            setFilterButton('Level Up');
+          }}
+          className={`cursor-pointer gap-1 ${
+            filterButton == 'Level Up' && 'text-white'
+          } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
+        >
+          <IconVip /> Level <ArrowUpNarrowWide />
+        </div>
+        <div
+          onClick={() => {
+            onClick('Level Down');
+            setFilterButton('Level Down');
+          }}
+          className={`cursor-pointer gap-1 ${
+            filterButton == 'Level Down' && 'text-white'
+          } bg-mycolor-100  flex justify-center items-center px-3 py-1 rounded-full text-xs text-slate-500`}
+        >
+          <IconVip /> Level <ArrowDownNarrowWide />
         </div>
       </div>
 

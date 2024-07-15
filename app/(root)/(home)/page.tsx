@@ -62,7 +62,7 @@ const page = () => {
           words='Join us to meet the Future!'
           className={`${kalam.className} text-xl text-slate-300 flex justify-center items-center w-full`}
         />
-        <div className='mt-2 w-full flex items-center justify-center'>
+        <div className='mt-5 w-full flex items-center justify-center'>
           <Link href={'/products'}>
             <ColorfulButton content='Products' disabled={false} />
           </Link>
@@ -71,15 +71,15 @@ const page = () => {
       {/* button */}
       <div className='mt-5'>
         <SignedOut>
-          <Link href={'/sign-in'}>
-            <ColorfulButton content='Sign-in' disabled={false} />
+          <Link href={'/sign-in'} className=''>
+            <ColorfulButton  content='Sign-in' disabled={false} />
           </Link>
         </SignedOut>
-        <SignedIn>
+        {/* <SignedIn>
           <Link href={'/myfarm'}>
             <ColorfulButton content='My Farm' disabled={false} />
           </Link>
-        </SignedIn>
+        </SignedIn> */}
       </div>
       {/* dialog */}
       <SignedOut>
@@ -89,7 +89,7 @@ const page = () => {
       </SignedOut>
 
       {/* Topup Revenue Withdraw Team */}
-      <div className='w-full mt-5 '>
+      <div className='w-full mt-1'>
         <HomeSections />
       </div>
       {/* RankingBoard */}

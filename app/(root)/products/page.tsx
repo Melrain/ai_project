@@ -11,11 +11,11 @@ const page = ({ searchParams }: SearchParamsProps) => {
   return (
     <div className='w-full flex flex-col  items-center p-5 h-screen'>
       {/* search */}
-      <div className='w-full z-20'>
+      <div className='w-full z-10'>
         <ProductSearchBar />
       </div>
       {/* product list */}
-      <div className='flex flex-row justify-center max-w-xl xs:max-w-sm p-5 rounded-[2px] w-full gap-5 mt-5 '>
+      <div className='flex flex-row justify-center max-w-xl xs:max-w-sm p-5 rounded-[2px] w-full gap-5  '>
         <ProductList />
       </div>
     </div>
