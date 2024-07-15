@@ -9,9 +9,10 @@ export interface IUser extends Document {
     username: string;
   };
   level: number;
-  products: ObjectId[];
+  products: { id: ObjectId; createdAt: Date; updatedAt: Date }[];
   topUpTransactions: ObjectId[];
   balance: number;
+  exp: number;
   registeredAt: Date;
 }
 
@@ -25,8 +26,15 @@ const UserSchema = new Schema<IUser>({
     username: { type: String }
   },
   level: { type: Number, default: 1 },
-  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+  products: [
+    {
+      id: { type: Schema.Types.ObjectId, ref: 'Product' },
+      createdAt: { type: Date, default: Date.now },
+      updatedAt: { type: Date, default: Date.now }
+    }
+  ],
   balance: { type: Number, default: 100 },
+  exp: { type: Number, default: 100 },
   registeredAt: { type: Date, default: Date.now }
 });
 

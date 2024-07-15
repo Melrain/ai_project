@@ -19,3 +19,10 @@
     `创建一个JSON文件，属性为name,src;其中src指向上述文件夹中的文件的url
     `上传JSON文件到ipfs，并记录其url
     `APP中解析该url即可获得所有文件的路径
+
+## 计算Profit
+
+1. 客户手动：
+    客户登录页面时，自动调取计算函数，返回数据；
+2. 系统自动：
+    mongodb Trigger

@@ -123,14 +123,23 @@ export const buyProduct = async (params: BuyProductProps) => {
     const user = result.user;
     console.log(user);
     console.log('productId:', productId[0]);
-    console.log(user.products.includes(productId[0]));
+    console.log(user.products.some((product: { id: string }) => product.id === productId[0]));
     if (user.balance < product.price) {
       return { code: 808, message: 'Insufficient balance', balance: user.balance };
     }
-    if (user.products.some((product: { _id: string }) => product._id === productId[0])) {
+    if (user.products.some((product: { id: string }) => product.id === productId[0])) {
       return { code: 808, message: 'Product already bought' };
     }
-    const updateData = { $inc: { balance: -product.price }, $push: { products: productId } };
+    const updateData = {
+      $inc: { balance: -product.price },
+      $push: {
+        products: {
+          id: product._id,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      }
+    };
     const updatedUser = await User.findByIdAndUpdate(user._id, updateData, { new: true });
     if (!updatedUser) {
       return { code: 404, message: 'Failed to update user' };

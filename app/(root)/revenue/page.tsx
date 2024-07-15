@@ -14,7 +14,6 @@ const page = async () => {
       <div>
         <ProductCard userId={userId} />
       </div>
-      <div>revenue card</div>
     </div>
   );
 };

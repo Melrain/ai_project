@@ -70,6 +70,7 @@ export async function POST(req: Request) {
       level: 1,
       products: [],
       balance: 0,
+      exp: 100,
       email: email_addresses[0].email_address
     });
 
