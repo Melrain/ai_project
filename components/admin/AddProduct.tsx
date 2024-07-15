@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Dialog,
@@ -12,14 +12,13 @@ import {
 } from '@/components/ui/dialog';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { Form, FormField, FormMessage } from '../ui/form';
-import { DialogClose } from '@radix-ui/react-dialog';
+import { Form, FormField } from '../ui/form';
+
 import { Input } from '../ui/input';
 import { ColorfulButton } from '../buttons/ColorfulButton';
 import { useProductErrorStore } from '@/store/useProductErrorStore';
 
 import { X } from 'lucide-react';
-import ImagesDialog from '../shared/ImagesDialog';
 
 import Image from 'next/image';
 import { productImagesIndex } from '@/lib/imageIndex';

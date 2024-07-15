@@ -22,6 +22,7 @@ const page = async () => {
   if (!admin) {
     return <div>Admin not found</div>;
   }
+  console.log(admin.user.products);
 
   return (
     <div className='flex justify-center w-full items-center  flex-col'>

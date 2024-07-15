@@ -11,7 +11,6 @@ import { TypewriterEffectSmooth } from '@/components/ui/typewrite-effect';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Kalam } from 'next/font/google';
 import Link from 'next/link';
-
 import React from 'react';
 
 const kalam = Kalam({
@@ -20,10 +19,11 @@ const kalam = Kalam({
   variable: '--font-kalam'
 });
 
-const page = () => {
+const page = async () => {
   return (
     <div className='flex justify-center flex-col items-center  dark:text-white '>
-      <p className='mt-2 text-sm font-bold'>Welcome to Nvidia AI Farm</p>
+      <p className='mt-2 font-extrabold text-lg '>Welcome to Nvidia AI Farm</p>
+
       <div className='flex flex-col items-center justify-center'>
         <TypewriterEffectSmooth
           words={[
@@ -64,7 +64,7 @@ const page = () => {
         />
         <div className='mt-5 w-full flex items-center justify-center'>
           <Link href={'/products'}>
-            <ColorfulButton content='Products' disabled={false} />
+            <ColorfulButton content='查看所有商品' disabled={false} />
           </Link>
         </div>
       </div>
@@ -72,7 +72,7 @@ const page = () => {
       <div className='mt-5'>
         <SignedOut>
           <Link href={'/sign-in'} className=''>
-            <ColorfulButton  content='Sign-in' disabled={false} />
+            <ColorfulButton content='登录' disabled={false} />
           </Link>
         </SignedOut>
         {/* <SignedIn>

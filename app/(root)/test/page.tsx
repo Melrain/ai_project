@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { calculateProfit } from '@/lib/actions/functions';
 import { buyProduct, createProduct } from '@/lib/actions/product.action';
 
 import { getUserByClerkId } from '@/lib/actions/user.action';
@@ -37,11 +38,28 @@ const page = () => {
     }
   };
 
+  const onCalculate = async () => {
+    try {
+      const response = await calculateProfit({ userId: userId!, productId: '6694ddf2eebb49329a596269' });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <Button onClick={onClick}>Fetch User</Button>
 
       <Button onClick={onBuyProduct}>Buy Product</Button>
+
+      <Button
+        onClick={() => {
+          onCalculate();
+        }}
+      >
+        CalculateProfit
+      </Button>
     </div>
   );
 };
