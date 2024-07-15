@@ -6,14 +6,24 @@ import React, { useEffect } from 'react';
 import Spinner from '../shared/Spinner';
 import { motion } from 'framer-motion';
 import { DollarSign } from 'lucide-react';
+import { getProductById } from '@/lib/actions/product.action';
 
 interface Props {
   userId: string;
 }
 
 const ProductCard = ({ userId }: Props) => {
-  const [products, setProducts] = React.useState([]);
+  const [products, setProducts] = React.useState<
+    {
+      id: any;
+      name: string;
+      picture: string;
+      revenuePerDay: number;
+    }[]
+  >([]);
 
+  // Fetch products by user id
+  // 为了避免在map中使用async await方法，先获得一组promise, 然后利用promise.all方法来等待promise完成，最后赋值
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -21,8 +31,18 @@ const ProductCard = ({ userId }: Props) => {
         if (!response) {
           return console.error('User not found');
         }
-        setProducts(response.user.products);
-        console.log(response.user.products);
+        // 现将所有的产品id提取出来
+        const productIds = response.user.products.map((product: { id: any }) => product.id);
+        // 写一个方法，通过id获取产品信息，
+        const productPromises = productIds.map((id: string) => getProductById(id));
+        // 通过promise.all获取所有的产品信息
+        const productsData = await Promise.all(productPromises);
+        // 将产品信息添加到state中，但是要先过滤掉已经存在的产品，因为这个方法会被多次调用，每次调用都会添加新的产品，所以要过滤掉已经存在的产品，只添加新的产品，这样就不会重复添加了；
+        setProducts((prev) => {
+          // Filter out products that are already in the state
+          const newProducts = productsData.filter((product) => !prev.some((p) => p.id === product.id));
+          return [...prev, ...newProducts];
+        });
       } catch (error) {
         console.error(error);
       }

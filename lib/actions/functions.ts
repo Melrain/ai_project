@@ -19,10 +19,13 @@ export const calculateProfit = async (params: calculateProfitParams) => {
     if (!userReponse) {
       return console.error('User not found');
     }
+    console.log(userReponse.user.products[0]);
+    //TODO 完成populate
     const user = userReponse.user;
     if (!user.products.some((product: { id: string }) => product.id === productId)) {
       return console.error('user does not have this product');
     }
+    console.log(user);
     const product = user.products.find((product: { id: string }) => product.id === productId);
     if (!product) {
       return console.error('Product not found');
