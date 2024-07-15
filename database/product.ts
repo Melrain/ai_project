@@ -11,6 +11,7 @@ export interface IProduct extends Document {
   levelRequirement: number;
   createdAt: Date;
   updatedAt: Date;
+  expOnPurchase: number;
 }
 
 const productSchema = new Schema<IProduct>(
@@ -22,7 +23,8 @@ const productSchema = new Schema<IProduct>(
     description: { type: String, required: true },
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     revenuePerDay: { type: Number, required: true },
-    levelRequirement: { type: Number, required: true }
+    levelRequirement: { type: Number, required: true },
+    expOnPurchase: { type: Number, required: true }
   },
   { timestamps: true }
 );

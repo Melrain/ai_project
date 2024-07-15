@@ -74,11 +74,21 @@ interface CreateProductProps {
   revenuePerDay: number;
   passcode: number;
   levelRequirement: number;
+  expOnPurchase: number;
 }
 export const createProduct = async (params: CreateProductProps) => {
   try {
-    const { passcode, productName, pictureCollection, description, levelRequirement, price, picture, revenuePerDay } =
-      params;
+    const {
+      passcode,
+      productName,
+      pictureCollection,
+      expOnPurchase,
+      description,
+      levelRequirement,
+      price,
+      picture,
+      revenuePerDay
+    } = params;
     await connectToDatabase();
     if (Number(passcode) !== 198900) {
       return { code: 404, message: 'passcode error', passcode };
@@ -91,7 +101,8 @@ export const createProduct = async (params: CreateProductProps) => {
       description,
       users: [],
       revenuePerDay: revenuePerDay,
-      levelRequirement: levelRequirement
+      levelRequirement: levelRequirement,
+      expOnPurchase: expOnPurchase
     });
     if (!product) {
       return { code: 404, message: 'Failed to create product' };
@@ -130,8 +141,12 @@ export const buyProduct = async (params: BuyProductProps) => {
     if (user.products.some((product: { id: string }) => product.id === productId[0])) {
       return { code: 808, message: 'Product already bought' };
     }
+
+    //handle exp
+    const updatedLevel = Math.floor((user.exp + product.expOnPurchase) / 100);
     const updateData = {
-      $inc: { balance: -product.price },
+      $inc: { balance: -product.price, exp: product.expOnPurchase },
+      $set: { level: updatedLevel },
       $push: {
         products: {
           id: product._id,

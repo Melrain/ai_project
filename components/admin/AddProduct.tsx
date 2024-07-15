@@ -33,6 +33,7 @@ const formSchema = z.object({
   description: z.string(),
   revenuePerDay: z.coerce.number(),
   levelRequirement: z.coerce.number(),
+  expOnPurchase: z.coerce.number(),
   passcode: z.coerce.number()
 });
 
@@ -52,6 +53,7 @@ const AddProduct = () => {
       picture: '',
       revenuePerDay: 0,
       levelRequirement: 1,
+      expOnPurchase: 0,
       passcode: 0
     }
   });
@@ -75,7 +77,8 @@ const AddProduct = () => {
         levelRequirement: values.levelRequirement,
         passcode: values.passcode,
         pictureCollection: values.pictureCollection,
-        description: values.description
+        description: values.description,
+        expOnPurchase: values.expOnPurchase
       });
       if (result?.code !== 200) {
         console.log(result);
@@ -230,6 +233,16 @@ const AddProduct = () => {
                     <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
                       <p className='flex text-nowrap'>等级要求</p>
                       <Input type='number' {...field} placeholder='level...' />
+                    </div>
+                  )}
+                />
+                <FormField
+                  name='expOnPurchase'
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className='flex p-2 w-full max-w-[220px] flex-row gap-2 items-center'>
+                      <p className='flex text-nowrap'>会员经验</p>
+                      <Input type='number' {...field} placeholder='exp...' />
                     </div>
                   )}
                 />
