@@ -40,10 +40,12 @@ export const calculateProfit = async (params: calculateProfitParams) => {
     const timeDifferenceInHours = timeDifferenceInMs / (1000 * 60 * 60);
     const timeDifferenceInMinutes = timeDifferenceInMs / (1000 * 60);
     const timeDifferenceInSeconds = timeDifferenceInMs / 1000;
-    console.log(timeDifferenceInSeconds, timeDifferenceInMinutes, timeDifferenceInHours);
     const profitPerMinute = (product.product.revenuePerDay / (24 * 60)).toFixed(6);
     const profitPerHour = (product.product.revenuePerDay / 24).toFixed(6);
-    const profitPerSecond = (product.product.revenuePerDay / (24 * 60 * 60)).toFixed(6);
+    const profitPerSecond = Number((product.product.revenuePerDay / (24 * 60 * 60)).toFixed(6));
+
+    // calculate profit
+    const currentProfit = (profitPerSecond * timeDifferenceInSeconds).toFixed(5);
 
     return {
       timeDifferenceInSeconds,
@@ -51,7 +53,8 @@ export const calculateProfit = async (params: calculateProfitParams) => {
       timeDifferenceInHours,
       profitPerSecond,
       profitPerMinute,
-      profitPerHour
+      profitPerHour,
+      currentProfit
     };
   } catch (error) {
     console.error(error);

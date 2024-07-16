@@ -73,7 +73,7 @@ const RevenueCard = ({ userId }: Props) => {
                       <span className='text-green-500'>+</span> <DollarSign className='text-green-500' />
                     </motion.div>
                     <div>
-                      <ProfitTabs />
+                      <ProfitTabs userId={userId} productId={item.product._id} />
                     </div>
                     <div>
                       <TimeTabs />
