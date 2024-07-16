@@ -8,7 +8,7 @@ export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();
     const user = await User.findOne({ clerkId: clerkId }).populate({
-      path: 'products.id',
+      path: 'products.product',
       model: Product
     });
     if (!user) {

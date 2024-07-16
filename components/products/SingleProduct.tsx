@@ -39,8 +39,9 @@ const SingleProduct = ({ productId }: Props) => {
       if (user.level < product.levelRequirement) {
         return alert('等级不够，请提升等级');
       }
-      if (user.products.some((product: { id: string }) => product.id === productId[0])) {
-        return alert('已经购买过了');
+      console.log('_id:', user.products[0].product);
+      if (user.products.some((product: { product: { _id: string } }) => product.product._id === productId[0])) {
+        return alert('您已购买该产品');
       }
       const response = await buyProduct({ userClerkId: userId, productId });
       const result = await getUserByClerkId(userId!);
@@ -187,7 +188,7 @@ const SingleProduct = ({ productId }: Props) => {
                 </Link>
               </div>
               <div className='mt-5 flex max-w-lg justify-center w-full gap-4 rounded-t-[3px] px-5'>
-                {user.products.some((product: { id: string }) => product.id === productId[0]) ? (
+                {user.products.some((item: { product: { _id: string } }) => item.product._id === productId[0]) ? (
                   <Button
                     disabled={true}
                     className='w-2/3 text-center hover:bg-primary-500 bg-blue-700 rounded-[4px] text-white py-1'

@@ -138,7 +138,7 @@ export const buyProduct = async (params: BuyProductProps) => {
     if (user.balance < product.price) {
       return { code: 808, message: 'Insufficient balance', balance: user.balance };
     }
-    if (user.products.some((product: { id: string }) => product.id === productId[0])) {
+    if (user.products.some((p: { product: { _id: string } }) => p.product._id === productId[0])) {
       return { code: 808, message: 'Product already bought' };
     }
 
@@ -149,7 +149,7 @@ export const buyProduct = async (params: BuyProductProps) => {
       $set: { level: updatedLevel },
       $push: {
         products: {
-          id: product._id,
+          product: product._id,
           createdAt: new Date(),
           updatedAt: new Date()
         }

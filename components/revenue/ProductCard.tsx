@@ -31,18 +31,20 @@ const ProductCard = ({ userId }: Props) => {
         if (!response) {
           return console.error('User not found');
         }
-        // 现将所有的产品id提取出来
-        const productIds = response.user.products.map((product: { id: any }) => product.id);
-        // 写一个方法，通过id获取产品信息，
-        const productPromises = productIds.map((id: string) => getProductById(id));
-        // 通过promise.all获取所有的产品信息
-        const productsData = await Promise.all(productPromises);
-        // 将产品信息添加到state中，但是要先过滤掉已经存在的产品，因为这个方法会被多次调用，每次调用都会添加新的产品，所以要过滤掉已经存在的产品，只添加新的产品，这样就不会重复添加了；
-        setProducts((prev) => {
-          // Filter out products that are already in the state
-          const newProducts = productsData.filter((product) => !prev.some((p) => p.id === product.id));
-          return [...prev, ...newProducts];
-        });
+        setProducts(response.user.products);
+
+        // // 现将所有的产品id提取出来
+        // const productIds = response.user.products.map((product: { id: any }) => product.id);
+        // // 写一个方法，通过id获取产品信息，
+        // const productPromises = productIds.map((id: string) => getProductById(id));
+        // // 通过promise.all获取所有的产品信息
+        // const productsData = await Promise.all(productPromises);
+        // // 将产品信息添加到state中，但是要先过滤掉已经存在的产品，因为这个方法会被多次调用，每次调用都会添加新的产品，所以要过滤掉已经存在的产品，只添加新的产品，这样就不会重复添加了；
+        // setProducts((prev) => {
+        //   // Filter out products that are already in the state
+        //   const newProducts = productsData.filter((product) => !prev.some((p) => p.id === product.id));
+        //   return [...prev, ...newProducts];
+        // });
       } catch (error) {
         console.error(error);
       }
@@ -59,15 +61,15 @@ const ProductCard = ({ userId }: Props) => {
         <div className='flex flex-col w-full  gap-2'>
           <div className='w-full py-2 px-5 text-center bg-mycolor-200'>我的产品</div>
           <div className='flex mt-5 gap-2 flex-wrap justify-start items-center px-5'>
-            {products.map((product: { name: string; picture: string; revenuePerDay: number }) => (
+            {products.map((item: any) => (
               <div className='flex flex-col justify-center items-center p-5 w-[160px] h-[220px]'>
-                <div>{product.name}</div>
+                <div>{item.product.name}</div>
                 <Image
-                  src={product.picture}
+                  src={item.product.picture}
                   width={100}
                   height={100}
                   className='w-[160px] height[220px] opacity-50'
-                  alt={product.name}
+                  alt={item.product.name}
                 />
                 <div className='absolute'>
                   <div className='flex justify-center items-center flex-col gap-1'>
@@ -79,6 +81,7 @@ const ProductCard = ({ userId }: Props) => {
                       <span className='text-green-500'>+</span> <DollarSign className='text-green-500' />
                     </motion.div>
                     <p className='text-green-400 font-bold shadow-purple-500 shadow-lg'> Profiting...</p>
+                    <p>{item.product.revenuePerDay}</p>
                   </div>
                 </div>
               </div>
