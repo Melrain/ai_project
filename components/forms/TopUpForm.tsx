@@ -58,8 +58,7 @@ const TopUpForm = () => {
         type: 'topup',
         userId: userResult.user._id,
         amount: values.amount,
-        status: 'success',
-        transactionId: '1'
+        status: 'success'
       });
 
       if (!transactionResult) {
