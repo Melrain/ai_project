@@ -12,7 +12,6 @@ export const calculateProfit = async (params: calculateProfitParams) => {
   try {
     await connectToDatabase();
     const { userId, productId } = params;
-    console.log('userId', userId, 'productId', productId);
     const userReponse = await getUserByClerkId(userId);
     if (!userReponse) {
       return console.error('User not found');
@@ -22,12 +21,11 @@ export const calculateProfit = async (params: calculateProfitParams) => {
     if (!user.products.some((p: { product: { _id: string } }) => p.product._id === productId)) {
       return console.error('user does not have this product');
     }
-    console.log(user);
+
     const product = user.products.find((p: { product: { _id: string } }) => p.product._id === productId);
     if (!product) {
       return console.error('Product not found');
     }
-    console.log(product);
 
     //calculate time difference
     const currentDate = new Date();

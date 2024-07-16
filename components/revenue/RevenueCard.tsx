@@ -14,8 +14,6 @@ interface Props {
   userId: string;
 }
 
-// TODO 今天完成利润显示，持有时间显示，还有点击收集的时候出现dialog
-
 const RevenueCard = ({ userId }: Props) => {
   const [products, setProducts] = React.useState<
     {
@@ -25,8 +23,6 @@ const RevenueCard = ({ userId }: Props) => {
       revenuePerDay: number;
     }[]
   >([]);
-
-  const [profitAndTimeInfo, setProfitAndTimeInfo] = React.useState();
 
   useEffect(() => {
     const fetchProducts = async () => {

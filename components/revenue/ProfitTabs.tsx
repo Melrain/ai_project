@@ -2,6 +2,8 @@
 
 import { calculateProfit } from '@/lib/actions/functions';
 import React, { useEffect } from 'react';
+import Spinner from '../shared/Spinner';
+import { useTimeStore } from '@/store/useTimeStore';
 
 interface ProfitTabsProps {
   userId: string;
@@ -10,12 +12,14 @@ interface ProfitTabsProps {
 const ProfitTabs = ({ userId, productId }: ProfitTabsProps) => {
   const [profitAndTime, setProfitAndTime] = React.useState<any>(null);
 
+  const setTimeStore = (time: number) => useTimeStore.setState({ time });
+
   useEffect(() => {
     const fetchProfitAndTime = async () => {
       try {
         const response = await calculateProfit({ userId, productId });
         setProfitAndTime(response);
-        console.log(response);
+        setTimeStore(profitAndTime.timeDifferenceInSeconds);
       } catch (error) {
         console.error(error);
       }
@@ -28,7 +32,7 @@ const ProfitTabs = ({ userId, productId }: ProfitTabsProps) => {
     };
   }, [userId, productId]);
 
-  return <div>{profitAndTime ? profitAndTime.currentProfit : ''}</div>;
+  return <div>{profitAndTime ? profitAndTime.currentProfit : <Spinner />}</div>;
 };
 
 export default ProfitTabs;
