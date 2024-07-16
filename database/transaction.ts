@@ -10,6 +10,8 @@ export interface ITransaction extends Document {
   updatedAt: Date;
 }
 
+// modify the transaction schema, make it general; especially the transactionId
+
 const TransactionSchema = new Schema(
   {
     type: {
