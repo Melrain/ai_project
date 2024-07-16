@@ -1,4 +1,4 @@
-import ProductCard from '@/components/revenue/ProductCard';
+import RevenueCard from '@/components/revenue/RevenueCard';
 
 import { auth } from '@clerk/nextjs/server';
 import React from 'react';
@@ -10,9 +10,9 @@ const page = async () => {
   }
 
   return (
-    <div>
-      <div>
-        <ProductCard userId={userId} />
+    <div className='w-full flex justify-center items-center'>
+      <div className='w-full max-w-xl px-2'>
+        <RevenueCard userId={userId} />
       </div>
     </div>
   );

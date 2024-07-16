@@ -7,18 +7,21 @@ interface CreateTransactionParams {
   userId: string;
   amount: number;
   status: string;
-  transactionId: string;
+  notes?: {
+    name: string;
+    id: string;
+  };
 }
 export const createTransaction = async (params: CreateTransactionParams) => {
   try {
-    const { type, userId, amount, status, transactionId } = params;
+    const { type, userId, amount, status, notes } = params;
     await connectToDatabase();
     const transcation = await Transaction.create({
       type,
       userId,
       amount,
       status,
-      transactionId
+      notes: notes ? notes : null
     });
     if (!transcation) {
       throw new Error('Transaction not created');

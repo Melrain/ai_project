@@ -24,7 +24,7 @@ const page = () => {
     try {
       const result = await buyProduct({
         userClerkId: userId!,
-        productId: '6682144fdae7aa721a44b6ed'
+        productId: '6694ddf2eebb49329a596269'
       });
       if (!result) {
         console.log('Error on buy Product');
@@ -40,7 +40,7 @@ const page = () => {
 
   const onCalculate = async () => {
     try {
-      const response = await calculateProfit({ userId: userId!, productId: '6694ddf2eebb49329a596269' });
+      const response = await calculateProfit({ userId: userId!, productId: '669671ec3e42e3dc5aa85217' });
       console.log(response);
     } catch (error) {
       console.error(error);

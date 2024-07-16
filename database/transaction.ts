@@ -5,12 +5,13 @@ export interface ITransaction extends Document {
   userId: ObjectId;
   amount: number;
   status: string;
-  transactionId: string;
+  notes?: {
+    name: string;
+    id: ObjectId;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
-
-// modify the transaction schema, make it general; especially the transactionId
 
 const TransactionSchema = new Schema(
   {
@@ -31,9 +32,13 @@ const TransactionSchema = new Schema(
       type: String,
       required: true
     },
-    transactionId: {
-      type: String,
-      required: true
+    notes: {
+      name: {
+        type: String
+      },
+      id: {
+        type: Schema.Types.ObjectId
+      }
     }
   },
   { timestamps: true }

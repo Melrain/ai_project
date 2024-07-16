@@ -11,10 +11,13 @@ const page = async () => {
     redirect('/sign-in');
   }
   const result = await getUserByClerkId(userId);
+  if (!result) {
+    return <div>loading...</div>;
+  }
   return (
     <div className='flex justify-center flex-col  items-center gap-5'>
       <h1>
-        Balance:<span> {result!.user.balance}</span>
+        Balance:<span> {result.user.balance}</span>
       </h1>
       <Input placeholder='amount to withdraw' className='max-w-xs' />
       <LitUpBorderButton content={'withdraw'} icon={''} />

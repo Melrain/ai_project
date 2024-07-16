@@ -39,7 +39,7 @@ const SingleProduct = ({ productId }: Props) => {
       if (user.level < product.levelRequirement) {
         return alert('等级不够，请提升等级');
       }
-      console.log('_id:', user.products[0].product);
+
       if (user.products.some((product: { product: { _id: string } }) => product.product._id === productId[0])) {
         return alert('您已购买该产品');
       }

@@ -6,6 +6,7 @@ import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId, updateUser } from './user.action';
 import { SortOrder } from 'mongoose';
 import { redirect } from 'next/navigation';
+import { createTransaction } from './transaction.action';
 
 export const getProductById = async (productId: string) => {
   try {
@@ -168,8 +169,19 @@ export const buyProduct = async (params: BuyProductProps) => {
     const parsedProduct = JSON.parse(JSON.stringify(updatedProduct));
 
     //add transaction history
+    const transactionData = {
+      type: 'purchase',
+      userId: user._id,
+      amount: product.price,
+      status: 'success',
+      notes: { name: product.name, id: product._id }
+    };
+    const transaction = await createTransaction(transactionData);
+    if (!transaction) {
+      return { code: 404, message: 'Failed to create transaction" ' };
+    }
 
-    return { code: 200, message: 'Product bought successfully', product: parsedProduct, user: parsedUser };
+    return { code: 200, message: 'Product bought successfully', product: parsedProduct, user: parsedUser, transaction };
   } catch (error) {
     console.error(error);
   }
