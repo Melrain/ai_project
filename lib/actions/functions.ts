@@ -74,30 +74,37 @@ export const userCollectProfit = async (params: UserCollectProfit) => {
     if (!profitResponse) {
       return console.error('profit not found 1001');
     }
+    // 要更新的profit数值
     const profit = profitResponse.currentProfit;
 
     const userResponse = await getUserByClerkId(userId);
     if (!userResponse) {
       return console.error('User not found');
     }
+    // 获取用户信息
     const user = userResponse.user;
+    // 判断用户是否有这个产品
     if (!user.products.some((p: { product: { _id: string } }) => p.product._id === productId)) {
       return console.error('user does not have this product');
     }
+    // 获取用户的产品信息
     const product = user.products.find((p: { product: { _id: string } }) => p.product._id === productId);
     if (!product) {
       return console.error('Product not found');
     }
+    // 更新用户的产品信息：更新时间
     const newProduct = {
       ...product,
       updatedAt: new Date()
     };
+    // 将更新后的产品信息更新到用户的产品列表中
     const newProducts = user.products.map((p: { product: { _id: string } }) => {
       if (p.product._id === productId) {
         return newProduct;
       }
       return p;
     });
+    // 更新用户的余额
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
 
@@ -107,6 +114,10 @@ export const userCollectProfit = async (params: UserCollectProfit) => {
       },
       { new: true }
     );
+    if (!updatedUser) {
+      return console.error('User not found');
+    }
+    // 返回更新后的用户信息和收益
     return JSON.parse(
       JSON.stringify({
         user: updatedUser,
