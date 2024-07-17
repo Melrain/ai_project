@@ -62,7 +62,7 @@ const TimeTabs = ({ userId, productId }: Props) => {
   }, [timeStore]);
 
   return (
-    <div className='mt-2 text-slate-500 text-xs'>
+    <div className='mt-2 text-slate-300 text-sm'>
       {convertedTime?.month !== 0 && <span>{convertedTime?.month}月</span>}
       {convertedTime?.day !== 0 && <span>{convertedTime?.day}天</span>}
       <span>{convertedTime?.hour}时</span>

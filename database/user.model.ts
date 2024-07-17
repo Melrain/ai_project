@@ -15,6 +15,7 @@ export interface IUser extends Document {
   exp: number;
   registeredAt: Date;
 }
+// TODO 添加一个totalProfit字段
 
 const UserSchema = new Schema<IUser>({
   clerkId: { type: String, required: true, unique: true },
