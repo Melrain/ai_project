@@ -20,7 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
-import { calculateProfit } from '@/lib/actions/functions';
+import { calculateProfit, userCollectProfit } from '@/lib/actions/functions';
 import { collectProfitLimite } from '@/utils/params';
 
 interface Props {
@@ -54,6 +54,13 @@ const RevenueCard = ({ userId }: Props) => {
 
   const onCollect = async (productId: string) => {
     try {
+      const profitResponse = await calculateProfit({ userId, productId });
+      if (profitResponse.currentProfit < collectProfitLimite) {
+        return console.error('profit is too low');
+      }
+      console.log(profitResponse.currentProfit);
+      const response = await userCollectProfit({ userId, productId });
+      console.log(response);
     } catch (error) {
       console.error(error);
     }

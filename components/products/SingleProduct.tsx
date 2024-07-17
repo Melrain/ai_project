@@ -182,7 +182,9 @@ const SingleProduct = ({ productId }: Props) => {
               {/* userinfo */}
               <div className='flex flex-row gap-2 justify-start items-center'>
                 <p className='text-white text-sm'>VIP:{user.level}</p>
-                <p className='text-white text-sm'>您的余额:{user.balance}</p>
+                <p className='text-white text-sm'>
+                  您的余额:<span className='text-green-500'>${user.balance.toFixed(4)}</span>
+                </p>
                 <Link className='text-sm text-center' href={'/topup'}>
                   充值
                 </Link>
