@@ -104,7 +104,7 @@ const TopUpForm = () => {
       if (result.user === null) {
         return (
           <div>
-            <Spinner />
+            <Spinner w={'8'} h={'8'} />
           </div>
         );
       }
@@ -140,7 +140,7 @@ const TopUpForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className='px-10 max-w-xl'>
           <div className='flex justify-center gap-5'>
             <h1 className='flex flex-row gap-2 text-xl'>
-              Balance: <span className='text-slate-500'>{useBalance ? useBalance : <Spinner />}</span>
+              Balance: <span className='text-slate-500'>{useBalance ? useBalance : <Spinner w={'4'} h={'4'} />}</span>
             </h1>
           </div>
           <FormField

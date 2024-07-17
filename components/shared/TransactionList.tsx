@@ -76,7 +76,7 @@ const TransactionList = () => {
           className='bg-mycolor-200 py-2 px-4 rounded-[3px] font-bold text-slate-500 '
           onClick={onFetchTransactions}
         >
-          {isSubmitting ? <Spinner /> : 'Update Transactions'}
+          {isSubmitting ? <Spinner w='8' h='8' /> : 'Update Transactions'}
         </button>
       </div>
       <div className='flex  mt-5 flex-col text-slate-500 w-full max-w-md justify-center items-center'>

@@ -52,7 +52,7 @@ const SearchResult = () => {
       <div className='flex flex-col items-center gap-4 justify-center w-full '>
         {isLoading && (
           <div>
-            <Spinner />
+            <Spinner w='8' h='8' />
           </div>
         )}
         {result.length > 0

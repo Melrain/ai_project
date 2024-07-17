@@ -1,9 +1,29 @@
 'use client';
 
-import { useTimeStore } from '@/store/useTimeStore';
-import React from 'react';
+import { calculateProfit } from '@/lib/actions/functions';
+import React, { useEffect } from 'react';
 
-const TimeTabs = () => {
+interface Props {
+  userId: string;
+  productId: string;
+}
+
+const TimeTabs = ({ userId, productId }: Props) => {
+  const [timeStore, setTimeStore] = React.useState<{
+    timeInSeconds: number;
+    timeInMinutes: number;
+    timeInHours: number;
+    timeInDays: number;
+  }>();
+  const [convertedTime, setConvertedTime] = React.useState<{
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+  }>();
+
   const convertSecondsToTime = (seconds: number) => {
     const d = new Date(0);
     d.setUTCSeconds(seconds);
@@ -18,7 +38,38 @@ const TimeTabs = () => {
     return { year, month, day, hour, minute, second };
   };
 
-  return <div>TimeTabs</div>;
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await calculateProfit({ userId, productId });
+      if (!response) {
+        return;
+      }
+      const timeInSeconds = response.timeDifferenceInSeconds;
+      const timeInMinutes = response.timeDifferenceInMinutes;
+      const timeInHours = response.timeDifferenceInHours;
+      const timeInDays = timeInHours / 24;
+      setTimeStore({ timeInSeconds, timeInMinutes, timeInHours, timeInDays });
+    };
+    fetchData();
+  }, [userId, productId]);
+
+  // 每秒添加一秒
+  useEffect(() => {
+    if (!timeStore) return;
+    setInterval(() => {
+      setConvertedTime(convertSecondsToTime((timeStore.timeInSeconds += 1)));
+    }, 1000);
+  }, [timeStore]);
+
+  return (
+    <div className='mt-2 text-slate-500 text-xs'>
+      {convertedTime?.month !== 0 && <span>{convertedTime?.month}月</span>}
+      {convertedTime?.day !== 0 && <span>{convertedTime?.day}天</span>}
+      <span>{convertedTime?.hour}时</span>
+      <span>{convertedTime?.minute}分</span>
+      <span>{convertedTime?.second}</span>
+    </div>
+  );
 };
 
 export default TimeTabs;

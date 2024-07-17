@@ -45,15 +45,17 @@ export const calculateProfit = async (params: calculateProfitParams) => {
     // calculate profit
     const currentProfit = (profitPerSecond * timeDifferenceInSeconds).toFixed(5);
 
-    return {
-      timeDifferenceInSeconds,
-      timeDifferenceInMinutes,
-      timeDifferenceInHours,
-      profitPerSecond,
-      profitPerMinute,
-      profitPerHour,
-      currentProfit
-    };
+    return JSON.parse(
+      JSON.stringify({
+        timeDifferenceInSeconds,
+        timeDifferenceInMinutes,
+        timeDifferenceInHours,
+        profitPerSecond,
+        profitPerMinute,
+        profitPerHour,
+        currentProfit
+      })
+    );
   } catch (error) {
     console.error(error);
   }

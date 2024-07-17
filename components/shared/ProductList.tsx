@@ -251,7 +251,7 @@ const ProductList = () => {
               ))
             ) : (
               <div className='z-20 w-full justify-center items-center flex'>
-                <Spinner />
+                <Spinner w='8' h='8' />
               </div>
             )}
           </div>

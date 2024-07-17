@@ -3,7 +3,6 @@
 import { calculateProfit } from '@/lib/actions/functions';
 import React, { useEffect } from 'react';
 import Spinner from '../shared/Spinner';
-import { useTimeStore } from '@/store/useTimeStore';
 
 interface ProfitTabsProps {
   userId: string;
@@ -11,28 +10,42 @@ interface ProfitTabsProps {
 }
 const ProfitTabs = ({ userId, productId }: ProfitTabsProps) => {
   const [profitAndTime, setProfitAndTime] = React.useState<any>(null);
-
-  const setTimeStore = (time: number) => useTimeStore.setState({ time });
+  const [profitClient, setProfitClient] = React.useState(0);
 
   useEffect(() => {
     const fetchProfitAndTime = async () => {
       try {
         const response = await calculateProfit({ userId, productId });
         setProfitAndTime(response);
-        setTimeStore(profitAndTime.timeDifferenceInSeconds);
       } catch (error) {
         console.error(error);
       }
     };
-
-    const interval = setInterval(fetchProfitAndTime, 3000);
-
-    return () => {
-      clearInterval(interval);
-    };
+    fetchProfitAndTime();
   }, [userId, productId]);
 
-  return <div>{profitAndTime ? profitAndTime.currentProfit : <Spinner />}</div>;
+  useEffect(() => {
+    //每三秒自动更新一次
+    if (!profitAndTime) return;
+    const updateProfit = (currentProfit: number, profitPerSec: number) => {
+      setInterval(() => {
+        currentProfit = Number(currentProfit) + Number(profitPerSec) * 3;
+        setProfitClient(currentProfit);
+      }, 3000);
+    };
+
+    updateProfit(profitAndTime.currentProfit, profitAndTime.profitPerSecond);
+  }, [profitAndTime]);
+
+  return (
+    <div className='h-4 flex justify-center items-center text-green-500'>
+      {profitClient ? (
+        <span className='font-bold text-xl'>${profitClient.toFixed(4)}</span>
+      ) : (
+        <Spinner w={'4'} h={'4'} />
+      )}
+    </div>
+  );
 };
 
 export default ProfitTabs;
