@@ -70,6 +70,8 @@ const RevenueCard = ({ userId }: Props) => {
     }
   };
 
+  //TODO 获取用户的profit的历史记录，并用realTime更新
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -122,7 +124,7 @@ const RevenueCard = ({ userId }: Props) => {
                     </div>
                   </div>
                 </div>
-                {/* TODO 完成收集按钮 */}
+
                 <AlertDialog>
                   <AlertDialogTrigger
                     className='w-full'
@@ -170,11 +172,14 @@ const RevenueCard = ({ userId }: Props) => {
         {products.length === 0 ? (
           ''
         ) : (
-          <div className='flex flex-col gap-2 w-full'>
-            <div className='w-full rounded-[4px] flex justify-center items-center bg-mycolor-300 mt-10 py-2'>
+          <div className='flex mt-10 flex-col gap-2 w-full'>
+            {/* <div className='w-full rounded-[4px] flex justify-center items-center bg-mycolor-300 mt-10 py-2'>
               收益历史
+            </div> */}
+            <div className=''>
+              <h1 className='text-xl text-slate-200'>历史记录</h1>
             </div>
-            <div className=''>历史记录</div>
+            <div className='w-full flex bg-mycolor-100 p-2 rounded-[4px]'>1</div>
           </div>
         )}
       </div>
