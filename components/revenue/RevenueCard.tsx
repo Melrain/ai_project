@@ -93,9 +93,7 @@ const RevenueCard = ({ userId }: Props) => {
         </div>
       ) : (
         <div className='flex flex-col w-full  gap-2'>
-          <div className='w-full py-2 px-5 text-center bg-gradient-to-r from-purple-600 rounded-[4px] via-mycolor-300 to-purple-800'>
-            我的产品
-          </div>
+          <div className='w-full py-2 px-5 text-center bg-mycolor-300 rounded-[4px]'>我的产品</div>
           <div className='flex mt-5 gap-5 flex-wrap justify-center items-center px-5'>
             {products.map((item: any) => (
               <div className='flex flex-col justify-center items-center bg-gradient-to-b from-purple-800 to-mycolor-300 rounded-[8px] outline-4 outline-offset-6 shadow-md shadow-purple-500 p-5 w-[140px] h-[220px]'>
