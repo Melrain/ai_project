@@ -19,7 +19,7 @@ const HomeSections = () => {
         <ShimmerButton content='Withdraw' textClassName='font-bold' icon={<CreditCard />} />
       </Link>
       <Link href={'/revenue'} className='w-40 h-20 flex justify-center items-center'>
-        <TopGradientButton content='Revenue' icon={<Coins className='text-yellow-400' />} />
+        <TopGradientButton content='My Revenue' icon={<Coins className='text-yellow-400' />} />
       </Link>
 
       <Link href={'/team'} className='w-40 h-20 flex justify-center items-center gap-2'>

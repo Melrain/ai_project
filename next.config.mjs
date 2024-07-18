@@ -5,7 +5,8 @@ const nextConfig = {
       { hostname: 'www.hotavatars.com' },
       { hostname: 'example2.com' },
       { hostname: 'ipfs.filebase.io' },
-      { hostname: 'ipfs.io' }
+      { hostname: 'ipfs.io' },
+      { hostname: 'api.qrserver.com' }
     ]
   }
 };
