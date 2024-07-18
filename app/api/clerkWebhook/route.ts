@@ -71,6 +71,7 @@ export async function POST(req: Request) {
       products: [],
       balance: 0,
       exp: 100,
+      totalProfit: 0,
       email: email_addresses[0].email_address
     });
 

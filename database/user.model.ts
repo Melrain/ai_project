@@ -13,6 +13,7 @@ export interface IUser extends Document {
   topUpTransactions: ObjectId[];
   balance: number;
   exp: number;
+  totalProfit: number;
   registeredAt: Date;
 }
 // TODO 添加一个totalProfit字段
@@ -36,6 +37,7 @@ const UserSchema = new Schema<IUser>({
   ],
   balance: { type: Number, default: 100 },
   exp: { type: Number, default: 100 },
+  totalProfit: { type: Number, default: 0 },
   registeredAt: { type: Date, default: Date.now }
 });
 

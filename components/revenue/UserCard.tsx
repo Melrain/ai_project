@@ -43,9 +43,9 @@ const UserCard = ({ username, userBalance, userLevel, userProductsLength }: Prop
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>邀请链接</AlertDialogTitle>
+              <AlertDialogTitle className='w-full text-center'>邀请链接</AlertDialogTitle>
               <AlertDialogDescription className='flex flex-col flex-wrap gap-3'>
-                <div className='flex flex-row flex-wrap gap-1'>
+                <div className='flex flex-row justify-center items-center flex-wrap gap-1'>
                   <span>https://ai-project-jet.vercel.app/invite/{username}</span>
                   <Copy
                     onClick={() => {
@@ -55,11 +55,12 @@ const UserCard = ({ username, userBalance, userLevel, userProductsLength }: Prop
                   />
                   {isCopied && <CheckCheck className='text-green-500' />}
                 </div>
-                <div>
+                {isCopied && <span className='w-full text-center text-green-500'>链接已复制</span>}
+                <div className='w-full justify-center flex items-center'>
                   <Image
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://ai-project-jet.vercel.app/invite/${username}`}
-                    width={100}
-                    height={100}
+                    width={150}
+                    height={150}
                     alt='qr'
                   />
                 </div>

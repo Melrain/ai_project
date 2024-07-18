@@ -39,11 +39,9 @@ const page = async () => {
           ]}
         />
       </div>
-      <div className='flex w-full justify-center  items-center'>
-        <Support />
-      </div>
+
       {/* video */}
-      <div className='mt-10 relative '>
+      <div className='mt- relative '>
         <video
           src='https://ipfs.filebase.io/ipfs/Qmamg5MUbUyCcLtnFcEHziXRxcCCDUYyRX4y7WMwTgm4Qy'
           width={320}
@@ -56,18 +54,23 @@ const page = async () => {
           playsInline
         />
       </div>
+
       <div>
         <TextGenerateEffect
           delayTime={0.2}
           words='Join us to meet the Future!'
           className={`${kalam.className} text-xl text-slate-300 flex justify-center items-center w-full`}
         />
+        <div className='flex mt-2 w-full justify-center  items-center'>
+          <Support />
+        </div>
         <div className='mt-5 w-full flex items-center justify-center'>
           <Link href={'/products'}>
             <ColorfulButton content='查看所有商品' disabled={false} />
           </Link>
         </div>
       </div>
+
       {/* button */}
       <div className='mt-5'>
         <SignedOut>

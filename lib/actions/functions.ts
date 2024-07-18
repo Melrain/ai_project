@@ -3,6 +3,7 @@
 import { User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId } from './user.action';
+import { createTransaction } from './transaction.action';
 
 interface calculateProfitParams {
   userId: string;
@@ -117,11 +118,32 @@ export const userCollectProfit = async (params: UserCollectProfit) => {
     if (!updatedUser) {
       return console.error('User not found');
     }
+
+    // 添加transaction
+    const transaction = {
+      type: 'collectProfit',
+      userId: user._id,
+      amount: profit,
+      status: 'completed',
+      notes: {
+        name: product.product.name,
+        id: product.product._id
+      },
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+
+    const newTransaction = await createTransaction(transaction);
+    if (!newTransaction) {
+      return console.error('Transaction not created');
+    }
+
     // 返回更新后的用户信息和收益
     return JSON.parse(
       JSON.stringify({
         user: updatedUser,
-        profit
+        profit,
+        transaction: newTransaction
       })
     );
   } catch (error) {

@@ -45,10 +45,11 @@ interface CreateUserParams {
   level: number;
   products: [];
   balance: number;
+  totalProfit: number;
   exp: number;
 }
 export const createUser = async (params: CreateUserParams) => {
-  const { clerkId, username, supervisor, level, exp, products, email, balance } = params;
+  const { clerkId, username, supervisor, totalProfit, level, exp, products, email, balance } = params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
@@ -59,7 +60,8 @@ export const createUser = async (params: CreateUserParams) => {
       email,
       level,
       exp,
-      products
+      products,
+      totalProfit
     });
     if (!newUser) {
       throw new Error('Failed to create user');
