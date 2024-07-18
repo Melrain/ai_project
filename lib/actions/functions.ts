@@ -110,7 +110,7 @@ export const userCollectProfit = async (params: UserCollectProfit) => {
       { _id: user._id },
 
       {
-        $inc: { balance: profit },
+        $inc: { balance: profit, totalProfit: profit },
         products: newProducts
       },
       { new: true }

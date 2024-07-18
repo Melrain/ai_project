@@ -25,6 +25,7 @@ const page = async () => {
             userBalance={userResponse.user.balance}
             userLevel={userResponse.user.level}
             userProductsLength={userResponse.user.products.length}
+            userProfit={userResponse.user.totalProfit}
           />
         </div>
         <div>

@@ -19,8 +19,9 @@ interface Props {
   userBalance: number;
   userLevel: number;
   userProductsLength: number;
+  userProfit: number;
 }
-const UserCard = ({ username, userBalance, userLevel, userProductsLength }: Props) => {
+const UserCard = ({ username, userBalance, userProfit, userLevel, userProductsLength }: Props) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const onCopy = () => {
     setIsCopied(true);
@@ -28,7 +29,7 @@ const UserCard = ({ username, userBalance, userLevel, userProductsLength }: Prop
   };
 
   return (
-    <div className='w-full flex-col flex max-w-xs bg-gradient-to-br border-2  from-black via-mycolor-100 to-mycolor-200 shadow-lg rounded-[4px] p-3 gap-1 text-slate-400'>
+    <div className='w-full flex-col flex max-w-sm px-6 bg-gradient-to-br border-2  from-black via-mycolor-100 to-mycolor-200 shadow-lg rounded-[4px] p-3 gap-1 text-slate-400'>
       <div className='flex justify-between items-center w-full'>
         <Image
           src={'https://ipfs.filebase.io/ipfs/QmXi3t2k5Wbtt4M5ykvcAmFXwWzRjjVxxXVdPNfw8worKX'}
@@ -37,6 +38,7 @@ const UserCard = ({ username, userBalance, userLevel, userProductsLength }: Prop
           alt='icon'
           className='rounded-full object-cover aspect-square border-2 border-green-800'
         />
+
         <AlertDialog>
           <AlertDialogTrigger>
             <LinkIcon className='text-green-500' />
@@ -83,6 +85,10 @@ const UserCard = ({ username, userBalance, userLevel, userProductsLength }: Prop
       <div className='flex justify-between w-full'>
         <span>设备数量</span>
         <span>{userProductsLength}</span>
+      </div>
+      <div className='flex justify-between w-full'>
+        <span>收益总额:</span>
+        <span>${userProfit.toFixed(2)}</span>
       </div>
     </div>
   );

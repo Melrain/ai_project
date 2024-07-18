@@ -170,8 +170,11 @@ const RevenueCard = ({ userId }: Props) => {
         {products.length === 0 ? (
           ''
         ) : (
-          <div className='w-full rounded-[4px] flex justify-center items-center bg-mycolor-300 mt-10 py-2'>
-            收益历史
+          <div className='flex flex-col gap-2 w-full'>
+            <div className='w-full rounded-[4px] flex justify-center items-center bg-mycolor-300 mt-10 py-2'>
+              收益历史
+            </div>
+            <div className=''>历史记录</div>
           </div>
         )}
       </div>
