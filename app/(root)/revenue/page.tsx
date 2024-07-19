@@ -2,8 +2,7 @@ import RevenueCard from '@/components/revenue/RevenueCard';
 import UserCard from '@/components/revenue/UserCard';
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import { auth } from '@clerk/nextjs/server';
-import { LinkIcon } from 'lucide-react';
-import Image from 'next/image';
+
 import React from 'react';
 
 const page = async () => {
@@ -29,7 +28,7 @@ const page = async () => {
           />
         </div>
         <div>
-          <RevenueCard userId={userId} />
+          <RevenueCard userId={userId} mongoUserId={JSON.stringify(userResponse.user._id)} />
         </div>
       </div>
     </div>

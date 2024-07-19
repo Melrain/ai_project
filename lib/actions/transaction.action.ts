@@ -1,6 +1,7 @@
 'use server';
 import Transaction from '@/database/transaction';
 import { connectToDatabase } from '../connectToDatabase';
+import Product from '@/database/product';
 
 interface CreateTransactionParams {
   type: string;
@@ -40,11 +41,13 @@ export const getUserTransactions = async (params: GetUserTransactionsProps) => {
   const { userId } = params;
   try {
     await connectToDatabase();
-    const transactions = await Transaction.find({ userId: userId }).sort({ createdAt: -1 });
+    const transactions = await Transaction.find({ userId: userId })
+      .populate({ path: 'notes.id', model: Product })
+      .sort({ createdAt: -1 });
     if (!transactions) {
       console.log('Transactions not found');
     }
-
+    console.log(transactions);
     const parsedData = JSON.parse(JSON.stringify(transactions));
 
     return { message: 'Transactions found', transactions: parsedData };

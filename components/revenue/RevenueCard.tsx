@@ -22,12 +22,15 @@ import {
 } from '@/components/ui/alert-dialog';
 import { calculateProfit, userCollectProfit } from '@/lib/actions/functions';
 import { collectProfitLimite } from '@/utils/params';
+import { getUserTransactions } from '@/lib/actions/transaction.action';
+import { formatTime } from '@/lib/utils';
 
 interface Props {
   userId: string;
+  mongoUserId: string;
 }
 
-const RevenueCard = ({ userId }: Props) => {
+const RevenueCard = ({ userId, mongoUserId }: Props) => {
   const [products, setProducts] = React.useState<
     {
       id: any;
@@ -38,6 +41,7 @@ const RevenueCard = ({ userId }: Props) => {
   >([]);
 
   const [currentProfit, setCurrentProfit] = React.useState(0);
+  const [transactionsList, setTransactionsList] = React.useState<any[]>([]);
 
   // 获取收益按钮;
 
@@ -70,8 +74,28 @@ const RevenueCard = ({ userId }: Props) => {
     }
   };
 
-  //TODO 获取用户的profit的历史记录，并用realTime更新
+  //获取用户的profit的历史记录，并用realTime更新
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await getUserTransactions({ userId: JSON.parse(mongoUserId) });
+        if (!response) {
+          return console.error('Transactions not found');
+        }
+        console.log(response.transactions);
+        const profitTransactions = response.transactions.filter(
+          (item: { type: string }) => item.type === 'collectProfit'
+        );
+        console.log(profitTransactions);
+        setTransactionsList(profitTransactions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTransactions();
+  }, []);
 
+  // 获取用户的产品列表
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -177,9 +201,43 @@ const RevenueCard = ({ userId }: Props) => {
               收益历史
             </div> */}
             <div className=''>
-              <h1 className='text-xl text-slate-200'>历史记录</h1>
+              <h1 className='text-xl text-slate-200'>收益历史记录</h1>
             </div>
-            <div className='w-full flex bg-mycolor-100 p-2 rounded-[4px]'>1</div>
+            <div className='flex flex-col gap-2'>
+              {transactionsList.length !== 0 &&
+                transactionsList.map(
+                  (
+                    item: {
+                      amount: number;
+                      updatedAt: string;
+                      notes: {
+                        name: string;
+                        id: {
+                          picture: string;
+                        };
+                      };
+                    },
+                    index
+                  ) => (
+                    <div
+                      className={`w-full flex-row items-center justify-between text-slate-500 flex  p-2 rounded-[4px] ${index % 2 === 0 ? 'bg-mycolor-200' : 'bg-mycolor-100'}`}
+                    >
+                      <div className='flex flex-row gap-2 justify-center items-center'>
+                        <Image
+                          src={item.notes.id.picture}
+                          width={20}
+                          height={20}
+                          alt={item.notes.name}
+                          className='  aspect-auto p-1 rounded-full h-[40px] w-[40px] '
+                        />
+                        <span> {item.notes.name}</span>
+                      </div>
+                      <span>${item.amount.toFixed(2)}</span>
+                      <span className='text-xs'>{formatTime(item.updatedAt)}</span>
+                    </div>
+                  )
+                )}
+            </div>
           </div>
         )}
       </div>
