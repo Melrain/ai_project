@@ -1,5 +1,9 @@
 import AddProduct from '@/components/admin/AddProduct';
+import { BarChartComp } from '@/components/charts/BarChartComp';
+import { PieChartComp } from '@/components/charts/PieChartCompo';
+import { getAllTransactions } from '@/lib/actions/transaction.action';
 import { getUserByClerkId } from '@/lib/actions/user.action';
+import { formatDateToMonthDay, groupByDay } from '@/lib/utils';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import React from 'react';
@@ -22,7 +26,20 @@ const page = async () => {
   if (!admin) {
     return <div>Admin not found</div>;
   }
-  console.log(admin.user.products);
+
+  //fetch data
+  const transactions = await getAllTransactions();
+  const topUpTransactions = transactions.filter((transaction: any) => transaction.type === 'topup');
+
+  const topUpData = topUpTransactions.map((transaction: any) => {
+    return {
+      month: formatDateToMonthDay(transaction.createdAt),
+      desktop: transaction.amount,
+      mobile: transaction.amount
+    };
+  });
+
+  console.log(topUpData);
 
   return (
     <div className='flex justify-center w-full items-center  flex-col'>
@@ -32,6 +49,14 @@ const page = async () => {
       <div className='mt-10'>
         <AddProduct />
       </div>
+      <BarChartComp
+        title={'注册与充值数据'}
+        description={'----'}
+        data={[]}
+        topFooterDescription={'footerDescription'}
+        bottomFooterDescription={'bottomFooterDescription'}
+      />
+      <PieChartComp />
     </div>
   );
 };

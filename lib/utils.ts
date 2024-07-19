@@ -56,3 +56,32 @@ export const formatTime = (isoTimeStr: string) => {
   const formattedTimeStr = `${month}-${day} ${hours}:${minutes}`;
   return formattedTimeStr;
 };
+
+export const formatDateToMonthDay = (dateString: string) => {
+  // 创建一个Date对象
+  const date = new Date(dateString);
+
+  // 获取月份和日期
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // 月份是从0开始的，因此需要加1
+  const day = date.getUTCDate().toString().padStart(2, '0'); // 日期
+
+  // 返回格式化的字符串
+  return `${month}-${day}`;
+};
+
+export function groupByDay(data: any[]) {
+  const groupedData: { [key: string]: any[] } = {};
+
+  data.forEach((item) => {
+    const date = new Date(item.createdAt);
+    const day = date.toISOString().split('T')[0]; // 获取日期部分，格式为 YYYY-MM-DD
+
+    if (!groupedData[day]) {
+      groupedData[day] = [];
+    }
+
+    groupedData[day].push(item);
+  });
+
+  return groupedData;
+}

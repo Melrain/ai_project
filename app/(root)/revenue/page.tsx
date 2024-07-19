@@ -27,7 +27,7 @@ const page = async () => {
             userProfit={userResponse.user.totalProfit}
           />
         </div>
-        <div>
+        <div className='mb-20'>
           <RevenueCard userId={userId} mongoUserId={JSON.stringify(userResponse.user._id)} />
         </div>
       </div>
