@@ -1,4 +1,6 @@
 import AddProduct from '@/components/admin/AddProduct';
+import AllUsers from '@/components/admin/AllUsers';
+import DataCharts from '@/components/admin/DataCharts';
 import { BarChartComp } from '@/components/charts/BarChartComp';
 import { PieChartComp } from '@/components/charts/PieChartCompo';
 import { getAllTransactions } from '@/lib/actions/transaction.action';
@@ -27,49 +29,20 @@ const page = async () => {
     return <div>Admin not found</div>;
   }
 
-  //fetch data
-  const transactions = await getAllTransactions();
-  const topUpTransactions = transactions.filter((transaction: any) => transaction.type === 'topup');
-
-  const topUpData = topUpTransactions.map((transaction: any) => {
-    return {
-      date: formatDateToMonthDay(transaction.createdAt),
-      topup: transaction.amount
-    };
-  });
-
-  console.log(topUpData);
-
-  const dataResult = topUpData.reduce((acc: { date: any; topup: any }[], curr: { date: any; topup: any }) => {
-    const existingItem = acc.find((item: { date: any }) => item.date === curr.date);
-
-    if (existingItem) {
-      existingItem.topup += curr.topup;
-    } else {
-      acc.push({ date: curr.date, topup: curr.topup });
-    }
-
-    return acc;
-  }, []);
-
-  console.log(dataResult);
-
   return (
-    <div className='flex justify-center w-full items-center  flex-col'>
+    <div className='flex justify-center w-full items-center gap-5 flex-col'>
       <div className=' '>{/* <h1>目前管理员：{admin.user.username} </h1> */}</div>
       {/* 管理员功能 */}
 
       <div className='mt-10'>
         <AddProduct />
       </div>
-      <BarChartComp
-        title={'近七日充值数据'}
-        description={'----'}
-        data={dataResult}
-        topFooterDescription={'footerDescription'}
-        bottomFooterDescription={'bottomFooterDescription'}
-      />
-      <PieChartComp />
+      <div className='w-full max-w-sm'>
+        <DataCharts />
+      </div>
+      <div className='w-full flex justify-center items-center'>
+        <AllUsers />
+      </div>
     </div>
   );
 };

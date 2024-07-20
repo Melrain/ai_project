@@ -4,6 +4,18 @@ import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import Product from '@/database/product';
 
+export const getAllUsers = async () => {
+  try {
+    const users = await User.find();
+    if (!users) {
+      throw new Error('No users found');
+    }
+    return JSON.parse(JSON.stringify(users));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();

@@ -4,6 +4,7 @@ import { User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId } from './user.action';
 import { createTransaction } from './transaction.action';
+import { formatDateToMonthDay } from '../utils';
 
 interface calculateProfitParams {
   userId: string;
@@ -149,4 +150,23 @@ export const userCollectProfit = async (params: UserCollectProfit) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+interface GetDateProps {
+  days: number;
+}
+export const getDate = async ({ days }: GetDateProps) => {
+  await connectToDatabase();
+  const currentDate = new Date();
+  const dates = [];
+
+  for (let i = 0; i < days; i++) {
+    const date = new Date(currentDate);
+    date.setDate(date.getDate() - i);
+    dates.push(formatDateToMonthDay(date.toISOString()));
+  }
+
+  console.log(dates);
+
+  return dates;
 };

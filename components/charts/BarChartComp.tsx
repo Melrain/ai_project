@@ -30,7 +30,7 @@ interface BarChartCompProps {
   description: string;
   topFooterDescription: string;
   bottomFooterDescription: string;
-  data: [];
+  data: any[];
 }
 
 export function BarChartComp({
