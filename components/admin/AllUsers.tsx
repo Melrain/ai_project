@@ -35,6 +35,7 @@ const AllUsers = () => {
     <div className='flex flex-row flex-wrap p-4 w-full justify-center items-center gap-2'>
       {users.map(
         (user: {
+          topUpAmount: number;
           picture: string;
           products: [];
           level: number;
@@ -63,6 +64,7 @@ const AllUsers = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className='text-sm flex flex-col gap-1'>
+              <p>充值:{user.topUpAmount.toFixed(2)}</p>
               <p>余额:{user.balance.toFixed(2)}</p>
               <p>利润:{user.totalProfit.toFixed(2)}</p>
               <p>设备数量:{user.products.length}</p>

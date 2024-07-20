@@ -13,6 +13,37 @@ const DataCharts = () => {
   const [totalTopup, setTotalTopup] = React.useState<number>(0);
   const [totalRegister, setTotalRegister] = React.useState<number>(0);
 
+  const fakeData = [
+    {
+      date: '2024-07-20',
+      topup: 1000
+    },
+    {
+      date: '2024-07-21',
+      topup: 2000
+    },
+    {
+      date: '2024-07-22',
+      topup: 3000
+    },
+    {
+      date: '2024-07-23',
+      topup: 4000
+    },
+    {
+      date: '2024-07-24',
+      topup: 5000
+    },
+    {
+      date: '2024-07-25',
+      topup: 6000
+    },
+    {
+      date: '2024-07-26',
+      topup: 7000
+    }
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       const transactions = await getAllTransactions();
@@ -63,7 +94,7 @@ const DataCharts = () => {
       <BarChartComp
         title={`近${days}日充值数据`}
         description={`截止到${dataResult.length > 0 ? dataResult[dataResult.length - 1].date : ''}`}
-        data={dataResult}
+        data={fakeData}
         topFooterDescription={`总充值金额:$${totalTopup}`}
         bottomFooterDescription={`总注册人数: ${totalRegister}`}
       />

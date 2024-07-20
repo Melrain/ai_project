@@ -73,7 +73,7 @@ export async function POST(req: Request) {
       exp: 100,
       totalProfit: 0,
       email: email_addresses[0].email_address,
-      picture: '',
+      picture: 'https://ipfs.filebase.io/ipfs/Qmf1m4YUoCc6AqjhnF6avL1MsnGizyoPAE9NksEeAYzhuR',
       topUpAmount: 0
     });
 

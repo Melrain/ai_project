@@ -34,13 +34,19 @@ const page = async () => {
       <div className=' '>{/* <h1>目前管理员：{admin.user.username} </h1> */}</div>
       {/* 管理员功能 */}
 
-      <div className='mt-10'>
-        <AddProduct />
+      <div className='mt-10 gap-5 flex flex-col bg-gradient-to-tr rounded-[4px] from-mycolor-200 via-black to-mycolor-100 w-full max-w-sm p-5'>
+        <h1>管理员命令:</h1>
+        <div>
+          <AddProduct />
+        </div>
+        <div className='p-2 px-4 rounded-[4px] bg-mycolor-200  text-center'>发布公告</div>
+        <div className='p-2 px-4 rounded-[4px] bg-mycolor-200  text-center'>发布活动</div>
       </div>
-      <div className='w-full max-w-sm'>
+      <div className='w-full max-w-sm p-5'>
+        <h1>图形数据</h1>
         <DataCharts />
       </div>
-      <div className='w-full flex justify-center items-center'>
+      <div className='w-full flex justify-center flex-col items-center'>
         <AllUsers />
       </div>
     </div>

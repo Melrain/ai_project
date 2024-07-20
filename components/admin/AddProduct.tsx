@@ -94,7 +94,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center gap-5'>
+    <div className='flex flex-col justify-center'>
       <div className='text-red-500'>{useErrorMessage}</div>
       <Dialog open={isOpen}>
         <DialogTrigger
