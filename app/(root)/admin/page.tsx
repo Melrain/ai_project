@@ -33,13 +33,26 @@ const page = async () => {
 
   const topUpData = topUpTransactions.map((transaction: any) => {
     return {
-      month: formatDateToMonthDay(transaction.createdAt),
-      desktop: transaction.amount,
-      mobile: transaction.amount
+      date: formatDateToMonthDay(transaction.createdAt),
+      topup: transaction.amount
     };
   });
 
   console.log(topUpData);
+
+  const dataResult = topUpData.reduce((acc: { date: any; topup: any }[], curr: { date: any; topup: any }) => {
+    const existingItem = acc.find((item: { date: any }) => item.date === curr.date);
+
+    if (existingItem) {
+      existingItem.topup += curr.topup;
+    } else {
+      acc.push({ date: curr.date, topup: curr.topup });
+    }
+
+    return acc;
+  }, []);
+
+  console.log(dataResult);
 
   return (
     <div className='flex justify-center w-full items-center  flex-col'>
@@ -50,9 +63,9 @@ const page = async () => {
         <AddProduct />
       </div>
       <BarChartComp
-        title={'注册与充值数据'}
+        title={'近七日充值数据'}
         description={'----'}
-        data={[]}
+        data={dataResult}
         topFooterDescription={'footerDescription'}
         bottomFooterDescription={'bottomFooterDescription'}
       />

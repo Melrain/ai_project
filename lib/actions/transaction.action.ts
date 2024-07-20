@@ -62,7 +62,7 @@ interface GetAllTransactionsParams {
 export const getAllTransactions = async () => {
   try {
     await connectToDatabase();
-    const transactions = await Transaction.find({}).sort({ createdAt: -1 });
+    const transactions = await Transaction.find({}).sort({ createdAt: 1 });
     if (!transactions) {
       console.log('Transactions not found');
     }
