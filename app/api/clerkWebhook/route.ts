@@ -73,7 +73,8 @@ export async function POST(req: Request) {
       exp: 100,
       totalProfit: 0,
       email: email_addresses[0].email_address,
-      picture: ''
+      picture: '',
+      topUpAmount: 0
     });
 
     return NextResponse.json({ message: 'user created', user });

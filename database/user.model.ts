@@ -12,6 +12,7 @@ export interface IUser extends Document {
   level: number;
   products: { product: ObjectId; createdAt: Date; updatedAt: Date }[];
   topUpTransactions: ObjectId[];
+  topUpAmount: number;
   balance: number;
   exp: number;
   totalProfit: number;
@@ -36,6 +37,7 @@ const UserSchema = new Schema<IUser>({
       updatedAt: { type: Date, default: Date.now }
     }
   ],
+  topUpAmount: { type: Number, default: 0 },
   balance: { type: Number, default: 100 },
   exp: { type: Number, default: 100 },
   totalProfit: { type: Number, default: 0 },

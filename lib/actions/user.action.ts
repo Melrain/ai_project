@@ -58,11 +58,13 @@ interface CreateUserParams {
   level: number;
   products: [];
   balance: number;
+  topUpAmount: number;
   totalProfit: number;
   exp: number;
 }
 export const createUser = async (params: CreateUserParams) => {
-  const { clerkId, username, supervisor, picture, totalProfit, level, exp, products, email, balance } = params;
+  const { clerkId, username, supervisor, picture, topUpAmount, totalProfit, level, exp, products, email, balance } =
+    params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
@@ -74,6 +76,7 @@ export const createUser = async (params: CreateUserParams) => {
       picture,
       level,
       exp,
+      topUpAmount,
       products,
       totalProfit
     });
@@ -115,7 +118,7 @@ export const updateUser = async (params: UpdateUserParams) => {
 export const addBalanceAndTxId = async (clerkId: string, amount: number, txId: string) => {
   try {
     await connectToDatabase();
-    const updateData = { $inc: { balance: amount }, $addToSet: { topUpTransactions: txId } };
+    const updateData = { $inc: { balance: amount, topUpAmount: amount }, $addToSet: { topUpTransactions: txId } };
     const updateResult = await User.findOneAndUpdate({ clerkId: clerkId }, updateData, { new: true });
     if (!updateResult) {
       throw new Error('Failed to update user');
