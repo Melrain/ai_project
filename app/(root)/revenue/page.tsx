@@ -20,11 +20,11 @@ const page = async () => {
       <div className='w-full max-w-xl px-2 mt-5 flex gap-5 flex-col justify-center items-center'>
         <div className='w-full flex justify-center items-center'>
           <UserCard
-            username={userResponse.user.username}
-            userBalance={userResponse.user.balance}
-            userLevel={userResponse.user.level}
-            userProductsLength={userResponse.user.products.length}
-            userProfit={userResponse.user.totalProfit}
+            username={userResponse?.user.username}
+            userBalance={userResponse?.user.balance}
+            userLevel={userResponse?.user.level}
+            userProductsLength={userResponse?.user.products.length}
+            userProfit={userResponse?.user.totalProfit}
           />
         </div>
         <div className='mb-20'>

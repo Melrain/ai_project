@@ -4,6 +4,7 @@ export interface IUser extends Document {
   clerkId: string;
   username: string;
   email: string;
+  picture: string;
   supervisor: {
     clerkId: string;
     username: string;
@@ -21,6 +22,7 @@ const UserSchema = new Schema<IUser>({
   clerkId: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  picture: { type: String, default: 'https://ipfs.filebase.io/ipfs/Qmf1m4YUoCc6AqjhnF6avL1MsnGizyoPAE9NksEeAYzhuR' },
   topUpTransactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
   supervisor: {
     clerkId: { type: String },

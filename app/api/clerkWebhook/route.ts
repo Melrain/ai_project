@@ -72,10 +72,25 @@ export async function POST(req: Request) {
       balance: 0,
       exp: 100,
       totalProfit: 0,
-      email: email_addresses[0].email_address
+      email: email_addresses[0].email_address,
+      picture: ''
     });
 
     return NextResponse.json({ message: 'user created', user });
+  }
+
+  if (eventType === 'user.updated') {
+    const { id, email_addresses, username } = evt.data;
+    const updateData = {
+      username: username!,
+      email: email_addresses[0].email_address
+    };
+    const user = await updateUser({
+      clerkId: id,
+      updateData
+    });
+
+    return NextResponse.json({ message: 'user updated', user });
   }
 
   if (eventType === 'user.deleted') {

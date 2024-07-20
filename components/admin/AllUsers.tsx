@@ -35,6 +35,8 @@ const AllUsers = () => {
     <div className='flex flex-row flex-wrap p-4 w-full justify-center items-center gap-2'>
       {users.map(
         (user: {
+          picture: string;
+          products: [];
           level: number;
           balance: number;
           username: string;
@@ -44,26 +46,29 @@ const AllUsers = () => {
             username: string;
           };
         }) => (
-          <Card className='bg-gradient-to-tr from-blue-900 rounded-[8px] to-mycolor-300'>
+          <Card className='bg-gradient-to-br from-indigo-600 via-black rounded-[8px] to-mycolor-200'>
             <CardHeader>
               <CardTitle>
                 <Image
-                  src='https://ipfs.filebase.io/ipfs/QmXi3t2k5Wbtt4M5ykvcAmFXwWzRjjVxxXVdPNfw8worKX'
+                  src={user.picture}
                   alt='avatar'
                   width={20}
                   height={20}
-                  className='rounded-full aspect-square object-cover w-[40px] h-[40px]'
+                  className='rounded-full aspect-square object-contain w-[60px] h-[60px] bg-white'
                 />
+                {user.username}
               </CardTitle>
-              <CardDescription>{user.username}</CardDescription>
+              <CardDescription>
+                <p className='text-xs text-slate-500'>Joined:{user.registeredAt.slice(0, 10)}</p>
+              </CardDescription>
             </CardHeader>
             <CardContent className='text-sm flex flex-col gap-1'>
               <p>余额:{user.balance.toFixed(2)}</p>
               <p>利润:{user.totalProfit.toFixed(2)}</p>
+              <p>设备数量:{user.products.length}</p>
               <p>上级:{user.supervisor.username}</p>
             </CardContent>
             <CardFooter className='flex flex-col gap-1'>
-              <p className='text-xs text-slate-500'>Joined:{user.registeredAt.slice(0, 10)}</p>
               <Button className='rounded-[8px] mt-2'>点击修改</Button>
             </CardFooter>
           </Card>
