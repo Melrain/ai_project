@@ -32,7 +32,9 @@ const page = async () => {
 
   return (
     <div className='flex justify-center w-full items-center gap-5 flex-row flex-wrap'>
-      <div className=''>管理页面主页</div>
+      <div className='w-full pl-5 max-md:max-w-xs max-w-lg'>
+        <DataCharts />
+      </div>
     </div>
   );
 };
