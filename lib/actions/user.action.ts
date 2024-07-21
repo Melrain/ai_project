@@ -47,6 +47,7 @@ export const getUserInfo = async (username: string) => {
   }
 };
 interface CreateUserParams {
+  type: string;
   clerkId: string;
   email: string;
   username: string;
@@ -63,11 +64,24 @@ interface CreateUserParams {
   exp: number;
 }
 export const createUser = async (params: CreateUserParams) => {
-  const { clerkId, username, supervisor, picture, topUpAmount, totalProfit, level, exp, products, email, balance } =
-    params;
+  const {
+    type,
+    clerkId,
+    username,
+    supervisor,
+    picture,
+    topUpAmount,
+    totalProfit,
+    level,
+    exp,
+    products,
+    email,
+    balance
+  } = params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
+      type,
       clerkId,
       username,
       supervisor,
