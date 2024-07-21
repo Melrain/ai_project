@@ -103,6 +103,7 @@ const RevenueCard = ({ userId, mongoUserId }: Props) => {
         if (!response) {
           return console.error('User not found');
         }
+
         setProducts(response.user.products);
       } catch (error) {
         console.error(error);
@@ -110,6 +111,10 @@ const RevenueCard = ({ userId, mongoUserId }: Props) => {
     };
     fetchProducts();
   }, [userId]);
+
+  if (products.length === 0) {
+    return <div>您还未购买设备</div>;
+  }
 
   return (
     <div className=''>
