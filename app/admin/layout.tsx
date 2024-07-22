@@ -3,7 +3,7 @@ import React from 'react';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className='relative overflow-hidden w-full h-screen'>
+    <main className='relative bg-mycolor-100 overflow-hidden w-full h-screen'>
       <div className='  h-screen absolute'>
         <LeftNavbar />
       </div>

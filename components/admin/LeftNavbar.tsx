@@ -48,8 +48,9 @@ const LeftNavbar = () => {
             onClick={() => {
               setIsOpen(!isOpen);
             }}
+            className='outline-none select-none focus:outline-none focus:select-none '
           >
-            <ArrowRightSquareIcon className='text-slate-500' />
+            <ArrowRightSquareIcon className='text-slate-500 ' />
           </SheetTrigger>
           <SheetContent
             side={'left'}

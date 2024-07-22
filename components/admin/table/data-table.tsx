@@ -12,6 +12,7 @@ import {
   getPaginationRowModel,
   useReactTable
 } from '@tanstack/react-table';
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -33,6 +34,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
   const table = useReactTable({
     data,
     columns,
@@ -41,23 +43,24 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
-
+    onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
       columnFilters,
-      columnVisibility
+      columnVisibility,
+      rowSelection
     }
   });
 
   return (
-    <div className='w-full max-w-xl max-md:max-w-sm '>
+    <div className='w-full  '>
       <div className='flex items-center py-4'>
         <Input
-          placeholder='Filter emails...'
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+          placeholder='用户名查找...'
+          value={(table.getColumn('username')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('username')?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
         <DropdownMenu>
@@ -126,6 +129,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
           Next
         </Button>
+      </div>
+      <div className='flex-1 text-sm text-muted-foreground'>
+        {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
     </div>
   );

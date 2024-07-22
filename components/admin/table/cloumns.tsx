@@ -3,6 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,45 +12,67 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import { IUser } from '@/database/user.model';
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  amount: number;
-  status: 'pending' | 'processing' | 'success' | 'failed';
-  email: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<IUser>[] = [
   {
-    accessorKey: 'id',
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label='Select all'
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label='Select row'
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false
+  },
+  {
+    accessorKey: 'username',
     header: ({ column }) => {
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          id
+          用户名
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     }
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'type',
     header: ({ column }) => {
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Email
+          身份
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     }
   },
   {
-    accessorKey: 'amount',
+    accessorKey: 'supervisor.username',
     header: ({ column }) => {
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          amount
+          上级
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'balance',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          余额
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -58,7 +81,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original;
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -69,13 +92,18 @@ export const columns: ColumnDef<Payment>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>
-              Copy payment ID
-            </DropdownMenuItem>
+            <DropdownMenuLabel className='text-slate-500'>操作</DropdownMenuLabel>
+
+            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.username)}>复制用户名</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                console.log(user._id);
+              }}
+            >
+              改变身份:员工
+            </DropdownMenuItem>
+            <DropdownMenuItem>改变身份:用户</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
