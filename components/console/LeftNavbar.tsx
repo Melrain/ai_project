@@ -1,7 +1,7 @@
 'use client';
 import { UserButton, useUser } from '@clerk/nextjs';
 import { IconMoneybag } from '@tabler/icons-react';
-import { Check, Circle, Cog, Command, ListOrdered, User } from 'lucide-react';
+import { Check, Circle, Cog, Command, Computer, ListOrdered, User } from 'lucide-react';
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
@@ -142,11 +142,14 @@ const LeftNavbar = () => {
     }
   ];
   return (
-    <div className='flex px-5 flex-col shadow-lg border-r-2 border-black h-screen bg-gradient-to-tr max-w-[200px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100'>
-      <div>
-        <h1 className='text-xl text-slate-500'>网站后台</h1>
+    <div className='flex px-2 flex-col shadow-lg py-4 border-r-2 border-black h-screen bg-gradient-to-tr max-w-[150px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100 max-sm:hidden'>
+      <div className='w-full'>
+        <div className=' flex flex-row gap-2  items-center text-md text-slate-500'>
+          <Computer />
+          <p>管理员页面</p>
+        </div>
       </div>
-      <div className='flex flex-row gap-2 px-1 w-full justify-start'>
+      <div className='flex flex-row gap-2 py-5 px-1 w-full justify-start'>
         <UserButton />
         <div className='flex flex-col gap-2 justify-start items-centers'>
           <p>{user?.username}</p>
