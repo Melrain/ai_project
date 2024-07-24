@@ -28,7 +28,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-        <body className={`${inter.variable} `}>
+        <body className={`${inter.variable} `} suppressHydrationWarning={true}>
           <ThemeProvider attribute='class' enableSystem disableTransitionOnChange>
             {children}
           </ThemeProvider>

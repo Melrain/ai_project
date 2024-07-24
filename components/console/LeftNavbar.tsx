@@ -1,51 +1,65 @@
-import { UserButton } from '@clerk/nextjs';
+'use client';
+import { UserButton, useUser } from '@clerk/nextjs';
 import { IconMoneybag } from '@tabler/icons-react';
-import { Circle, Cog, Command, ListOrdered, User } from 'lucide-react';
+import { Check, Circle, Cog, Command, ListOrdered, User } from 'lucide-react';
 import React from 'react';
-import { BsPeople } from 'react-icons/bs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const LeftNavbar = () => {
+  const pathname = usePathname();
+  const { user } = useUser();
+
   const rewardLinks = [
     {
-      name: '红包管理'
+      name: '红包管理',
+      link: '/console/rewardManage/rewards'
     },
     {
-      name: '领取记录'
+      name: '领取记录',
+      link: '/console/rewardManage/claimList'
     }
   ];
   const userLinks = [
     {
-      name: '会员信息'
+      name: '会员信息',
+      link: '/console/userManage/userInfo'
     },
     {
-      name: '银行信息'
+      name: '银行信息',
+      link: '/console/userManage/bankInfo'
     }
   ];
   const orderLinks = [
     {
-      name: '提现订单'
+      name: '提现订单',
+      link: '/console/orderManage/withdraw'
     },
     {
-      name: '所有订单'
+      name: '所有订单',
+      link: '/console/orderManage/orders'
     },
     {
-      name: '充值订单'
+      name: '充值订单',
+      link: '/console/orderManage/topup'
     },
     {
-      name: '升级订单'
+      name: '升级订单',
+      link: '/console/orderManage/leveling'
     },
     {
-      name: '推荐奖励订单'
+      name: '推荐奖励订单',
+      link: '/console/orderManage/rewards'
     }
   ];
 
   const links = [
     {
       name: (
-        <div className='flex flex-row gap-2 w-full'>
+        <Link href={'/console'} className='flex flex-row gap-2 w-full'>
           <Command /> <p>控制台</p>
-        </div>
+        </Link>
       )
     },
     {
@@ -58,10 +72,12 @@ const LeftNavbar = () => {
             </AccordionTrigger>
             <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
               {orderLinks.map((link, index) => (
-                <div className='flex flex-row gap-1 w-full cursor-pointer'>
-                  <Circle className='w-[20px]' />
+                <Link key={link.link} href={link.link} className='flex flex-row gap-1 w-full cursor-pointer'>
+                  <div className='border-2 border-slate-500 flex justify-center items-center size-4'>
+                    {pathname == link.link ? <Check className='text-green-500' /> : null}
+                  </div>
                   {link.name}
-                </div>
+                </Link>
               ))}
             </AccordionContent>
           </AccordionItem>
@@ -78,10 +94,16 @@ const LeftNavbar = () => {
             </AccordionTrigger>
             <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
               {userLinks.map((link, index) => (
-                <div className='flex flex-row gap-1 w-full cursor-pointer'>
-                  <Circle className='w-[20px]' />
+                <Link
+                  key={link.link}
+                  href={link.link}
+                  className='flex flex-row items-center gap-1 w-full cursor-pointer'
+                >
+                  <div className='border-2 border-slate-500 flex justify-center items-center size-4'>
+                    {pathname == link.link ? <Check className='text-green-500' /> : null}
+                  </div>
                   {link.name}
-                </div>
+                </Link>
               ))}
             </AccordionContent>
           </AccordionItem>
@@ -98,10 +120,12 @@ const LeftNavbar = () => {
             </AccordionTrigger>
             <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
               {rewardLinks.map((link, index) => (
-                <div className='flex flex-row gap-1 w-full cursor-pointer'>
-                  <Circle className='w-[20px]' />
+                <Link key={link.link} href={link.link} className='flex flex-row gap-1 w-full cursor-pointer'>
+                  <div className='border-2 border-slate-500 flex justify-center items-center size-4'>
+                    {pathname == link.link ? <Check className='text-green-500' /> : null}
+                  </div>
                   {link.name}
-                </div>
+                </Link>
               ))}
             </AccordionContent>
           </AccordionItem>
@@ -110,31 +134,40 @@ const LeftNavbar = () => {
     },
     {
       name: (
-        <div className='flex flex-row gap-2 justify-center items-center'>
-          <Cog />
+        <Link href={'/console/settings'} className='flex flex-row gap-2 justify-start items-center'>
+          <Cog className='w-5' />
           <p>设置</p>
-        </div>
+        </Link>
       )
     }
   ];
   return (
-    <div className='flex px-5 flex-col h-screen bg-gradient-to-tr max-w-[200px] w-full  items-center from-mycolor-200 gap-5 text-white to-mycolor-100'>
+    <div className='flex px-5 flex-col h-screen bg-gradient-to-tr max-w-[200px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100'>
       <div>
         <h1 className='text-xl text-slate-500'>网站后台</h1>
       </div>
-      <div className='flex flex-row gap-2 justify-between px-1 items-center'>
+      <div className='flex flex-row gap-2 px-1 w-full justify-start'>
         <UserButton />
-        <div className='flex flex-col gap-2 justify-center items-centers'>
-          <p>yyye</p>
-          <div className='flex flex-row justify-center items-center gap-2'>
-            <div className='bg-green-500 size-3 rounded-full' />
-            <p>在线</p>
+        <div className='flex flex-col gap-2 justify-start items-centers'>
+          <p>{user?.username}</p>
+          <div className='flex flex-row justify-start items-center gap-2'>
+            {user?.username ? (
+              <>
+                <div className='bg-green-500 size-3 rounded-full' />
+                <p>在线</p>
+              </>
+            ) : (
+              <>
+                <div className='bg-slate-500 size-3 rounded-full' />
+                <p className='text-slate-500'>未登录</p>
+              </>
+            )}
           </div>
         </div>
       </div>
       <div className='flex flex-col gap-2 w-full'>
         {links.map((link, index) => (
-          <div className='flex flex-row justify-center gap-2 py-4 px-2 w-full cursor-pointer'>
+          <div key={index} className='flex flex-row  gap-2 py-2 px-2 w-full cursor-pointer'>
             <div className='flex flex-row justify-start items-center w-full'>{link.name}</div>
           </div>
         ))}
