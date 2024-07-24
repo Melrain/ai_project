@@ -14,43 +14,43 @@ const LeftNavbar = () => {
   const rewardLinks = [
     {
       name: '红包管理',
-      link: '/console/rewardManage/rewards'
+      link: '/console/envelope'
     },
     {
       name: '领取记录',
-      link: '/console/rewardManage/claimList'
+      link: '/console/claimList'
     }
   ];
   const userLinks = [
     {
       name: '会员信息',
-      link: '/console/userManage/userInfo'
+      link: '/console/userInfo'
     },
     {
       name: '银行信息',
-      link: '/console/userManage/bankInfo'
+      link: '/console/bankInfo'
     }
   ];
   const orderLinks = [
     {
       name: '提现订单',
-      link: '/console/orderManage/withdraw'
+      link: '/console/withdraw'
     },
     {
       name: '所有订单',
-      link: '/console/orderManage/orders'
+      link: '/console/orders'
     },
     {
       name: '充值订单',
-      link: '/console/orderManage/topup'
+      link: '/console/topup'
     },
     {
       name: '升级订单',
-      link: '/console/orderManage/leveling'
+      link: '/console/leveling'
     },
     {
       name: '推荐奖励订单',
-      link: '/console/orderManage/rewards'
+      link: '/console/rewards'
     }
   ];
 
@@ -142,7 +142,7 @@ const LeftNavbar = () => {
     }
   ];
   return (
-    <div className='flex px-5 flex-col h-screen bg-gradient-to-tr max-w-[200px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100'>
+    <div className='flex px-5 flex-col shadow-lg border-r-2 border-black h-screen bg-gradient-to-tr max-w-[200px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100'>
       <div>
         <h1 className='text-xl text-slate-500'>网站后台</h1>
       </div>
