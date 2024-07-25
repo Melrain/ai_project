@@ -6,10 +6,68 @@ import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { BsEnvelopeArrowDownFill } from 'react-icons/bs';
 
 const LeftNavbar = () => {
   const pathname = usePathname();
   const { user } = useUser();
+
+  const items = [
+    {
+      name: '订单管理',
+      menu: [
+        {
+          name: '提现订单',
+          link: '/console/withdraw'
+        },
+        {
+          name: '所有订单',
+          link: '/console/orders'
+        },
+        {
+          name: '充值订单',
+          link: '/console/topup'
+        },
+        {
+          name: '升级订单',
+          link: '/console/leveling'
+        },
+        {
+          name: '推荐奖励订单',
+          link: '/console/rewards'
+        }
+      ],
+      icon: <ListOrdered />
+    },
+    {
+      name: '会员管理',
+      menu: [
+        {
+          name: '会员信息',
+          link: '/console/userInfo'
+        },
+        {
+          name: '银行信息',
+          link: '/console/bankInfo'
+        }
+      ],
+      icon: <User />
+    },
+    {
+      name: '红包管理',
+      menu: [
+        {
+          name: '红包管理',
+          link: '/console/envelope'
+        },
+        {
+          name: '领取记录',
+          link: '/console/claimList'
+        }
+      ],
+      icon: <BsEnvelopeArrowDownFill />
+    }
+  ];
 
   const rewardLinks = [
     {
@@ -54,93 +112,6 @@ const LeftNavbar = () => {
     }
   ];
 
-  const links = [
-    {
-      name: (
-        <Link href={'/console'} className='flex flex-row gap-2 w-full'>
-          <Command /> <p>控制台</p>
-        </Link>
-      )
-    },
-    {
-      name: (
-        <Accordion type='single' collapsible>
-          <AccordionItem value='item-1' className='w-full'>
-            <AccordionTrigger className='flex flex-row justify-between w-full gap-1 items-center'>
-              <ListOrdered />
-              <p>订单管理</p>
-            </AccordionTrigger>
-            <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
-              {orderLinks.map((link, index) => (
-                <Link key={link.link} href={link.link} className='flex flex-row gap-1 w-full cursor-pointer'>
-                  <div className='border-2 border-slate-500 flex justify-center items-center size-4'>
-                    {pathname == link.link ? <Check className='text-green-500' /> : null}
-                  </div>
-                  {link.name}
-                </Link>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      )
-    },
-    {
-      name: (
-        <Accordion type='single' collapsible>
-          <AccordionItem value='item-1' className='w-full'>
-            <AccordionTrigger className='flex flex-row justify-between w-full gap-1 items-center'>
-              <User />
-              <p>会员管理</p>
-            </AccordionTrigger>
-            <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
-              {userLinks.map((link, index) => (
-                <Link
-                  key={link.link}
-                  href={link.link}
-                  className='flex flex-row items-center gap-1 w-full cursor-pointer'
-                >
-                  <div className='border-2 border-slate-500 flex justify-center items-center size-4'>
-                    {pathname == link.link ? <Check className='text-green-500' /> : null}
-                  </div>
-                  {link.name}
-                </Link>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      )
-    },
-    {
-      name: (
-        <Accordion type='single' collapsible>
-          <AccordionItem value='item-1' className='w-full'>
-            <AccordionTrigger className='flex flex-row justify-between w-full gap-1 items-center'>
-              <IconMoneybag className='size-[20px]' />
-              <p>红包管理</p>
-            </AccordionTrigger>
-            <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
-              {rewardLinks.map((link, index) => (
-                <Link key={link.link} href={link.link} className='flex flex-row gap-1 w-full cursor-pointer'>
-                  <div className='border-2 border-slate-500 flex justify-center items-center size-4'>
-                    {pathname == link.link ? <Check className='text-green-500' /> : null}
-                  </div>
-                  {link.name}
-                </Link>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      )
-    },
-    {
-      name: (
-        <Link href={'/console/settings'} className='flex flex-row gap-2 justify-start items-center'>
-          <Cog className='w-5' />
-          <p>设置</p>
-        </Link>
-      )
-    }
-  ];
   return (
     <div className='flex px-2 flex-col shadow-lg py-4 border-r-2 border-black h-screen bg-gradient-to-tr max-w-[150px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100 max-sm:hidden'>
       <div className='w-full'>
@@ -168,11 +139,32 @@ const LeftNavbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Items */}
       <div className='flex flex-col gap-2 w-full'>
-        {links.map((link, index) => (
-          <div key={index} className='flex flex-row  gap-2 py-2 px-2 w-full cursor-pointer'>
-            <div className='flex flex-row justify-start items-center w-full'>{link.name}</div>
-          </div>
+        {items.map((item, index) => (
+          <Accordion type='single' collapsible>
+            <AccordionItem value='item-1' className='w-full'>
+              <AccordionTrigger className='flex flex-row justify-center gap-3 w-full  items-center'>
+                <>{item.icon}</>
+                <p>{item.name}</p>
+              </AccordionTrigger>
+              <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
+                {item.menu.map((item, index) => (
+                  <Link
+                    key={item.link}
+                    href={item.link}
+                    className='flex flex-row gap-1  w-full cursor-pointer justify-start items-center'
+                  >
+                    <div
+                      className={`size-3 rounded-full jus ${pathname === item.link ? 'bg-green-500' : 'border-slate-500 border-2'}`}
+                    />
+                    {item.name}
+                  </Link>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         ))}
       </div>
     </div>
