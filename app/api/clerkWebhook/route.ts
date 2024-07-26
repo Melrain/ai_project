@@ -61,12 +61,12 @@ export async function POST(req: Request) {
   if (eventType === 'user.created') {
     const { id, email_addresses, username } = evt.data;
     const user = await createUser({
-      type: 'user',
+      type: 'client',
       clerkId: id,
       username: username!,
       supervisor: {
         clerkId: '',
-        username: 'super admin'
+        username: ''
       },
       level: 1,
       products: [],
@@ -75,7 +75,12 @@ export async function POST(req: Request) {
       totalProfit: 0,
       email: email_addresses[0].email_address,
       picture: 'https://ipfs.filebase.io/ipfs/Qmf1m4YUoCc6AqjhnF6avL1MsnGizyoPAE9NksEeAYzhuR',
-      topUpAmount: 0
+      topUpAmount: 0,
+      state: 'normal',
+      teamMembers: [],
+      invitedPeople: [],
+      firstTimeTopup: true,
+      currentLoginIpAddress: 'unknown'
     });
 
     return NextResponse.json({ message: 'user created', user });

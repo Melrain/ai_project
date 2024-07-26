@@ -48,30 +48,40 @@ export const getUserInfo = async (username: string) => {
 };
 interface CreateUserParams {
   type: string;
+  state: string;
   clerkId: string;
-  email: string;
   username: string;
-  picture: string;
   supervisor: {
     clerkId: string;
     username: string;
   };
-  level: number;
-  products: [];
-  balance: number;
+  picture: string;
   topUpAmount: number;
   totalProfit: number;
+  teamMembers: string[];
+  invitedPeople: string[];
+  firstTimeTopup: boolean;
+  currentLoginIpAddress: string;
+  level: number;
   exp: number;
+  products: { product: string; createdAt: Date; updatedAt: Date }[];
+  email: string;
+  balance: number;
 }
 export const createUser = async (params: CreateUserParams) => {
   const {
     type,
+    state,
     clerkId,
     username,
     supervisor,
     picture,
     topUpAmount,
     totalProfit,
+    teamMembers,
+    invitedPeople,
+    firstTimeTopup,
+    currentLoginIpAddress,
     level,
     exp,
     products,
@@ -82,17 +92,22 @@ export const createUser = async (params: CreateUserParams) => {
     await connectToDatabase();
     const newUser = await User.create({
       type,
+      state,
       clerkId,
       username,
       supervisor,
-      balance,
-      email,
       picture,
+      topUpAmount,
+      totalProfit,
+      teamMembers,
+      invitedPeople,
+      firstTimeTopup,
+      currentLoginIpAddress,
       level,
       exp,
-      topUpAmount,
       products,
-      totalProfit
+      email,
+      balance
     });
     if (!newUser) {
       throw new Error('Failed to create user');
