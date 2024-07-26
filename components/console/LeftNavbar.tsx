@@ -1,123 +1,115 @@
 'use client';
 import { UserButton, useUser } from '@clerk/nextjs';
-import { IconMoneybag } from '@tabler/icons-react';
-import { Check, Circle, Cog, Command, Computer, ListOrdered, User } from 'lucide-react';
+import { IconBuildingFactory2, IconManualGearboxFilled, IconMoneybag } from '@tabler/icons-react';
+import { Command, Computer, ListOrdered, User } from 'lucide-react';
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BsEnvelopeArrowDownFill } from 'react-icons/bs';
 
-const LeftNavbar = () => {
+export const items = [
+  {
+    name: '产品管理',
+    menu: [
+      {
+        name: '产品功能',
+        link: '/console/product'
+      }
+    ],
+    icon: <IconBuildingFactory2 />
+  },
+  {
+    name: '订单管理',
+    menu: [
+      {
+        name: '提现订单',
+        link: '/console/withdraw'
+      },
+      {
+        name: '所有订单',
+        link: '/console/orders'
+      },
+      {
+        name: '充值订单',
+        link: '/console/topup'
+      },
+      {
+        name: '升级订单',
+        link: '/console/leveling'
+      },
+      {
+        name: '推荐奖励订单',
+        link: '/console/rewards'
+      }
+    ],
+    icon: <ListOrdered />
+  },
+  {
+    name: '会员管理',
+    menu: [
+      {
+        name: '会员信息',
+        link: '/console/userInfo'
+      },
+      {
+        name: '银行信息',
+        link: '/console/bankInfo'
+      }
+    ],
+    icon: <User />
+  },
+  {
+    name: '红包管理',
+    menu: [
+      {
+        name: '红包管理',
+        link: '/console/envelope'
+      },
+      {
+        name: '领取记录',
+        link: '/console/claimList'
+      }
+    ],
+    icon: <BsEnvelopeArrowDownFill className='size-5' />
+  },
+  {
+    name: '常规管理',
+    menu: [
+      {
+        name: '管理设置',
+        link: '/console/adminProfile'
+      },
+      {
+        name: '系统配置',
+        link: '/console/systemConfig'
+      }
+    ],
+    icon: <IconManualGearboxFilled className='size-5' />
+  }
+];
+interface Props {
+  userType: string;
+}
+const LeftNavbar = ({ userType }: Props) => {
   const pathname = usePathname();
   const { user } = useUser();
 
-  const items = [
-    {
-      name: '订单管理',
-      menu: [
-        {
-          name: '提现订单',
-          link: '/console/withdraw'
-        },
-        {
-          name: '所有订单',
-          link: '/console/orders'
-        },
-        {
-          name: '充值订单',
-          link: '/console/topup'
-        },
-        {
-          name: '升级订单',
-          link: '/console/leveling'
-        },
-        {
-          name: '推荐奖励订单',
-          link: '/console/rewards'
-        }
-      ],
-      icon: <ListOrdered />
-    },
-    {
-      name: '会员管理',
-      menu: [
-        {
-          name: '会员信息',
-          link: '/console/userInfo'
-        },
-        {
-          name: '银行信息',
-          link: '/console/bankInfo'
-        }
-      ],
-      icon: <User />
-    },
-    {
-      name: '红包管理',
-      menu: [
-        {
-          name: '红包管理',
-          link: '/console/envelope'
-        },
-        {
-          name: '领取记录',
-          link: '/console/claimList'
-        }
-      ],
-      icon: <BsEnvelopeArrowDownFill />
-    }
-  ];
-
-  const rewardLinks = [
-    {
-      name: '红包管理',
-      link: '/console/envelope'
-    },
-    {
-      name: '领取记录',
-      link: '/console/claimList'
-    }
-  ];
-  const userLinks = [
-    {
-      name: '会员信息',
-      link: '/console/userInfo'
-    },
-    {
-      name: '银行信息',
-      link: '/console/bankInfo'
-    }
-  ];
-  const orderLinks = [
-    {
-      name: '提现订单',
-      link: '/console/withdraw'
-    },
-    {
-      name: '所有订单',
-      link: '/console/orders'
-    },
-    {
-      name: '充值订单',
-      link: '/console/topup'
-    },
-    {
-      name: '升级订单',
-      link: '/console/leveling'
-    },
-    {
-      name: '推荐奖励订单',
-      link: '/console/rewards'
-    }
-  ];
+  if (!user) {
+    return;
+  }
 
   return (
     <div className='flex px-2 flex-col shadow-lg py-4 border-r-2 border-black h-screen bg-gradient-to-tr max-w-[150px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100 max-sm:hidden'>
       <div className='w-full'>
-        <div className=' flex flex-row gap-2  items-center text-md text-slate-500'>
-          <Computer />
-          <p>管理员页面</p>
+        <div className='flex flex-col gap-2'>
+          <div className=' flex flex-row gap-2  items-center text-md text-slate-500'>
+            <Computer />
+            <p>管理员页面</p>
+          </div>
+          <div>
+            <span className='text-slate-500'>身份:{userType ? userType : ''}</span>
+          </div>
         </div>
       </div>
       <div className='flex flex-row gap-2 py-5 px-1 w-full justify-start'>
@@ -140,10 +132,17 @@ const LeftNavbar = () => {
         </div>
       </div>
 
+      {/* console 主页 */}
+
+      <Link href={'/console'} className='flex justify-start gap-3 px-1 flex-row w-full'>
+        <Command />
+        <span className='font-bold'>控制台</span>
+      </Link>
+
       {/* Items */}
       <div className='flex flex-col gap-2 w-full'>
         {items.map((item, index) => (
-          <Accordion type='single' collapsible>
+          <Accordion key={index} type='single' collapsible>
             <AccordionItem value='item-1' className='w-full'>
               <AccordionTrigger className='flex flex-row justify-center gap-3 w-full  items-center'>
                 <>{item.icon}</>

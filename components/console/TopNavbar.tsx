@@ -23,6 +23,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Cog, Home, Menu, MenuSquareIcon } from 'lucide-react';
 import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
+import { items } from './LeftNavbar';
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 
 const TopNavbar = () => {
   const router = useRouter();
@@ -57,127 +59,54 @@ const TopNavbar = () => {
   return (
     <div className=''>
       <Breadcrumb className='max-sm:hidden'>
-        <BreadcrumbList>
+        <BreadcrumbList className=''>
           当前位置:
           {pathArray.map((item, index) => {
             return (
-              <>
-                <BreadcrumbItem key={index}>
+              <div key={index} className='flex flex-row items-center'>
+                <BreadcrumbItem>
                   <BreadcrumbLink href={`/${pathArray.slice(0, index + 1).join('/')}`}>
                     {translateName(item)}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 {index < pathArray.length - 1 && <BreadcrumbSeparator />}
-              </>
+              </div>
             );
           })}
         </BreadcrumbList>
       </Breadcrumb>
-      <div className='sm:hidden'>
-        <Menubar className='bg-mycolor-200 text-sm text-white'>
-          <div className='flex justify-center items-center'>
-            <UserButton />
-          </div>
-          <Link href={'/console'} className=''>
-            <Home />
-          </Link>
-          <MenubarMenu>
-            <MenubarTrigger>
-              <Menu className='size-4' /> 订单管理{' '}
-            </MenubarTrigger>
-
-            <MenubarContent className='bg-mycolor-100 rounded-[4px]'>
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/withdraw');
-                }}
-              >
-                提现订单
-              </MenubarItem>
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/orders');
-                }}
-              >
-                所有订单
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/topup');
-                }}
-              >
-                充值订单
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/leveling');
-                }}
-              >
-                升级订单
-              </MenubarItem>
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/rewards');
-                }}
-              >
-                推荐奖励订单
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger>
-              <Menu className='size-4' /> 会员管理
-            </MenubarTrigger>
-
-            <MenubarContent className='bg-mycolor-100 rounded-[4px]'>
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/userInfo');
-                }}
-              >
-                会员信息
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/bankInfo');
-                }}
-              >
-                银行信息
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger>
-              <Menu className='size-4' /> 红包管理
-            </MenubarTrigger>
-
-            <MenubarContent className='bg-mycolor-100 rounded-[4px]'>
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/envelope');
-                }}
-              >
-                红包管理
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem
-                onClick={() => {
-                  router.push('/console/claimList');
-                }}
-              >
-                领取记录
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <Link href={'/console/settings'} className='flex flex-row items-center'>
-            <Cog className='size-4' />
-            设置
-          </Link>
-        </Menubar>
-      </div>
+      <ScrollArea>
+        <div className='sm:hidden'>
+          <Menubar className='bg-mycolor-200 text-sm text-white'>
+            <div className='flex justify-center pr-2 items-center'>
+              <UserButton />
+            </div>
+            <Link href={'/console'} className=''>
+              <Home />
+            </Link>
+            {items.map((item, index) => (
+              <MenubarMenu key={index}>
+                <MenubarTrigger>
+                  <span>{item.icon}</span> <span className='text-xs text-nowrap'>{item.name}</span>
+                </MenubarTrigger>
+                <MenubarContent className='bg-mycolor-100 rounded[4px]'>
+                  {item.menu.map((subItem, subIndex) => (
+                    <MenubarItem
+                      key={subIndex}
+                      onClick={() => {
+                        router.push(subItem.link);
+                      }}
+                    >
+                      {subItem.name}
+                    </MenubarItem>
+                  ))}
+                </MenubarContent>
+              </MenubarMenu>
+            ))}
+          </Menubar>
+        </div>
+        <ScrollBar orientation='horizontal' />
+      </ScrollArea>
     </div>
   );
 };
