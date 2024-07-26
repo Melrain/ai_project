@@ -7,6 +7,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BsEnvelopeArrowDownFill } from 'react-icons/bs';
+import { ScrollArea } from '../ui/scroll-area';
+import { Scrollbar } from '@radix-ui/react-scroll-area';
 
 export const items = [
   {
@@ -95,10 +97,6 @@ const LeftNavbar = ({ userType }: Props) => {
   const pathname = usePathname();
   const { user } = useUser();
 
-  if (!user) {
-    return;
-  }
-
   return (
     <div className='flex px-2 flex-col shadow-lg py-4 border-r-2 border-black h-screen bg-gradient-to-tr max-w-[150px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100 max-sm:hidden'>
       <div className='w-full'>
@@ -134,38 +132,41 @@ const LeftNavbar = ({ userType }: Props) => {
 
       {/* console 主页 */}
 
-      <Link href={'/console'} className='flex justify-start gap-3 px-1 flex-row w-full'>
+      <Link href={'/console'} className='flex  justify-start gap-3 px-1 flex-row w-full'>
         <Command />
         <span className='font-bold'>控制台</span>
       </Link>
 
       {/* Items */}
-      <div className='flex flex-col gap-2 w-full'>
-        {items.map((item, index) => (
-          <Accordion key={index} type='single' collapsible>
-            <AccordionItem value='item-1' className='w-full'>
-              <AccordionTrigger className='flex flex-row justify-center gap-3 w-full  items-center'>
-                <>{item.icon}</>
-                <p>{item.name}</p>
-              </AccordionTrigger>
-              <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
-                {item.menu.map((item, index) => (
-                  <Link
-                    key={item.link}
-                    href={item.link}
-                    className='flex flex-row gap-1  w-full cursor-pointer justify-start items-center'
-                  >
-                    <div
-                      className={`size-3 rounded-full jus ${pathname === item.link ? 'bg-green-500' : 'border-slate-500 border-2'}`}
-                    />
-                    {item.name}
-                  </Link>
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        ))}
-      </div>
+      <ScrollArea>
+        <div className='flex flex-col gap-2 w-full'>
+          {items.map((item, index) => (
+            <Accordion key={index} type='single' collapsible>
+              <AccordionItem value='item-1' className='w-full'>
+                <AccordionTrigger className='flex flex-row justify-center gap-3 w-full  items-center'>
+                  <>{item.icon}</>
+                  <p>{item.name}</p>
+                </AccordionTrigger>
+                <AccordionContent className='flex  justify-center items-start p-4 text-slate-400  bg-mycolor-200  gap-3 w-full flex-col'>
+                  {item.menu.map((item, index) => (
+                    <Link
+                      key={item.link}
+                      href={item.link}
+                      className='flex flex-row gap-1  w-full cursor-pointer justify-start items-center'
+                    >
+                      <div
+                        className={`size-3 rounded-full jus ${pathname === item.link ? 'bg-green-500' : 'border-slate-500 border-2'}`}
+                      />
+                      {item.name}
+                    </Link>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          ))}
+        </div>
+        <Scrollbar orientation='vertical' />
+      </ScrollArea>
     </div>
   );
 };
