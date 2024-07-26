@@ -2,16 +2,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { Button } from './button';
-import { useRouter } from 'next/navigation';
 
 const World = dynamic(() => import('./globe').then((m) => m.World), {
   ssr: false
 });
 
 export function GlobeDemo() {
-  const router = useRouter();
-
   const globeConfig = {
     pointSize: 4,
     globeColor: '#062065',
@@ -400,7 +396,7 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className='flex flex-row items-center justify-center top-5 absolute py-10 h-screen md:h-auto -z-10 dark:bg-black   w-full'>
+    <div className='flex flex-row items-center justify-center top-5 absolute py-10 h-screen md:h-auto -z-10  w-full'>
       <div className='max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-0'>
         <motion.div
           initial={{
