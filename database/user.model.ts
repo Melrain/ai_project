@@ -34,10 +34,10 @@ const UserSchema = new Schema<IUser>(
     username: { type: String, required: true },
     level: { type: Number, required: true },
     email: { type: String, required: true },
-    picture: { type: String, required: true },
+    picture: { type: String },
     supervisor: {
-      clerkId: { type: String, required: true },
-      username: { type: String, required: true }
+      clerkId: { type: String },
+      username: { type: String }
     },
     teamMembers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     invitedPeople: [{ type: Schema.Types.ObjectId, ref: 'User' }],
