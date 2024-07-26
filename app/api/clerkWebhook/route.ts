@@ -76,6 +76,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       picture: 'https://ipfs.filebase.io/ipfs/Qmf1m4YUoCc6AqjhnF6avL1MsnGizyoPAE9NksEeAYzhuR',
       topUpAmount: 0,
+      investedAmount: 0,
       state: 'normal',
       teamMembers: [],
       invitedPeople: [],

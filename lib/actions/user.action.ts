@@ -65,6 +65,7 @@ interface CreateUserParams {
   level: number;
   exp: number;
   products: { product: string; createdAt: Date; updatedAt: Date }[];
+  investedAmount: number;
   email: string;
   balance: number;
 }
@@ -82,6 +83,7 @@ export const createUser = async (params: CreateUserParams) => {
     invitedPeople,
     firstTimeTopup,
     currentLoginIpAddress,
+    investedAmount,
     level,
     exp,
     products,
