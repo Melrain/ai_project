@@ -69,15 +69,24 @@ const AddProduct = () => {
       }
       setErrorMessage('');
       const result = await createProduct({
-        productName: values.name,
+        available: true,
+        state: 'normal',
+        type: 'milkTea',
+        name: values.name,
+        title: values.name,
+        notes: values.name,
+        description: values.description,
+        contractText: values.name,
+        contractPicture: values.picture,
         price: values.price,
+        display: true,
+        pictureCollection: values.pictureCollection,
         picture: values.picture,
+        users: [],
         revenuePerDay: values.revenuePerDay,
         levelRequirement: values.levelRequirement,
-        passcode: values.passcode,
-        pictureCollection: values.pictureCollection,
-        description: values.description,
-        expOnPurchase: values.expOnPurchase
+        expOnPurchase: values.expOnPurchase,
+        order: 0
       });
       if (result?.code !== 200) {
         console.log(result);
