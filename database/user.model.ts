@@ -20,7 +20,7 @@ export interface IUser extends Document {
   currentLoginIpAddress: string;
   products: { product: ObjectId; createdAt: Date; updatedAt: Date }[];
   investedAmount: number;
-  topUpTransactions: ObjectId[];
+  transactions: ObjectId[];
   topUpAmount: number;
   balance: number;
   exp: number;
@@ -52,7 +52,7 @@ const UserSchema = new Schema<IUser>(
       }
     ],
     investedAmount: { type: Number, required: true, default: 0 },
-    topUpTransactions: [{ type: Schema.Types.ObjectId, ref: 'TopUpTransaction' }],
+    transactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
     topUpAmount: { type: Number, required: true, default: 0 },
     balance: { type: Number, required: true, default: 0 },
     exp: { type: Number, required: true },

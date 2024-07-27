@@ -111,7 +111,7 @@ const TopUpForm = () => {
 
       //set zustand
       setUseBalance(result.user.balance);
-      setTransactions(Object.keys(result.user.topUpTransactions).map((key) => result.user.topUpTransactions[key]));
+      setTransactions(Object.keys(result.user.transactions).map((key) => result.user.transactions[key]));
 
       const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
       const collection = mongodb?.db('NvidiaAI_DB').collection('users'); // Everytime a change happens in the stream, add it to the list of events
@@ -125,9 +125,7 @@ const TopUpForm = () => {
         ) {
           const fullDocument = change.fullDocument;
           setUseBalance(fullDocument.balance);
-          setTransactions(
-            Object.keys(fullDocument.topUpTransactions).map((key) => fullDocument.topUpTransactions[key])
-          );
+          setTransactions(Object.keys(fullDocument.transactions).map((key) => fullDocument.transactions[key]));
         }
       }
     };

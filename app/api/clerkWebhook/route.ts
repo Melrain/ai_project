@@ -68,10 +68,10 @@ export async function POST(req: Request) {
         clerkId: '',
         username: ''
       },
-      level: 1,
+      level: 0,
       products: [],
       balance: 0,
-      exp: 100,
+      exp: 0,
       totalProfit: 0,
       email: email_addresses[0].email_address,
       picture: 'https://ipfs.filebase.io/ipfs/Qmf1m4YUoCc6AqjhnF6avL1MsnGizyoPAE9NksEeAYzhuR',
@@ -81,7 +81,8 @@ export async function POST(req: Request) {
       teamMembers: [],
       invitedPeople: [],
       firstTimeTopup: true,
-      currentLoginIpAddress: 'unknown'
+      currentLoginIpAddress: 'unknown',
+      transactions: []
     });
 
     return NextResponse.json({ message: 'user created', user });

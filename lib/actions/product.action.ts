@@ -67,43 +67,68 @@ export const getProduct = async (params: GetProductParams) => {
 };
 
 interface CreateProductProps {
-  productName: string;
-  price: number;
-  picture: string;
-  pictureCollection: string;
+  available: boolean;
+  state: string;
+  type: string;
+  name: string;
+  title: string;
+  notes: string;
   description: string;
+  contractText: string;
+  contractPicture: string;
+  price: number;
+  display: boolean;
+  pictureCollection: string;
+  picture: string;
+  users: string[];
   revenuePerDay: number;
-  passcode: number;
   levelRequirement: number;
   expOnPurchase: number;
+  order: number;
 }
 export const createProduct = async (params: CreateProductProps) => {
   try {
     const {
-      passcode,
-      productName,
-      pictureCollection,
-      expOnPurchase,
+      available,
+      state,
+      type,
+      name,
+      title,
+      notes,
       description,
-      levelRequirement,
+      contractText,
+      contractPicture,
       price,
+      display,
+      pictureCollection,
       picture,
-      revenuePerDay
+      users,
+      revenuePerDay,
+      levelRequirement,
+      expOnPurchase,
+      order
     } = params;
     await connectToDatabase();
-    if (Number(passcode) !== 198900) {
-      return { code: 404, message: 'passcode error', passcode };
-    }
-    const product = await Product.create({
-      name: productName,
-      price: Number(price),
-      picture: picture,
-      pictureCollection,
+
+    const product = new Product({
+      available,
+      state,
+      type,
+      name,
+      title,
+      notes,
       description,
-      users: [],
-      revenuePerDay: revenuePerDay,
-      levelRequirement: levelRequirement,
-      expOnPurchase: expOnPurchase
+      contractText,
+      contractPicture,
+      price,
+      display,
+      pictureCollection,
+      picture,
+      users,
+      revenuePerDay,
+      levelRequirement,
+      expOnPurchase,
+      order
     });
     if (!product) {
       return { code: 404, message: 'Failed to create product' };
