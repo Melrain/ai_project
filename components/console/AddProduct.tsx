@@ -26,8 +26,11 @@ const formSchema = z.object({
   contractPicture: z.string(),
   price: z.coerce.number(),
   display: z.boolean(),
-  pictureCollection: z.string(),
-  picture: z.string(),
+
+  pictureSetting: z.object({
+    icon: z.string(),
+    pictureCollection: z.string()
+  }),
   users: z.array(z.string()),
   revenuePerDay: z.coerce.number(),
   levelRequirement: z.coerce.number(),
@@ -53,8 +56,10 @@ const AddProduct = () => {
       contractPicture: '',
       price: 0,
       display: true,
-      pictureCollection: '',
-      picture: '',
+      pictureSetting: {
+        icon: '',
+        pictureCollection: ''
+      },
       users: [],
       revenuePerDay: 0,
       levelRequirement: 0,
@@ -182,7 +187,7 @@ const AddProduct = () => {
           {/* 图片 */}
           <FormField
             control={form.control}
-            name='picture'
+            name='pictureSetting'
             render={({ field }) => (
               <div
                 className={`flex justify-center ${picture ? 'bg-slate-200' : 'bg-slate-400'} shadow-lg w-full max-w-[320px] items-center h-[180px] rounded-[4px] flex-col relative`}
@@ -220,7 +225,7 @@ const AddProduct = () => {
                       </DialogTrigger>
                       <DialogContent className='flex flex-col justify-center items-center'>
                         <DialogHeader />
-                        <DialogTitle className='w-full text-center'>选择产品图片</DialogTitle>
+                        <DialogTitle className='w-full text-center'>选择产品图片: 静态显示</DialogTitle>
                         <DialogDescription />
                         <div className='flex flex-row justify-center  flex-wrap items-center'>
                           {productImagesIndex.map((product, index) => (
@@ -232,7 +237,7 @@ const AddProduct = () => {
                                 width={50}
                                 height={50}
                                 onClick={() => {
-                                  form.setValue('picture', product.src);
+                                  form.setValue('pictureSetting.icon', product.src);
                                   setPicture(product.src);
                                   setIsImagesOpen(false);
                                 }}
@@ -240,6 +245,9 @@ const AddProduct = () => {
                             </div>
                           ))}
                         </div>
+                        <DialogTitle className='w-full text-center'>选择图片集合: 循环播放</DialogTitle>
+                        <DialogDescription />
+                        <div className='flex flex-row flex-wrap'>{}</div>
                         <div
                           className='absolute top-2 right-2 cursor-pointer'
                           onClick={() => {
