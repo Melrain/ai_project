@@ -102,7 +102,7 @@ const AddProduct = () => {
             render={({ field }) => (
               <div className='max-w-[300px] w-full'>
                 <FormLabel>备注</FormLabel>
-                <Input {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
+                <Textarea {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
                 <FormMessage {...field} />
               </div>
             )}
