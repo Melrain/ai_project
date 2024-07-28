@@ -6,3 +6,7 @@ export const imageCollections = {
     'https://ipfs.filebase.io/ipfs/QmReHmfeyBYV2mQZvyJ8EZcXRaQj3KC3K3QGnPNRMZY4Bt'
   ]
 };
+
+export const ifpsUrls = {
+  url01: 'https://ipfs.filebase.io/ipfs/QmaTpD6S8GyH8RdK2RQKzoQGVHRyGZ29VtcMhQed5sgL1g'
+};

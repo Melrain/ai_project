@@ -137,39 +137,6 @@ const TopNavbar = () => {
           </SheetContent>
         </Sheet>
       </div>
-
-      {/* <ScrollArea>
-        <div className='sm:hidden'>
-          <Menubar className='bg-mycolor-200 text-sm text-white'>
-            <div className='flex justify-center pr-2 items-center'>
-              <UserButton />
-            </div>
-            <Link href={'/console'} className=''>
-              <Home />
-            </Link>
-            {items.map((item, index) => (
-              <MenubarMenu key={index}>
-                <MenubarTrigger>
-                  <span>{item.icon}</span> <span className='text-xs text-nowrap'>{item.name}</span>
-                </MenubarTrigger>
-                <MenubarContent className='bg-mycolor-100 rounded[4px]'>
-                  {item.menu.map((subItem, subIndex) => (
-                    <MenubarItem
-                      key={subIndex}
-                      onClick={() => {
-                        router.push(subItem.link);
-                      }}
-                    >
-                      {subItem.name}
-                    </MenubarItem>
-                  ))}
-                </MenubarContent>
-              </MenubarMenu>
-            ))}
-          </Menubar>
-        </div>
-        <ScrollBar orientation='horizontal' />
-      </ScrollArea> */}
     </div>
   );
 };

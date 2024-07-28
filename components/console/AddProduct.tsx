@@ -24,9 +24,8 @@ const formSchema = z.object({
   description: z.string(),
   contractText: z.string(),
   contractPicture: z.string(),
-  price: z.coerce.number(),
+  price: z.coerce.number().positive().min(1),
   display: z.boolean(),
-
   pictureSetting: z.object({
     icon: z.string(),
     pictureCollection: z.string()
@@ -58,7 +57,7 @@ const AddProduct = () => {
       display: true,
       pictureSetting: {
         icon: '',
-        pictureCollection: ''
+        pictureCollection: 'https://ipfs.filebase.io/ipfs/QmaTpD6S8GyH8RdK2RQKzoQGVHRyGZ29VtcMhQed5sgL1g'
       },
       users: [],
       revenuePerDay: 0,
@@ -74,14 +73,17 @@ const AddProduct = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='flex bg-slate-200 py-10 flex-col w-full   items-center'>
-        <div className='w-full flex justify-center flex-col gap-5 items-center'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='flex bg-slate-200 py-10 flex-col w-full justify-center  items-center'
+      >
+        <div className='w-full flex justify-center max-w-[750px] items-center px-10 flex-row flex-wrap gap-5 '>
           {/* 标题 */}
           <FormField
             control={form.control}
             name='title'
             render={({ field }) => (
-              <div className='max-w-[300px] w-full'>
+              <div className='max-w-[320px] w-full'>
                 <FormLabel>标题</FormLabel>
                 <Input {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
                 <FormMessage {...field} />
@@ -93,25 +95,14 @@ const AddProduct = () => {
             control={form.control}
             name='name'
             render={({ field }) => (
-              <div className='max-w-[300px] w-full'>
+              <div className='max-w-[320px] w-full'>
                 <FormLabel>产品名字</FormLabel>
                 <Input {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
                 <FormMessage {...field} />
               </div>
             )}
           />
-          {/* 备注 */}
-          <FormField
-            control={form.control}
-            name='notes'
-            render={({ field }) => (
-              <div className='max-w-[300px] w-full'>
-                <FormLabel>备注</FormLabel>
-                <Textarea {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
-                <FormMessage {...field} />
-              </div>
-            )}
-          />
+
           {/* 产品类型 */}
           <FormField
             control={form.control}
@@ -245,8 +236,6 @@ const AddProduct = () => {
                             </div>
                           ))}
                         </div>
-                        <DialogTitle className='w-full text-center'>选择图片集合: 循环播放</DialogTitle>
-                        <DialogDescription />
                         <div className='flex flex-row flex-wrap'>{}</div>
                         <div
                           className='absolute top-2 right-2 cursor-pointer'
@@ -263,19 +252,134 @@ const AddProduct = () => {
               </div>
             )}
           />
+          {/* 图片合集 */}
+          <FormField
+            name='pictureSetting.pictureCollection'
+            control={form.control}
+            render={({ field }) => (
+              <div className='flex flex-col gap-2 justify-center w-full max-w-[320px]'>
+                <Label htmlFor='product-picture-collection'>产品图片合集:测试模式时,已设定默认值</Label>
+                <Input
+                  disabled={true}
+                  readOnly
+                  value={form.getValues('pictureSetting.pictureCollection')}
+                  className='bg-white rounded-[4px] shadow-lg'
+                  placeholder='https://ipfs.filebase.io/ipfs/QmaTpD6S8GyH8RdK2RQKzoQGVHRyGZ29VtcMhQed5sgL1g'
+                />
+              </div>
+            )}
+          />
+
+          {/* 产品价格 */}
+          <FormField
+            control={form.control}
+            name='price'
+            render={({ field }) => (
+              <div className='w-full max-w-[320px]'>
+                <Label htmlFor='product-price'>产品价格</Label>
+                <Input
+                  type='number'
+                  {...field}
+                  className='bg-white text-[16px] w-full  shadow-lg  border-0 rounded-[4px]'
+                  placeholder='输入价格...'
+                  id='product-price'
+                />
+              </div>
+            )}
+          />
+          {/* 每日收益 */}
+          <FormField
+            control={form.control}
+            name='revenuePerDay'
+            render={({ field }) => (
+              <div className='w-full max-w-[320px] shadow-lg '>
+                <Label htmlFor='product-revenue-per-day'>每日收益</Label>
+                <Input
+                  type='number'
+                  {...field}
+                  className='bg-white text-[16px] w-full border-0 rounded-[4px]'
+                  placeholder='输入每日收益...'
+                  id='product-revenue-per-day'
+                />
+              </div>
+            )}
+          />
+          {/* 等级要求 */}
+          <FormField
+            control={form.control}
+            name='levelRequirement'
+            render={({ field }) => (
+              <div className='w-full max-w-[320px] shadow-lg '>
+                <Label htmlFor='product-level-requirement'>等级要求</Label>
+                <Input
+                  type='number'
+                  {...field}
+                  className='bg-white text-[16px] w-full border-0 rounded-[4px]'
+                  placeholder='输入等级要求...'
+                  id='product-level-requirement'
+                />
+              </div>
+            )}
+          />
+          {/* 购买经验值 */}
+          <FormField
+            control={form.control}
+            name='expOnPurchase'
+            render={({ field }) => (
+              <div className='w-full max-w-[320px] shadow-lg '>
+                <Label htmlFor='product-exp-on-purchase'>购买提供经验值</Label>
+                <Input
+                  type='number'
+                  {...field}
+                  className='bg-white text-[16px] w-full border-0 rounded-[4px]'
+                  placeholder='输入购买经验值...'
+                  id='product-exp-on-purchase'
+                />
+              </div>
+            )}
+          />
+          {/* 排列顺序 */}
+          <FormField
+            control={form.control}
+            name='order'
+            render={({ field }) => (
+              <div className='w-full max-w-[320px] shadow-lg '>
+                <Label htmlFor='product-order'>排列顺序</Label>
+                <Input
+                  type='number'
+                  {...field}
+                  className='bg-white text-[16px] w-full border-0 rounded-[4px]'
+                  placeholder='输入排列顺序...'
+                  id='product-order'
+                />
+              </div>
+            )}
+          />
           {/* 产品介绍 */}
           <FormField
             control={form.control}
             name='description'
             render={({ field }) => (
-              <div className='w-full max-w-[320px]'>
+              <div className='w-full max-w-[320px] shadow-lg '>
                 <Label htmlFor='product-description'>产品介绍</Label>
                 <Textarea
                   {...field}
-                  className='bg-white text-[16px] w-full border-0'
+                  className='bg-white text-[16px] w-full border-0 rounded-[4px]'
                   placeholder='输入介绍...'
                   id='product-description'
                 />
+              </div>
+            )}
+          />
+          {/* 备注 */}
+          <FormField
+            control={form.control}
+            name='notes'
+            render={({ field }) => (
+              <div className='max-w-[320px] w-full'>
+                <FormLabel>备注</FormLabel>
+                <Textarea {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
+                <FormMessage {...field} />
               </div>
             )}
           />
