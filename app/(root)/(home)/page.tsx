@@ -21,7 +21,7 @@ const kalam = Kalam({
 
 const page = async () => {
   return (
-    <div className='flex justify-center flex-col items-center h-screen  dark:text-white '>
+    <div className='flex justify-center flex-col items-center  dark:text-white '>
       <p className='mt-2 font-extrabold text-lg '>Welcome to Nvidia AI Farm</p>
 
       <div className='flex flex-col items-center justify-center'>
@@ -41,7 +41,7 @@ const page = async () => {
       </div>
 
       {/* video */}
-      <div className='mt- relative '>
+      <div className=' relative '>
         <video
           src='https://ipfs.filebase.io/ipfs/Qmamg5MUbUyCcLtnFcEHziXRxcCCDUYyRX4y7WMwTgm4Qy'
           width={320}
@@ -103,7 +103,9 @@ const page = async () => {
         <News />
       </div>
       <GlobeDemo />
-      <Meteors number={10} />
+      <div className='fixed top-0 left-1/2 w-full'>
+        <Meteors number={10} />
+      </div>
     </div>
   );
 };

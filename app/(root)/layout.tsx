@@ -7,7 +7,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <div className=''>
         <TopNavbar />
       </div>
-      <div className='mt-20 flex justify-center h-screen'>{children}</div>
+      <div className='mt-20 flex justify-center '>{children}</div>
       {/* <BottomNavbar /> */}
     </main>
   );
