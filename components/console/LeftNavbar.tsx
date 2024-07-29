@@ -15,8 +15,12 @@ export const items = [
     name: '产品管理',
     menu: [
       {
-        name: '产品功能',
-        link: '/console/product'
+        name: '创建产品',
+        link: '/console/create-product'
+      },
+      {
+        name: '产品列表',
+        link: '/console/products'
       }
     ],
     icon: <IconBuildingFactory2 />

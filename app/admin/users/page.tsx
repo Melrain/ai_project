@@ -7,7 +7,7 @@ const page = async () => {
   console.log(users);
   return (
     <div className='container mx-auto py-10 md:px-40 flex justify-center'>
-      <DataTable columns={columns} data={users} />
+      {/* <DataTable columns={columns} data={users} placeholder={'用户查找'} /> */}
     </div>
   );
 };

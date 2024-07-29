@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { set, useForm } from 'react-hook-form';
@@ -13,10 +13,10 @@ import { productImagesIndex } from '@/lib/imageIndex';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
-import { createProduct } from '@/lib/actions/product.action';
+import { createProduct, getProductById, updateProductById } from '@/lib/actions/product.action';
 
 const formSchema = z.object({
-  avaliable: z.boolean(),
+  available: z.boolean(),
   state: z.string(),
   type: z.string(),
   name: z.string().min(3),
@@ -38,53 +38,69 @@ const formSchema = z.object({
   order: z.coerce.number()
 });
 
-const AddProduct = () => {
+interface Props {
+  productId: string;
+}
+const AddProduct = ({ productId }: Props) => {
   const [picture, setPicture] = React.useState<string>('');
   const [isImagesOpen, setIsImagesOpen] = React.useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+  const [product, setProduct] = React.useState<any>(null);
+  const [editResult, setEditResult] = React.useState<string>('');
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const productRes = await getProductById(productId);
+      if (!productRes) {
+        return <div>产品不存在</div>;
+      }
+
+      setProduct(productRes);
+      setPicture(productRes.picture);
+    };
+    fetchProduct();
+  }, [productId]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      avaliable: true,
-      state: 'normal',
-      type: 'milkTea',
-      name: '',
-      title: '',
-      notes: '',
-      description: '',
-      price: 0,
-      display: true,
+      available: product?.avaliable,
+      state: product?.state,
+      type: product?.type,
+      name: product?.name,
+      title: product?.title,
+      notes: product?.notes,
+      description: product?.description,
+      price: product?.price,
+      display: product?.display,
       pictureSetting: {
-        icon: '',
-        pictureCollection: 'https://ipfs.filebase.io/ipfs/QmaTpD6S8GyH8RdK2RQKzoQGVHRyGZ29VtcMhQed5sgL1g'
+        icon: product?.picture,
+        pictureCollection: product?.pictureCollection
       },
-      users: [],
-      revenuePerDay: 0,
-      levelRequirement: 0,
-      expOnPurchase: 0,
-      order: 0
+      users: product?.users,
+      revenuePerDay: product?.revenuePerDay,
+      levelRequirement: product?.levelRequirement,
+      expOnPurchase: product?.expOnPurchase,
+      order: product?.order
     }
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsSubmitting(true);
-      const productRes = await createProduct({
-        ...values,
-        picture: values.pictureSetting.icon,
-        pictureCollection: values.pictureSetting.pictureCollection,
-        available: true
+      console.log(values);
+      const result = await updateProductById({
+        productId,
+        updateData: {
+          ...values,
+          pictureCollection: values.pictureSetting.pictureCollection,
+          picture: values.pictureSetting.icon
+        }
       });
-      if (!productRes) {
-        console.error('创建失败');
-        return;
+      if (!result) {
+        return setEditResult('产品更新失败');
       }
-      if (productRes.code !== 200) {
-        console.error('创建失败', productRes);
-        return;
-      }
-      console.log('创建成功', productRes);
+      setEditResult('产品更新成功');
     } catch (error) {
       console.error(error);
     } finally {
@@ -106,7 +122,11 @@ const AddProduct = () => {
             render={({ field }) => (
               <div className='max-w-[320px] w-full'>
                 <FormLabel>标题</FormLabel>
-                <Input {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
+                <Input
+                  {...field}
+                  className='bg-white rounded-[4px] shadow-md text-[16px]'
+                  placeholder={product?.title}
+                />
                 <FormMessage {...field} />
               </div>
             )}
@@ -118,7 +138,11 @@ const AddProduct = () => {
             render={({ field }) => (
               <div className='max-w-[320px] w-full'>
                 <FormLabel>产品名字</FormLabel>
-                <Input {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
+                <Input
+                  {...field}
+                  className='bg-white rounded-[4px] shadow-md text-[16px]'
+                  placeholder={product?.name}
+                />
                 <FormMessage {...field} />
               </div>
             )}
@@ -319,7 +343,7 @@ const AddProduct = () => {
                   type='number'
                   {...field}
                   className='bg-white text-[16px] w-full border-0 rounded-[4px]'
-                  placeholder='输入每日收益...'
+                  placeholder={product?.revenuePerDay}
                   id='product-revenue-per-day'
                 />
               </div>
@@ -336,7 +360,7 @@ const AddProduct = () => {
                   type='number'
                   {...field}
                   className='bg-white text-[16px] w-full border-0 rounded-[4px]'
-                  placeholder='输入等级要求...'
+                  placeholder={product?.levelRequirement}
                   id='product-level-requirement'
                 />
               </div>
@@ -353,7 +377,7 @@ const AddProduct = () => {
                   type='number'
                   {...field}
                   className='bg-white text-[16px] w-full border-0 rounded-[4px]'
-                  placeholder='输入购买经验值...'
+                  placeholder={product?.expOnPurchase}
                   id='product-exp-on-purchase'
                 />
               </div>
@@ -370,7 +394,7 @@ const AddProduct = () => {
                   type='number'
                   {...field}
                   className='bg-white text-[16px] w-full border-0 rounded-[4px]'
-                  placeholder='输入排列顺序...'
+                  placeholder={product?.order}
                   id='product-order'
                 />
               </div>
@@ -386,7 +410,7 @@ const AddProduct = () => {
                 <Textarea
                   {...field}
                   className='bg-white text-[16px] w-full border-0 rounded-[4px]'
-                  placeholder='输入介绍...'
+                  placeholder={product?.description}
                   id='product-description'
                 />
               </div>
@@ -399,7 +423,11 @@ const AddProduct = () => {
             render={({ field }) => (
               <div className='max-w-[320px] w-full'>
                 <FormLabel>备注</FormLabel>
-                <Textarea {...field} className='bg-white rounded-[4px] shadow-md text-[16px]' />
+                <Textarea
+                  {...field}
+                  className='bg-white rounded-[4px] shadow-md text-[16px]'
+                  placeholder={product?.notes}
+                />
                 <FormMessage {...field} />
               </div>
             )}
@@ -413,10 +441,11 @@ const AddProduct = () => {
             }}
             className='mt-10 bg-primary-500 text-white rounded-[4px]'
           >
-            添加产品
+            修改产品
           </Button>
         </div>
       </form>
+      <h1>{editResult}</h1>
     </Form>
   );
 };

@@ -1,6 +1,7 @@
 import { Schema, Document, models, model, ObjectId } from 'mongoose';
 
 export interface IProduct extends Document {
+  productId: number;
   available: boolean;
   state: string;
   type: string;
@@ -8,8 +9,7 @@ export interface IProduct extends Document {
   title: string;
   notes: string;
   description: string;
-  contractText: string;
-  contractPicture: string;
+
   price: number;
   display: boolean;
   pictureCollection: string;
@@ -23,6 +23,7 @@ export interface IProduct extends Document {
 
 const productSchema = new Schema<IProduct>(
   {
+    productId: { type: Number, increment: true, default: 0 },
     available: { type: Boolean, default: true },
     state: { type: String, default: 'normal' },
     type: { type: String, required: true },
@@ -30,8 +31,7 @@ const productSchema = new Schema<IProduct>(
     title: { type: String, required: true },
     notes: { type: String, required: true },
     description: { type: String, required: true },
-    contractText: { type: String, required: true },
-    contractPicture: { type: String, required: true },
+
     price: { type: Number, required: true },
     display: { type: Boolean, default: true },
     pictureCollection: { type: String, required: true },

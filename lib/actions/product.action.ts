@@ -5,8 +5,19 @@ import { User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import { getUserByClerkId, updateUser } from './user.action';
 import { SortOrder } from 'mongoose';
-import { redirect } from 'next/navigation';
 import { createTransaction } from './transaction.action';
+
+export const getAllProductsClean = async () => {
+  try {
+    const products = await Product.find();
+    if (!products) {
+      throw new Error('No products found');
+    }
+    return JSON.parse(JSON.stringify(products));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getProductById = async (productId: string) => {
   try {
@@ -96,8 +107,6 @@ export const createProduct = async (params: CreateProductProps) => {
       title,
       notes,
       description,
-      contractText,
-      contractPicture,
       price,
       display,
       pictureCollection,
@@ -110,7 +119,16 @@ export const createProduct = async (params: CreateProductProps) => {
     } = params;
     await connectToDatabase();
 
+    const allProducts = await Product.find();
+    let maxProductId = 0;
+    allProducts.forEach((product) => {
+      if (product.productId > maxProductId) {
+        maxProductId = product.productId;
+      }
+    });
+
     const product = new Product({
+      productId: maxProductId + 1,
       available,
       state,
       type,
@@ -118,8 +136,6 @@ export const createProduct = async (params: CreateProductProps) => {
       title,
       notes,
       description,
-      contractText,
-      contractPicture,
       price,
       display,
       pictureCollection,
@@ -131,8 +147,10 @@ export const createProduct = async (params: CreateProductProps) => {
       order
     });
     if (!product) {
-      return { code: 404, message: 'Failed to create product' };
+      throw new Error('Failed to create product');
     }
+    await product.save();
+    console.log(product);
     const parsedProduct = JSON.parse(JSON.stringify(product));
     return { code: 200, message: 'Product created successfully', product: parsedProduct };
   } catch (error) {
@@ -207,6 +225,56 @@ export const buyProduct = async (params: BuyProductProps) => {
     }
 
     return { code: 200, message: 'Product bought successfully', product: parsedProduct, user: parsedUser, transaction };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteProductById = async (productId: string) => {
+  try {
+    await connectToDatabase();
+    const result = await Product.findByIdAndDelete(productId);
+    if (!result) {
+      throw new Error('Product not found');
+    }
+
+    return { code: 200, message: 'Product deleted successfully' };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+interface Props {
+  productId: string;
+  updateData: {
+    available: boolean;
+    state: string;
+    type: string;
+    name: string;
+    title: string;
+    notes: string;
+    description: string;
+    contractText: string;
+    contractPicture: string;
+    price: number;
+    display: boolean;
+    pictureCollection: string;
+    picture: string;
+    users: string[];
+    revenuePerDay: number;
+    levelRequirement: number;
+    expOnPurchase: number;
+    order: number;
+  };
+}
+export const updateProductById = async ({ productId, updateData }: Props) => {
+  try {
+    await connectToDatabase();
+    const result = await Product.findOneAndUpdate({ _id: productId }, updateData, { new: true });
+    if (!result) {
+      throw new Error('Product not found');
+    }
+    return { code: 200, message: 'Product updated successfully', product: result };
   } catch (error) {
     console.error(error);
   }
