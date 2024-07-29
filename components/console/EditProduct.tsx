@@ -114,7 +114,7 @@ const AddProduct = ({ productId }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='flex bg-slate-200 mt-5 py-5 flex-col w-full justify-center  items-center'
       >
-        <div className='w-full flex justify-center max-w-[750px] items-center px-10 flex-row flex-wrap gap-5 '>
+        <div className='w-full flex justify-center max-w-[750px] items-center px-10 flex-row flex-wrap gap-5'>
           {/* 标题 */}
           <FormField
             control={form.control}

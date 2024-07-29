@@ -15,7 +15,6 @@ import {
 
 import { deleteProductById } from '@/lib/actions/product.action';
 import { IProduct } from '@/database/product';
-import { useRouter } from 'next/navigation';
 
 export const columnsProduct: ColumnDef<IProduct>[] = [
   {
