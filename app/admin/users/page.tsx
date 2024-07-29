@@ -1,4 +1,4 @@
-import { columns } from '@/components/admin/table/cloumns';
+import { columns } from '@/components/admin/table/columns';
 import { DataTable } from '@/components/admin/table/data-table';
 import { getAllUsers } from '@/lib/actions/user.action';
 
