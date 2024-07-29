@@ -21,7 +21,7 @@ const kalam = Kalam({
 
 const page = async () => {
   return (
-    <div className='flex justify-center flex-col items-center  dark:text-white '>
+    <div className='flex justify-center flex-col items-center h-screen  dark:text-white '>
       <p className='mt-2 font-extrabold text-lg '>Welcome to Nvidia AI Farm</p>
 
       <div className='flex flex-col items-center justify-center'>
@@ -96,7 +96,7 @@ const page = async () => {
         <HomeSections />
       </div>
       {/* RankingBoard */}
-      <div className='mt-5 w-full px-5 max-w-[740px]'>
+      <div className='mt-5 w-full flex px-5 max-w-[740px]'>
         <RankingBoard />
       </div>
       <div className='mt-5'>
