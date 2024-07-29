@@ -8,7 +8,7 @@ const page = async () => {
   console.log(products);
   return (
     <div className='w-full px-10'>
-      <DataTable columns={columnsProduct} data={products} placeholder={'产品名称查找...'} />
+      <DataTable columns={columnsProduct} data={products} placeholder={'产品名称查找...'} searchParams={'name'} />
     </div>
   );
 };

@@ -29,9 +29,10 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   placeholder: string;
+  searchParams: string;
 }
 
-export function DataTable<TData, TValue>({ columns, data, placeholder }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, placeholder, searchParams }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -60,8 +61,8 @@ export function DataTable<TData, TValue>({ columns, data, placeholder }: DataTab
       <div className='flex items-center py-4'>
         <Input
           placeholder={placeholder}
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+          value={(table.getColumn(searchParams)?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn(searchParams)?.setFilterValue(event.target.value)}
           className='max-w-sm bg-white'
         />
         <DropdownMenu>

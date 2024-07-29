@@ -68,11 +68,100 @@ export const columns: ColumnDef<IUser>[] = [
     }
   },
   {
+    accessorKey: 'teamMembers.length',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          团队人数
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'invitedPeople.length',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          已招募人数
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'level',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          等级
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'products.length',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          设备数量
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'investedAmount',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          投资金额
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+
+  {
+    accessorKey: 'topUpAmount',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          充值金额
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'totalProfit',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          总收益
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
     accessorKey: 'balance',
     header: ({ column }) => {
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           余额
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'exp',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          经验值
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
