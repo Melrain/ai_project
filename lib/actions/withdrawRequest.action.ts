@@ -61,7 +61,7 @@ export const createWithdrawRequest = async (params: CreateWithdrawRequestParams)
         _id: user._id
       },
       {
-        $push: {
+        $addToSet: {
           withdrawRequests: {
             _id: newRequest._id
           }

@@ -65,6 +65,7 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
         setMessage('提现失败');
         return console.error("Withdraw request wasn't created");
       }
+      setMessage('提现成功');
     } catch (error) {
       console.error(error);
       setMessage('提现失败');
