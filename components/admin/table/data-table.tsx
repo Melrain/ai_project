@@ -56,6 +56,39 @@ export function DataTable<TData, TValue>({ columns, data, placeholder, searchPar
     }
   });
 
+  const translateColumnsName = (name: string) => {
+    switch (name) {
+      case 'username':
+        return '用户名称';
+      case 'type':
+        return '身份';
+      case 'supervisor_username':
+        return '上级';
+      case 'teamMembers_length':
+        return '团队人数';
+      case 'invitedPeople_length':
+        return '邀请认识';
+      case 'level':
+        return '等级';
+      case 'products_length':
+        return '产品数量';
+      case 'investedAmount':
+        return '投资金额';
+      case 'topUpAmount':
+        return '充值金额';
+      case 'totalProfit':
+        return '总收益';
+      case 'balance':
+        return '余额';
+      case 'exp':
+        return '经验值';
+      case 'actions':
+        return '操作';
+      default:
+        return name;
+    }
+  };
+
   return (
     <div className='w-full  '>
       <div className='flex items-center py-4'>
@@ -83,7 +116,7 @@ export function DataTable<TData, TValue>({ columns, data, placeholder, searchPar
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) => column.toggleVisibility(!!value)}
                   >
-                    {column.id}
+                    {translateColumnsName(column.id)}
                   </DropdownMenuCheckboxItem>
                 );
               })}

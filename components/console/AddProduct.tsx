@@ -42,6 +42,7 @@ const AddProduct = () => {
   const [picture, setPicture] = React.useState<string>('');
   const [isImagesOpen, setIsImagesOpen] = React.useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+  const [createState, setCreateState] = React.useState<string>('');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -78,13 +79,16 @@ const AddProduct = () => {
       });
       if (!productRes) {
         console.error('创建失败');
+        setCreateState('创建失败');
         return;
       }
       if (productRes.code !== 200) {
         console.error('创建失败', productRes);
+        setCreateState('创建失败');
         return;
       }
       console.log('创建成功', productRes);
+      setCreateState('创建成功');
     } catch (error) {
       console.error(error);
     } finally {
@@ -404,6 +408,9 @@ const AddProduct = () => {
               </div>
             )}
           />
+        </div>
+        <div className='mt-5'>
+          <h1 className='text-red-500'>{createState}</h1>
         </div>
         <div>
           <Button

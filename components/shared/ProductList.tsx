@@ -80,7 +80,7 @@ const ProductList = () => {
   }, [filter, order]);
 
   return (
-    <div className='flex flex-col gap-2 items-center w-full bg-black'>
+    <div className='flex flex-col gap-2 items-center w-full '>
       <div className='flex w-full flex-row gap-2 items-end justify-end'>
         <h1 className='text-slate-500 flex flex-row'>Filter:{filter}</h1>
         <DropdownMenu>
@@ -207,7 +207,7 @@ const ProductList = () => {
       </div>
 
       <div className=''>
-        <ScrollArea className='sm:w-full sm:max-w-xl w-96 whitespace-nowrap   rounded-md  border-none'>
+        <ScrollArea className='sm:w-full sm:max-w-2xl w-96 whitespace-nowrap   rounded-[4px]  '>
           <div className='flex w-full space-x-4 p-4  '>
             {products.length > 0 ? (
               products.map((product) => (
@@ -228,7 +228,9 @@ const ProductList = () => {
                     </div>
 
                     <div className='mt-10 text-xs text-muted-foreground flex gap-2  justify-center flex-col items-start  '>
-                      <span className='text-lg text-center w-full font-bold -mt-6'>点击查看</span>
+                      <span className='text-lg text-center w-full font-bold -mt-6 bg-mycolor-300 text-white rounded-[4px] py-1'>
+                        点击查看
+                      </span>
                       <span className='font-semibold text-foreground text-sm flex flex-row gap-1 items-center'>
                         <Computer className='text-slate-500' /> 产品:
                         <span className='text-green-500'>{product.name}</span>

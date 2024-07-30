@@ -13,7 +13,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useAuth } from '@clerk/nextjs';
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import Link from 'next/link';
-
+import copy from 'copy-to-clipboard';
 interface Props {
   productId: string;
 }
@@ -24,6 +24,7 @@ const SingleProduct = ({ productId }: Props) => {
   const [images, setImages] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const { userId } = useAuth();
+  const [isUrlCopied, setIsUrlCopied] = useState(false);
 
   const onPurchase = async () => {
     try {
@@ -132,7 +133,7 @@ const SingleProduct = ({ productId }: Props) => {
                 产品列表
               </Link>
               <Carousel
-                className='max-sm:max-w-xs flex justify-center items-center mt-5 max-w-lg'
+                className='max-sm:max-w-[260px] flex justify-center items-center mt-5 max-w-lg'
                 plugins={[
                   Autoplay({
                     delay: 5000
@@ -209,9 +210,15 @@ const SingleProduct = ({ productId }: Props) => {
                   </Button>
                 )}
 
-                <Button className='w-1/3 hover:text-black text-white flex flex-row justify-center gap-1 text-center bg-slate-500 rounded-[4px] py-1'>
+                <Button
+                  onClick={() => {
+                    copy(window.location.href);
+                    setIsUrlCopied(true);
+                  }}
+                  className='w-1/3 hover:text-black text-white flex flex-row justify-center gap-1 text-center bg-slate-500 rounded-[4px] py-1'
+                >
                   <Share className=' size-5' />
-                  分享
+                  {isUrlCopied ? '已复制链接' : '分享'}
                 </Button>
               </div>
               <div className='mb-44'>

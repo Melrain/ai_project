@@ -15,7 +15,7 @@ const page = ({ searchParams }: SearchParamsProps) => {
         <ProductSearchBar />
       </div>
       {/* product list */}
-      <div className='flex flex-row justify-center max-w-xl xs:max-w-sm p-5 rounded-[2px] w-full gap-5  '>
+      <div className='flex flex-row justify-center p-5 rounded-[2px] w-full gap-5  '>
         <ProductList />
       </div>
     </div>
