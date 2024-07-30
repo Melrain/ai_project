@@ -18,7 +18,7 @@ const page = async () => {
   return (
     <div className='flex justify-center'>
       <div className='w-full flex flex-col'>
-        <WithdrawForm userId={result.user._id} />
+        <WithdrawForm userId={result.user._id} clerkId={userId} />
       </div>
     </div>
   );
