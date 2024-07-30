@@ -12,7 +12,8 @@ const page = async () => {
     redirect('/sign-in');
   }
   const result = await getUserByClerkId(userId);
-  if (!result) {
+  console.log(result);
+  if (!result?.user) {
     return <div>loading...</div>;
   }
   return (

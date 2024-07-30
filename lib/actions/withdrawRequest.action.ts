@@ -55,7 +55,21 @@ export const createWithdrawRequest = async (params: CreateWithdrawRequestParams)
       console.error('Error updating user balance');
     }
 
-    return { message: 'Withdraw request created successfully', data: newRequest };
+    // insert transaction into user's withdrawRquests array
+    await User.findOneAndUpdate(
+      {
+        _id: user._id
+      },
+      {
+        $push: {
+          withdrawRequests: {
+            _id: newRequest._id
+          }
+        }
+      }
+    );
+
+    return { message: 'Withdraw request created successfully', data: JSON.parse(JSON.stringify(newRequest)) };
   } catch {
     throw new Error('Error creating withdraw request');
   }

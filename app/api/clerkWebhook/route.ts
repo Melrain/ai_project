@@ -83,7 +83,8 @@ export async function POST(req: Request) {
       invitedPeople: [],
       firstTimeTopup: true,
       currentLoginIpAddress: 'unknown',
-      transactions: []
+      transactions: [],
+      withdrawRequests: []
     });
 
     return NextResponse.json({ message: 'user created', user });

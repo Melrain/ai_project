@@ -21,6 +21,7 @@ export interface IUser extends Document {
   currentLoginIpAddress: string;
   products: { product: ObjectId; createdAt: Date; updatedAt: Date }[];
   investedAmount: number;
+  withdrawRequest: ObjectId[];
   transactions: ObjectId[];
   topUpAmount: number;
   balance: number;
@@ -55,6 +56,7 @@ const UserSchema = new Schema<IUser>(
     ],
     investedAmount: { type: Number, required: true, default: 0 },
     transactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
+    withdrawRequest: [{ type: Schema.Types.ObjectId, ref: 'WithdrawRequest' }],
     topUpAmount: { type: Number, required: true, default: 0 },
     balance: { type: Number, required: true, default: 0 },
     exp: { type: Number, required: true },
