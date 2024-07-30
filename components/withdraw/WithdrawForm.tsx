@@ -27,7 +27,6 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
     transactions: []
   });
   const [message, setMessage] = React.useState('');
-  const [withdrawTransactions, setWithdrawTransactions] = React.useState([]);
 
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
 
@@ -62,13 +61,13 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
         state: 'pending'
       });
       if (!res) {
-        setMessage('提现失败');
+        setMessage('提现订单失败');
         return console.error("Withdraw request wasn't created");
       }
-      setMessage('提现成功');
+      setMessage('已提交提现订单');
     } catch (error) {
       console.error(error);
-      setMessage('提现失败');
+      setMessage('提交订单失败');
     }
   };
 
@@ -88,23 +87,6 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
     fetchUser();
   }, [userId]);
 
-  // fetchWithdrawTransactions
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const res = await getRequestWithUserId({ userId });
-        if (!res) {
-          return console.log('Withdraw requests not found');
-        }
-        setWithdrawTransactions(res.data);
-        console.log(res.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchTransactions();
-  }, [userId]);
-
   // realtime update
 
   useEffect(() => {
@@ -120,6 +102,7 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
           change.operationType === 'replace'
         ) {
           const fullDocument = change.fullDocument;
+          console.log(fullDocument);
           setUser(fullDocument);
         }
       }
@@ -128,31 +111,43 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
   }, []);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 '>
-        <div className='mt-10'>{user && <p>当前余额: {user?.balance}</p>}</div>
-        <FormField
-          name='amount'
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>金额</FormLabel>
-              <FormControl>
-                <Input {...field} type='number' />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <FormMessage />
-        <Button type='submit' className='bg-mycolor-300 text-white rounded-[3px]'>
-          提交
-        </Button>
-      </form>
-      <div className='mt-10 text-red-500'>
-        <p>{message}</p>
+    <div className='flex flex-col w-full justify-center items-center gap-10'>
+      <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-900'>
+        <h1>提现请求</h1>
       </div>
-      <div></div>
-    </Form>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='space-y-8 w-full bg-gradient-to-br from-slate-800 via-mycolor-300 to-slate-800 flex justify-center items-center flex-col'
+        >
+          <div className='mt-10'>{user && <p>当前余额: {user?.balance}</p>}</div>
+          <FormField
+            name='amount'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>金额</FormLabel>
+                <FormControl>
+                  <Input className='bg-mycolor-300 text-white rounded-[4px]  text-[16px]' {...field} type='number' />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormMessage />
+          <Button type='submit' className='bg-mycolor-300 text-white rounded-[3px]'>
+            提交
+          </Button>
+          <div className='mt-10 text-red-500'>
+            <p>{message}</p>
+          </div>
+        </form>
+      </Form>
+      <div className='flex flex-col w-full gap-5'>
+        <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-900'>
+          <h1>提现订单记录</h1>
+        </div>
+      </div>
+    </div>
   );
 };
 
