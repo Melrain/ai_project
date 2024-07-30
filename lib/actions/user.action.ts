@@ -3,6 +3,7 @@
 import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import Product from '@/database/product';
+import Transaction from '@/database/transaction';
 
 export const getAllUsers = async () => {
   try {
@@ -53,6 +54,7 @@ interface CreateUserParams {
   username: string;
   level: number;
   email: string;
+  phoneData: {};
   picture: string;
   supervisor: {
     clerkId: string;
@@ -89,11 +91,13 @@ export const createUser = async (params: CreateUserParams) => {
     exp,
     products,
     email,
+    phoneData,
     balance
   } = params;
   try {
     await connectToDatabase();
     const newUser = await User.create({
+      phoneData,
       type,
       state,
       clerkId,
@@ -196,6 +200,21 @@ export const deleteUser = async (clerkId: string) => {
     const deletedUser = await User.findOneAndDelete({ clerkId: clerkId });
     if (!deletedUser) {
       throw new Error('Failed to delete user');
+    }
+    const deleteTransactions = await Transaction.deleteMany({ user: deletedUser._id });
+    if (!deleteTransactions) {
+      throw new Error('Failed to delete transactions');
+    }
+    const updateProducts = await Product.updateMany(
+      {
+        'products.product': deletedUser._id
+      },
+      {
+        $pull: { products: { product: deletedUser._id } }
+      }
+    );
+    if (!updateProducts) {
+      throw new Error('Failed to update products');
     }
     return { message: 'User deleted successfully', user: deletedUser };
   } catch (error) {

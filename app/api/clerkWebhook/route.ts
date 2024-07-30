@@ -74,6 +74,7 @@ export async function POST(req: Request) {
       exp: 0,
       totalProfit: 0,
       email: email_addresses[0].email_address,
+      phoneData: phone_numbers,
       picture: 'https://ipfs.filebase.io/ipfs/Qmf1m4YUoCc6AqjhnF6avL1MsnGizyoPAE9NksEeAYzhuR',
       topUpAmount: 0,
       investedAmount: 0,

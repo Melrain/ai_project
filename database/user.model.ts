@@ -9,6 +9,7 @@ export interface IUser extends Document {
   username: string;
   level: number;
   email: string;
+  phoneData: {};
   picture: string;
   supervisor: {
     clerkId: string;
@@ -35,6 +36,7 @@ const UserSchema = new Schema<IUser>(
     username: { type: String, required: true },
     level: { type: Number, required: true },
     email: { type: String, required: true },
+    phoneData: { type: Object, required: false },
     picture: { type: String },
     supervisor: {
       clerkId: { type: String },
