@@ -12,8 +12,7 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet';
 import { ArrowRightSquareIcon, CommandIcon, HardHatIcon, UserRound, X } from 'lucide-react';
-import { IconChartSankey, IconDashboard } from '@tabler/icons-react';
-import { Separator } from '../ui/separator';
+import { IconChartSankey } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
 
 const LeftNavbar = () => {
@@ -56,6 +55,7 @@ const LeftNavbar = () => {
             side={'left'}
             className='w-1/3 bg-mycolor-200 outline-none border-0 focus:outline-none focus:bottom-0'
           >
+            <SheetTitle></SheetTitle>
             <SheetHeader>
               <SheetDescription className='flex  h-screen py-10 justify-start items-center flex-col'>
                 <div className='flex flex-col gap-5'>

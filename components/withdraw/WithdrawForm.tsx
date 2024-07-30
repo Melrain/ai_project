@@ -11,6 +11,7 @@ import { getUserByClerkId } from '@/lib/actions/user.action';
 import Link from 'next/link';
 import { createWithdrawRequest, getRequestWithUserId } from '@/lib/actions/withdrawRequest.action';
 import * as Realm from 'realm-web';
+import { Separator } from '../ui/separator';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int().min(1)
@@ -24,7 +25,8 @@ interface Props {
 const WithdrawForm = ({ userId, clerkId }: Props) => {
   const [user, setUser] = React.useState({
     balance: 0,
-    transactions: []
+    transactions: [],
+    withdrawRequests: []
   });
   const [message, setMessage] = React.useState('');
 
@@ -111,8 +113,8 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
   }, []);
 
   return (
-    <div className='flex flex-col w-full justify-center items-center gap-10'>
-      <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-900'>
+    <div className='flex flex-col w-full h-screen items-center gap-10'>
+      <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-950'>
         <h1>提现请求</h1>
       </div>
       <Form {...form}>
@@ -120,7 +122,10 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className='space-y-8 w-full bg-gradient-to-br from-slate-800 via-mycolor-300 to-slate-800 flex justify-center items-center flex-col'
         >
-          <div className='mt-10'>{user && <p>当前余额: {user?.balance}</p>}</div>
+          <div className='mt-10 flex flex-col'>
+            {user && <p>当前余额: ${user?.balance}</p>}
+            <Separator className='bg-mycolor-300 h-[2px]' />
+          </div>
           <FormField
             name='amount'
             control={form.control}
@@ -145,6 +150,11 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
       <div className='flex flex-col w-full gap-5'>
         <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-900'>
           <h1>提现订单记录</h1>
+        </div>
+        <div>
+          {user.withdrawRequests.map((request) => (
+            <div>1</div>
+          ))}
         </div>
       </div>
     </div>

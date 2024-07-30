@@ -30,7 +30,10 @@ const TopNavbar = () => {
             <SheetTrigger>
               <Menu />
             </SheetTrigger>
-            <SheetContent className='w-[300px] sm:w-[540px]' side='left'></SheetContent>
+            <SheetContent className='w-[300px] sm:w-[540px]' side='left'>
+              <SheetTitle />
+              <SheetDescription />
+            </SheetContent>
           </Sheet>
         </div>
       </div>

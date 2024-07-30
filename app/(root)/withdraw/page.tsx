@@ -17,7 +17,7 @@ const page = async () => {
     return <div>loading...</div>;
   }
   return (
-    <div className='flex justify-center w-full max-w-3xl px-10'>
+    <div className='flex justify-center h-screen w-full max-w-3xl px-10'>
       <div className='w-full flex flex-col'>
         <WithdrawForm userId={result.user._id} clerkId={userId} />
       </div>

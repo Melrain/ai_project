@@ -4,6 +4,7 @@ import { IUser, User } from '@/database/user.model';
 import { connectToDatabase } from '../connectToDatabase';
 import Product from '@/database/product';
 import Transaction from '@/database/transaction';
+import { WithdrawRequest } from '@/database/withdrawRequest';
 
 export const getAllUsers = async () => {
   try {
@@ -20,10 +21,15 @@ export const getAllUsers = async () => {
 export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();
-    const user = await User.findOne({ clerkId: clerkId }).populate({
-      path: 'products.product',
-      model: Product
-    });
+    const user = await User.findOne({ clerkId: clerkId })
+      .populate({
+        path: 'products.product',
+        model: Product
+      })
+      .populate({
+        path: 'withdrawRequests',
+        model: WithdrawRequest
+      });
     if (!user) {
       console.error('User not found');
     }
