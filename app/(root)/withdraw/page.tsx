@@ -1,6 +1,6 @@
 import LitUpBorderButton from '@/components/buttons/LitUpBorderButton';
 import { Input } from '@/components/ui/input';
-import WithdrawForm from '@/components/withdraw/withdrawForm';
+import WithdrawForm from '@/components/withdraw/WithdrawForm';
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
@@ -17,8 +17,8 @@ const page = async () => {
   }
   return (
     <div className='flex justify-center'>
-      <div>
-        <WithdrawForm />
+      <div className='w-full flex flex-col'>
+        <WithdrawForm userId={result.user._id} />
       </div>
     </div>
   );
