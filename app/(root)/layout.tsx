@@ -3,7 +3,7 @@ import React from 'react';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className='relative  bg-gradient-to-br z-20 from-black via-slate-950 to-indigo-950 h-screen '>
+    <main className='relative z-20 py-10 '>
       <div className='fixed top-0 w-full z-50'>
         <TopNavbar />
       </div>

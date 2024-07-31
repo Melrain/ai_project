@@ -28,7 +28,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en' suppressHydrationWarning={true}>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-        <body className={`${inter.variable} `}>
+        <body className={`${inter.variable} min-h-screen bg-gradient-to-br from-black via-slate-950 to-indigo-950`}>
           <ThemeProvider defaultTheme='dark' attribute='class' enableSystem disableTransitionOnChange>
             {children}
           </ThemeProvider>

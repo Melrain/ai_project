@@ -140,9 +140,9 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
   }, []);
 
   return (
-    <div className='flex flex-col w-full h-screen items-center gap-10'>
-      <div className='w-full  py-2 flex justify-center items-center rounded-[3px] bg-mycolor-200 shadow-slate-200 shadow-sm'>
-        <h1>提现请求</h1>
+    <div className='flex flex-col w-full  items-center gap-10'>
+      <div className='w-full max-w-xs  py-2 flex justify-center items-center rounded-[3px] bg-mycolor-200 shadow-slate-200 shadow-sm'>
+        <h1 className='text-white'>提现请求</h1>
       </div>
       <Form {...form}>
         <form
