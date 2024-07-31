@@ -12,6 +12,9 @@ import Link from 'next/link';
 import { createWithdrawRequest, getRequestWithUserId } from '@/lib/actions/withdrawRequest.action';
 import * as Realm from 'realm-web';
 import { Separator } from '../ui/separator';
+import { DataTable } from '../admin/table/data-table';
+import { columnsWithdraw } from './Columns-withdraw';
+import { formatTime } from '@/lib/utils';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int().min(1)
@@ -24,10 +27,12 @@ interface Props {
 
 const WithdrawForm = ({ userId, clerkId }: Props) => {
   const [user, setUser] = React.useState({
+    username: '',
     balance: 0,
     transactions: [],
     withdrawRequests: []
   });
+  const [withdrawRequests, setWithdrawRequests] = React.useState([]);
   const [message, setMessage] = React.useState('');
 
   const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
@@ -82,6 +87,15 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
           return console.log('User not found');
         }
         setUser(userRes.user);
+        setWithdrawRequests(
+          userRes.user.withdrawRequests
+            .map((request: any) => ({
+              ...request,
+              amount: request.amount.toString(),
+              createdAt: formatTime(request.createdAt)
+            }))
+            .reverse()
+        );
       } catch (error) {
         console.error(error);
       }
@@ -106,6 +120,19 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
           const fullDocument = change.fullDocument;
           console.log(fullDocument);
           setUser(fullDocument);
+          const userRes = await getUserByClerkId(clerkId);
+          if (!userRes) {
+            return console.log('User not found');
+          }
+          setWithdrawRequests(
+            userRes.user.withdrawRequests
+              .map((request: any) => ({
+                ...request,
+                amount: request.amount.toString(),
+                createdAt: formatTime(request.createdAt)
+              }))
+              .reverse()
+          );
         }
       }
     };
@@ -114,13 +141,13 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
 
   return (
     <div className='flex flex-col w-full h-screen items-center gap-10'>
-      <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-950'>
+      <div className='w-full  py-2 flex justify-center items-center rounded-[3px] bg-mycolor-200 shadow-slate-200 shadow-sm'>
         <h1>提现请求</h1>
       </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-8 w-full bg-gradient-to-br from-slate-800 via-mycolor-300 to-slate-800 flex justify-center items-center flex-col'
+          className='space-y-8 w-full  bg-mycolor-100 shadow-slate-200 shadow-sm flex justify-center items-center flex-col'
         >
           <div className='mt-10 flex flex-col'>
             {user && <p>当前余额: ${user?.balance}</p>}
@@ -133,13 +160,17 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
               <FormItem>
                 <FormLabel>金额</FormLabel>
                 <FormControl>
-                  <Input className='bg-mycolor-300 text-white rounded-[4px]  text-[16px]' {...field} type='number' />
+                  <Input
+                    className='bg-mycolor-200 border-2 border-slate-400 text-white rounded-[4px]  text-[16px]'
+                    {...field}
+                    type='number'
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
           <FormMessage />
-          <Button type='submit' className='bg-mycolor-300 text-white rounded-[3px]'>
+          <Button type='submit' className='bg-mycolor-200 shadow-sm shadow-white text-white rounded-[3px]'>
             提交
           </Button>
           <div className='mt-10 text-red-500'>
@@ -148,13 +179,17 @@ const WithdrawForm = ({ userId, clerkId }: Props) => {
         </form>
       </Form>
       <div className='flex flex-col w-full gap-5'>
-        <div className='w-full bg-gradient-to-br py-2 flex justify-center items-center rounded-[3px] from-mycolor-300 to-indigo-900'>
+        <div className='w-full  py-2 flex justify-center items-center rounded-[3px] shadow-slate-200 shadow-sm bg-mycolor-200'>
           <h1>提现订单记录</h1>
         </div>
         <div>
-          {user.withdrawRequests.map((request) => (
-            <div>1</div>
-          ))}
+          <DataTable
+            columns={columnsWithdraw}
+            data={withdrawRequests}
+            placeholder={'搜索金额'}
+            searchParams={'amount'}
+            mode={'dark'}
+          />
         </div>
       </div>
     </div>

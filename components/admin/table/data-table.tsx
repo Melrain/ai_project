@@ -30,9 +30,16 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   placeholder: string;
   searchParams: string;
+  mode: string;
 }
 
-export function DataTable<TData, TValue>({ columns, data, placeholder, searchParams }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  placeholder,
+  searchParams,
+  mode
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -96,11 +103,11 @@ export function DataTable<TData, TValue>({ columns, data, placeholder, searchPar
           placeholder={placeholder}
           value={(table.getColumn(searchParams)?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn(searchParams)?.setFilterValue(event.target.value)}
-          className='max-w-sm bg-white'
+          className={` max-w-sm ${mode === 'dark' ? '' : 'bg-white'} `}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='outline' className='ml-auto bg-white'>
+            <Button variant='outline' className={`ml-auto ${mode === 'dark' ? '' : 'bg-white'}`}>
               Columns
             </Button>
           </DropdownMenuTrigger>
@@ -160,7 +167,7 @@ export function DataTable<TData, TValue>({ columns, data, placeholder, searchPar
       <div className='flex items-center justify-end space-x-2 py-4'>
         <Button
           variant='outline'
-          className='bg-white'
+          className={`${mode === 'dark' ? '' : 'bg-white'}`}
           size='sm'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
@@ -169,7 +176,7 @@ export function DataTable<TData, TValue>({ columns, data, placeholder, searchPar
         </Button>
         <Button
           variant='outline'
-          className='bg-white'
+          className={`${mode === 'dark' ? '' : 'bg-white'}`}
           size='sm'
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}

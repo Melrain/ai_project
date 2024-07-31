@@ -24,10 +24,12 @@ export const getUserByClerkId = async (clerkId: string) => {
     const user = await User.findOne({ clerkId: clerkId })
       .populate({
         path: 'products.product',
+
         model: Product
       })
       .populate({
         path: 'withdrawRequests',
+
         model: WithdrawRequest
       });
     if (!user) {
