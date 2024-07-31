@@ -11,7 +11,7 @@ const RankingBoard = () => {
           <div className='size-20 rounded-full border-2 border-blue-500'></div>
         </div>
         <div className='w-full rounded-[4px] opacity-80 text-center p-2 bg-gradient-to-t from-blue-500 via-yellow-500 to-green-500'>
-          <p className='text-black font-bold shadow-md'>冠军榜</p>
+          <p className='text-black font-bold shadow-md'>充值榜</p>
         </div>
       </div>
       <div>table</div>
