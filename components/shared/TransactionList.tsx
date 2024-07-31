@@ -7,6 +7,7 @@ import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Spinner from './Spinner';
+import { DataTable } from '../admin/table/data-table';
 
 const TransactionList = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,31 +70,8 @@ const TransactionList = () => {
   console.log(formattedDate); // 输出类似 "06/29 05:54:48" 的格式
 
   return (
-    <div className='flex flex-col gap-4 w-full justify-center items-center '>
-      <div className='justify-center items-center flex mt-5'>
-        <button
-          disabled={isSubmitting}
-          className='bg-mycolor-200 py-2 px-4 rounded-[3px] font-bold text-slate-500 '
-          onClick={onFetchTransactions}
-        >
-          {isSubmitting ? <Spinner w='8' h='8' /> : 'Update Transactions'}
-        </button>
-      </div>
-      <div className='flex  mt-5 flex-col text-slate-500 w-full max-w-md justify-center items-center'>
-        {tx.length > 0
-          ? tx.map((t, index) => (
-              <div
-                className={`flex flex-row justify-between w-full p-5 rounded-[1px] ${
-                  index % 2 === 0 ? 'bg-mycolor-200' : ''
-                }`}
-              >
-                <p>{formatDateToMDHMS(t.createdAt.toString())}</p>
-                <p>${t.amount}</p>
-                <p>{t.status}</p>
-              </div>
-            ))
-          : 'No Transactions'}
-      </div>
+    <div className='w-full'>
+      <DataTable columns={[]} data={[]} placeholder={''} searchParams={''} mode={'dark'} />
     </div>
   );
 };

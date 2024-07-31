@@ -5,7 +5,7 @@ import React from 'react';
 
 const page = async () => {
   return (
-    <div className='flex justify-center flex-col'>
+    <div className='flex justify-center w-full px-10 max-w-3xl flex-col'>
       <div className='flex justify-center gap-5'>
         <h1>当前充值系统为测试状态，想充多少充多少，即时到账</h1>
       </div>
