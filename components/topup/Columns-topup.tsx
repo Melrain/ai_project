@@ -13,29 +13,28 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 
-import { deleteProductById } from '@/lib/actions/product.action';
-import { IProduct } from '@/database/product';
+import { ITransaction } from '@/database/transaction';
 
-export const columnsProduct: ColumnDef<IProduct>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false
-  },
+export const ColumnsTopup: ColumnDef<ITransaction>[] = [
+  // {
+  //   id: 'select',
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label='Select all'
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label='Select row'
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false
+  // },
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
@@ -53,7 +52,18 @@ export const columnsProduct: ColumnDef<IProduct>[] = [
     header: ({ column }) => {
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          类型
+          金额
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    }
+  },
+  {
+    accessorKey: 'status',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          状态
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -63,7 +73,7 @@ export const columnsProduct: ColumnDef<IProduct>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const product = row.original;
+      const transaction = row.original;
 
       return (
         <DropdownMenu>
@@ -73,40 +83,15 @@ export const columnsProduct: ColumnDef<IProduct>[] = [
               <MoreHorizontal className='h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end' className='bg-white text-black'>
+          <DropdownMenuContent align='end' className=' text-white'>
             <DropdownMenuLabel className='text-slate-500'>操作</DropdownMenuLabel>
 
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(`http://localhost:3000/products/${product._id}`)}
-            >
-              复制产品链接
+            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(transaction._id!.toString())}>
+              复制交易ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                window.location.href = `/console/products/${product._id}`;
-              }}
-            >
-              修改产品
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className='text-red-500'
-              onClick={async () => {
-                try {
-                  console.log(typeof product._id);
-                  if (!product._id) return;
-                  await deleteProductById(product._id as string);
-                } catch (error) {
-                  console.error(error);
-                } finally {
-                  if (typeof window !== 'undefined') {
-                    window.location.reload();
-                  }
-                }
-              }}
-            >
-              删除
-            </DropdownMenuItem>
+            {/* <DropdownMenuItem>修改产品</DropdownMenuItem>
+            <DropdownMenuItem className='text-red-500'>删除</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -14,9 +14,9 @@ import { useRouter } from 'next/navigation';
 import * as Realm from 'realm-web';
 import { useBalanceStore } from '@/store/useBalanceStore';
 
-import { createTransaction } from '@/lib/actions/transaction.action';
 import { useTranscationsStore } from '@/store/useTransactionsStore';
 import Spinner from '../shared/Spinner';
+import { createTopupTransaction } from '@/lib/actions/topup.action';
 
 const formSchema = z.object({
   amount: z.coerce.number().positive().int()
@@ -25,6 +25,10 @@ const formSchema = z.object({
 const TopUpForm = () => {
   const [selectedAmount, setSelectedAmount] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [message, setMessage] = React.useState({
+    success: false,
+    message: ''
+  });
 
   // zustand
   const useBalance = useBalanceStore((state: any) => state.balance);
@@ -47,29 +51,45 @@ const TopUpForm = () => {
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setMessage({
+        success: false,
+        message: ''
+      });
       setIsSubmitting(true);
 
       const userResult = await getUserByClerkId(userId!);
       if (!userResult) {
+        setMessage({
+          success: false,
+          message: '无法获取用户'
+        });
         throw new Error('Failed to get user');
       }
-
-      const transactionResult = await createTransaction({
+      const topupResult = await createTopupTransaction({
         type: 'topup',
-        userId: userResult.user._id,
+        mongoUserId: userResult.user._id,
+        isFirstTopup: userResult.user.firstTimeTopup,
         amount: values.amount,
-        status: 'success'
+        status: 'pending'
       });
 
-      if (!transactionResult) {
-        throw new Error('Failed to create transaction');
+      if (!topupResult) {
+        setMessage({
+          success: false,
+          message: '无法创建充值交易'
+        });
+        throw new Error('Failed to create topup transaction');
       }
-
-      const result = await addBalanceAndTxId(userId!, values.amount, transactionResult.parsedTransaction._id);
-      if (!result) {
-        throw new Error('Failed to update user balance');
-      }
+      setMessage({
+        success: true,
+        message: `充值成功! 金额: ${values.amount}`
+      });
+      console.log(topupResult);
     } catch (error) {
+      setMessage({
+        success: false,
+        message: '充值失败'
+      });
       console.error(error);
     } finally {
       setTimeout(() => {
@@ -202,6 +222,7 @@ const TopUpForm = () => {
             <ColorfulButton content='TopUp' disabled={isSubmitting} />
           </div>
         </form>
+        <div className={`mt-5 ${message.success ? 'text-green-500' : 'text-red-500'}`}>{message.message}</div>
       </Form>
     </div>
   );

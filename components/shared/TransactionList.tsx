@@ -8,33 +8,22 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Spinner from './Spinner';
 import { DataTable } from '../admin/table/data-table';
+import * as Realm from 'realm-web';
+import { ColumnsTopup } from '../topup/Columns-topup';
+import { columnsProduct } from '../admin/table/columns-product';
+import { formatTime } from '@/lib/utils';
 
 const TransactionList = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tx, setTx] = React.useState<{ createdAt: Date; amount: number; status: string; type: string }[]>([]);
   const { userId } = useAuth();
+  const [topupTransactions, setTopupTransactions] = useState<any[]>([]);
 
+  const app = new Realm.App({ id: process.env.NEXT_PUBLIC_MONGODB_APP_ID! });
   const router = useRouter();
   if (!userId) {
     router.push('/sign-in');
   }
-
-  const onFetchTransactions = async () => {
-    try {
-      setIsSubmitting(true);
-      const userResult = await getUserByClerkId(userId!);
-      if (!userResult) {
-        throw new Error('Failed to get user');
-      }
-
-      const result = await getUserTransactions({ userId: userResult.user._id });
-      setTx(result!.transactions);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   useEffect(() => {
     const doAsync = async () => {
@@ -45,12 +34,63 @@ const TransactionList = () => {
         }
 
         const result = await getUserTransactions({ userId: userResult.user._id });
-        setTx(result!.transactions);
+        if (!result) {
+          throw new Error('Failed to get transactions');
+        }
+        setTopupTransactions(
+          result.transactions.map((transaction: any) => ({
+            ...transaction,
+            amount: transaction.amount.toString(),
+            createdAt: formatTime(transaction.createdAt)
+          }))
+        );
       } catch (error) {
         console.error(error);
       }
     };
     doAsync();
+  }, []);
+
+  //realtime
+  useEffect(() => {
+    const login = async () => {
+      await app.logIn(Realm.Credentials.anonymous());
+
+      const result = await getUserByClerkId(userId!);
+
+      if (!result) {
+        throw new Error('Failed to get user');
+      }
+
+      if (result.user === null) {
+        throw new Error('Failed to get user');
+      }
+
+      const mongodb = app.currentUser?.mongoClient('mongodb-atlas');
+      const collection = mongodb?.db('NvidiaAI_DB').collection('users');
+      if (!collection) return;
+
+      for await (const change of collection.watch({ clerkId: userId })) {
+        if (
+          change.operationType === 'insert' ||
+          change.operationType === 'update' ||
+          change.operationType === 'replace'
+        ) {
+          const userResult = await getUserByClerkId(userId!);
+          if (!userResult) {
+            throw new Error('Failed to get user');
+          }
+          console.log(userResult.user.transactions);
+          setTopupTransactions(
+            userResult.user.transactions.map((transaction: any) => ({
+              ...transaction,
+              amount: transaction.amount.toString(),
+              createdAt: formatTime(transaction.createdAt)
+            }))
+          );
+        }
+      }
+    };
   }, []);
 
   function formatDateToMDHMS(isoString: string) {
@@ -71,7 +111,13 @@ const TransactionList = () => {
 
   return (
     <div className='w-full'>
-      <DataTable columns={[]} data={[]} placeholder={''} searchParams={''} mode={'dark'} />
+      <DataTable
+        columns={ColumnsTopup}
+        data={topupTransactions}
+        placeholder={'按金额搜索...'}
+        searchParams={'amount'}
+        mode={'dark'}
+      />
     </div>
   );
 };

@@ -65,6 +65,12 @@ export function DataTable<TData, TValue>({
 
   const translateColumnsName = (name: string) => {
     switch (name) {
+      case 'createdAt':
+        return '创建时间';
+      case 'amount':
+        return '金额';
+      case 'status':
+        return '状态';
       case 'username':
         return '用户名称';
       case 'type':
@@ -111,7 +117,7 @@ export function DataTable<TData, TValue>({
               Columns
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end' className='bg-white text-black'>
+          <DropdownMenuContent align='end' className={`${mode === 'dark'}?'':'bg-white'`}>
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
