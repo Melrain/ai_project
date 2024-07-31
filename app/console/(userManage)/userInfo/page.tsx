@@ -10,7 +10,7 @@ const page = async () => {
   }
   return (
     <div className='w-full flex px-10'>
-      <DataTable columns={columns} data={users} placeholder={'输入名字查询'} searchParams={'username'} />
+      <DataTable columns={columns} data={users} placeholder={'输入名字查询'} searchParams={'username'} mode={'white'} />
     </div>
   );
 };
