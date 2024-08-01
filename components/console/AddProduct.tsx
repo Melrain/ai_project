@@ -2,11 +2,11 @@
 import React from 'react';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Edit, Plus, PlusCircle, X } from 'lucide-react';
+import { Edit, Plus, X } from 'lucide-react';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { productImagesIndex } from '@/lib/imageIndex';
@@ -16,7 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { createProduct } from '@/lib/actions/product.action';
 
 const formSchema = z.object({
-  avaliable: z.boolean(),
+  available: z.boolean(),
   state: z.string(),
   type: z.string(),
   name: z.string().min(3),
@@ -47,7 +47,7 @@ const AddProduct = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      avaliable: true,
+      available: true,
       state: 'normal',
       type: 'milkTea',
       name: '',

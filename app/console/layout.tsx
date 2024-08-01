@@ -25,8 +25,8 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <main className='flex flex-row h-screen bg-slate-300 text-black'>
       <LeftNavbar userType={userRes.user.type} />
-      <div className='flex flex-col w-full h-screen sm:pl-[150px]'>
-        <div className='p-4 z-50 fixed w-full bg-mycolor-200 shadow-lg border-b-2 border-b-black'>
+      <div className='flex flex-col w-full h-screen sm:pl-[160px]'>
+        <div className='p-4 z-20 fixed w-full bg-mycolor-200 shadow-lg border-b-2 border-b-black'>
           <TopNavbar />
         </div>
         <div className='flex-1 flex justify-center w-full  mt-20 max-sm:mt-20'>{children}</div>
