@@ -19,7 +19,7 @@ const page = async () => {
   }
 
   return (
-    <div className='flex w-full flex-col gap-10'>
+    <div className='flex w-full  flex-col gap-10 '>
       <div className='flex w-full px-2 flex-row items-center justify-start'>
         <BookAIcon />
         <h1 className={`text-xl  ${zcoolFont.className}`}>创建文章</h1>

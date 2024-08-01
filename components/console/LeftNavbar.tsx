@@ -150,7 +150,7 @@ const LeftNavbar = ({ userType }: Props) => {
 
       {/* console 主页 */}
 
-      <Link href={'/console'} className='flex  justify-start gap-3 px-1 flex-row w-full'>
+      <Link href={'/console'} className='flex  justify-start gap-3 px-2 flex-row w-full'>
         <Command />
         <span className='font-bold'>控制台</span>
       </Link>
