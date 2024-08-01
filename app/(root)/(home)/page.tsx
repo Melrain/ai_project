@@ -96,7 +96,7 @@ const page = async () => {
         <HomeSections />
       </div>
 
-      <div className='mt-5'>
+      <div className='mt-5 w-full'>
         <News />
       </div>
       <GlobeDemo />
