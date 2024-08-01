@@ -98,7 +98,7 @@ const AddArticle = ({ isAdmin }: Props) => {
             </div>
           )}
         />
-        1
+        <Separator orientation='vertical' className='w-[1px] bg-slate-300 h-20' />
         <FormField
           name='display'
           render={({ field }) => (
@@ -120,6 +120,20 @@ const AddArticle = ({ isAdmin }: Props) => {
                       </FormItem>
                     ))}
                   </RadioGroup>
+                </FormControl>
+              </FormItem>
+            </div>
+          )}
+        />
+
+        <FormField
+          name='title'
+          render={({ field }) => (
+            <div className='w-full flex justify-center items-center max-w-[360px]'>
+              <FormItem>
+                <FormLabel className='text-center text-nowrap'>文章标题:</FormLabel>
+                <FormControl className='flex flex-row justify-center items-center'>
+                  <Input {...field} placeholder='文章标题' className='bg-white rounded-[4px]' />
                 </FormControl>
               </FormItem>
             </div>
