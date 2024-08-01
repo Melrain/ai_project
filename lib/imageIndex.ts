@@ -124,3 +124,19 @@ export const product1 = {
   seven: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p07.png',
   eight: 'https://ipfs.filebase.io/ipfs/QmaKzVCHpb3jdCT1n1bttQCSqmKbtniJPDuJAJ8ojj9kFY/p08.png'
 };
+
+export const MedalImages = {
+  gold: {
+    name: 'goldMedalRounded',
+    src: 'https://ipfs.filebase.io/ipfs/QmZN3mDbyXuBrTVok2hHCFb618cUrEzkNXMTBjoQJS5q4f/金色圆形奖牌.png'
+  },
+
+  silver: {
+    name: 'silverMedalRounded',
+    src: 'https://ipfs.filebase.io/ipfs/QmZN3mDbyXuBrTVok2hHCFb618cUrEzkNXMTBjoQJS5q4f/银色圆形奖牌.png'
+  },
+  bronze: {
+    name: 'bronzeMedalRounded',
+    src: 'https://ipfs.filebase.io/ipfs/QmZN3mDbyXuBrTVok2hHCFb618cUrEzkNXMTBjoQJS5q4f/青铜色圆形奖牌.png'
+  }
+};
