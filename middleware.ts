@@ -16,5 +16,6 @@ const isProtectedRoute = createRouteMatcher([
   '/withdraw(.*)',
   '/admin(.*)',
   '/revenue(.*)',
-  '/console(.*)'
+  '/console(.*)',
+  '/profile(.*)'
 ]);

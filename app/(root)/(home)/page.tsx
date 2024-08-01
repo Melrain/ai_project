@@ -95,10 +95,7 @@ const page = async () => {
       <div className='w-full mt-1'>
         <HomeSections />
       </div>
-      {/* RankingBoard */}
-      <div className='mt-5 w-full flex px-5'>
-        <RankingBoard />
-      </div>
+
       <div className='mt-5'>
         <News />
       </div>

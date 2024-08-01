@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 const RankingBoard = () => {
   return (
-    <div className='flex justify-center flex-col items-center w-full'>
-      <div className='flex flex-col gap-4'>
+    <div className='flex justify-center  flex-col items-center w-full'>
+      <div className='flex flex-col gap-10'>
         <div className='flex flex-row items-end gap-4'>
           <div className='relative size-20 rounded-full border-2 flex justify-center border-slate-400'>
             <Image
@@ -36,11 +36,10 @@ const RankingBoard = () => {
             />
           </div>
         </div>
-        <div className='w-full rounded-[4px]  text-center p-2 bg-gradient-to-t from-blue-500 via-yellow-500 to-green-500'>
-          <p className='text-black font-bold shadow-md'>充值榜</p>
+        <div className='w-full rounded-[4px] shadow-md shadow-white  text-center p-2 bg-mycolor-100'>
+          <p className='text-white font-bold '>充值榜</p>
         </div>
       </div>
-      <div>table</div>
     </div>
   );
 };
