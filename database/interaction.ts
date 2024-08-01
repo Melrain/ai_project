@@ -1,18 +1,18 @@
 import { Schema, model, models, Document, ObjectId } from 'mongoose';
 
 export interface IInteraction extends Document {
-  user: ObjectId;
+  userId: ObjectId;
   action: string;
-  article: ObjectId;
-  comment: ObjectId;
+  articleId: ObjectId;
+  commentId: ObjectId;
 }
 
 const interactionSchema = new Schema<IInteraction>(
   {
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
     action: { type: String, required: true },
-    article: { type: Schema.Types.ObjectId, ref: 'Article' },
-    comment: { type: Schema.Types.ObjectId, ref: 'Comment' }
+    articleId: { type: Schema.Types.ObjectId, ref: 'Article' },
+    commentId: { type: Schema.Types.ObjectId, ref: 'Comment' }
   },
   { timestamps: true }
 );
