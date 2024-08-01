@@ -14,7 +14,7 @@ const page = async () => {
         <TopUpForm />
       </div>
       {/* RankingBoard */}
-      <div className='mt-5 w-full bg-gradient-to-br shadow-sm shadow-white from-mycolor-200 via-mycolor-100 to-mycolor-200 rounded-[4px] p-5 '>
+      <div className='mt-5 w-full bg-gradient-to-br shadow-sm shadow-white from-mycolor-300 via-indigo-500 to-purple-900 rounded-[4px] p-5 '>
         <RankingBoard />
       </div>
       <div className='mt-5 flex justify-center items-center'>

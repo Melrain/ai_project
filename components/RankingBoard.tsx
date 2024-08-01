@@ -36,7 +36,7 @@ const RankingBoard = () => {
             />
           </div>
         </div>
-        <div className='w-full rounded-[4px] shadow-md shadow-white  text-center p-2 bg-mycolor-100'>
+        <div className='w-full rounded-[4px] shadow-md shadow-white  text-center p-2 bg-gradient from-indigo-900 via-mycolor-300 to-purple-900'>
           <p className='text-white font-bold '>充值榜</p>
         </div>
       </div>

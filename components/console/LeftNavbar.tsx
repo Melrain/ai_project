@@ -1,7 +1,7 @@
 'use client';
 import { UserButton, useUser } from '@clerk/nextjs';
 import { IconBuildingFactory2, IconManualGearboxFilled, IconMoneybag } from '@tabler/icons-react';
-import { Command, Computer, ListOrdered, User } from 'lucide-react';
+import { Command, Computer, ListOrdered, NewspaperIcon, User } from 'lucide-react';
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
@@ -80,6 +80,20 @@ export const items = [
     icon: <BsEnvelopeArrowDownFill className='size-5' />
   },
   {
+    name: '内容管理',
+    menu: [
+      {
+        name: '文章管理',
+        link: '/console/article'
+      },
+      {
+        name: '公告管理',
+        link: '/console/announcement'
+      }
+    ],
+    icon: <NewspaperIcon />
+  },
+  {
     name: '常规管理',
     menu: [
       {
@@ -102,7 +116,7 @@ const LeftNavbar = ({ userType }: Props) => {
   const { user } = useUser();
 
   return (
-    <div className='flex px-2 fixed py-4 flex-col shadow-lg  border-r-2 border-black h-screen bg-gradient-to-tr max-w-[150px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100 max-sm:hidden'>
+    <div className='flex px-2 fixed py-4 flex-col shadow-lg  border-r-2 border-black h-screen bg-gradient-to-tr max-w-[160px] w-full justify-start  items-center from-mycolor-200 gap-5 text-white to-mycolor-100 max-sm:hidden'>
       <div className='w-full'>
         <div className='flex flex-col gap-2'>
           <div className=' flex flex-row gap-2  items-center text-md text-slate-500'>
