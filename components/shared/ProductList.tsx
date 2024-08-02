@@ -135,7 +135,7 @@ const ProductList = () => {
       </div>
 
       <Separator />
-      <div className='flex gap-1 flex-row w-full justify-center'>
+      <div className='flex gap-1 flex-row w-full  flex-wrap justify-center'>
         <div
           onClick={() => {
             onClick('Newest');
