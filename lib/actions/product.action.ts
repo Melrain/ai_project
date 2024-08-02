@@ -189,8 +189,8 @@ export const buyProduct = async (params: BuyProductProps) => {
     //handle exp
     const updatedLevel = Math.floor((user.exp + product.expOnPurchase) / 100);
     const updateData = {
-      $inc: { balance: -product.price, exp: product.expOnPurchase },
-      $set: { level: updatedLevel },
+      $inc: { balance: -product.price, exp: product.expOnPurchase, level: updatedLevel },
+
       $push: {
         products: {
           product: product._id,
