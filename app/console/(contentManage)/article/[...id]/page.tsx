@@ -15,7 +15,8 @@ const page = async (slugs: {
   if (!article) {
     return <div>Article not found</div>;
   }
-  return <div>page</div>;
+  console.log('Article:', article);
+  return <div>标题：{article.title}</div>;
 };
 
 export default page;

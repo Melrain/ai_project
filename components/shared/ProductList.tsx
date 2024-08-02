@@ -135,7 +135,7 @@ const ProductList = () => {
       </div>
 
       <Separator />
-      <div className='flex gap-1 flex-row '>
+      <div className='flex gap-1 flex-row w-full justify-center'>
         <div
           onClick={() => {
             onClick('Newest');
@@ -180,8 +180,6 @@ const ProductList = () => {
         >
           <IconCashRegister /> Revenue
         </div>
-      </div>
-      <div className='flex flex-row gap-1 justify-start max-w-sm items-center px-3 py-1 w-full'>
         <div
           onClick={() => {
             onClick('Level Up');

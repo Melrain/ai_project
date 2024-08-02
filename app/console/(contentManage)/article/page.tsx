@@ -2,7 +2,7 @@ import AddArticle from '@/components/article/AddArticle';
 import ArticleList from '@/components/article/ArticleList';
 import { getUserByClerkId } from '@/lib/actions/user.action';
 import { auth } from '@clerk/nextjs/server';
-import { BookAIcon } from 'lucide-react';
+import { BookAIcon, List } from 'lucide-react';
 import { ZCOOL_QingKe_HuangYou } from 'next/font/google';
 import React from 'react';
 
@@ -27,7 +27,11 @@ const page = async () => {
       <div className='flex justify-center  w-full gap-5 bg-slate-200 items-center'>
         <AddArticle isAdmin={userRes.user.type === 'super admin'} />
       </div>
-      <div>
+      <div className='flex w-full px-2 flex-row items-center justify-start'>
+        <List />
+        <h1 className={`text-xl`}>文章列表</h1>
+      </div>
+      <div className='flex justify-center w-full'>
         <ArticleList />
       </div>
     </div>

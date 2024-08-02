@@ -12,6 +12,7 @@ import { Edit, Plus, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import { Button } from '../ui/button';
+import { createArticle } from '@/lib/articles/article.action';
 
 const formSchema = z.object({
   type: z.string().min(1).max(255),
@@ -46,7 +47,11 @@ const AddArticle = ({ isAdmin }: Props) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsSubmitting(true);
-      console.log(values);
+      const article = await createArticle(values);
+      if (!article) {
+        return console.error('Failed to create article');
+      }
+      console.log('Article created:', article);
     } catch (error) {
       console.error(error);
     } finally {

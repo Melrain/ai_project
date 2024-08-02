@@ -12,6 +12,8 @@ import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Kalam } from 'next/font/google';
 import Link from 'next/link';
 import React from 'react';
+import ProductList from '@/components/shared/ProductList';
+import ProductSearchBar from '@/components/search/ProductSearchBar';
 
 const kalam = Kalam({
   subsets: ['latin'],
@@ -64,11 +66,11 @@ const page = async () => {
         <div className='flex mt-2 w-full justify-center  items-center'>
           <Support />
         </div>
-        <div className='mt-5 w-full flex items-center justify-center'>
+        {/* <div className='mt-5 w-full flex items-center justify-center'>
           <Link href={'/products'}>
             <ColorfulButton content='查看所有商品' disabled={false} />
           </Link>
-        </div>
+        </div> */}
       </div>
 
       {/* button */}
@@ -97,7 +99,8 @@ const page = async () => {
       </div>
 
       <div className='mt-5 w-full'>
-        <News />
+        <ProductSearchBar />
+        <ProductList />
       </div>
       <GlobeDemo />
       <div className='fixed top-0 left-1/2 w-full'>

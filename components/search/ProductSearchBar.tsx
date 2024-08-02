@@ -68,7 +68,7 @@ const ProductSearchBar = () => {
     <div className='flex justify-center '>
       <div className='flex relative max-w-xs justify-center w-full items-center'>
         <SearchIcon className='absolute right-2 text-slate-500' />
-        <div className='max-w-xs w-full p-2'>
+        <div className=' max-w-xs w-full p-2'>
           <Input
             className='text-[16px]'
             ref={searchContainerRef}
@@ -82,8 +82,8 @@ const ProductSearchBar = () => {
             }}
           />
         </div>
+        <div className='absolute max-w-xs w-full top-12'>{isOpen && <SearchResult />}</div>
       </div>
-      <div className='absolute max-w-xs w-full top-32'>{isOpen && <SearchResult />}</div>
     </div>
   );
 };
