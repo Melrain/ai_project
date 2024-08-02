@@ -206,7 +206,7 @@ const ProductList = () => {
 
       <div className=''>
         <ScrollArea className='sm:w-full sm:max-w-2xl w-96 whitespace-nowrap   rounded-[4px]  '>
-          <div className='flex w-full space-x-4 p-4  '>
+          <div className='flex w-full space-x-4 p-4'>
             {products.length > 0 ? (
               products.map((product) => (
                 <Link
@@ -255,6 +255,7 @@ const ProductList = () => {
               </div>
             )}
           </div>
+
           <ScrollBar orientation='horizontal' />
         </ScrollArea>
       </div>
